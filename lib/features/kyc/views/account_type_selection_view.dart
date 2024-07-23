@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:stryde_mobile_app/features/kyc/views/customer_details_view.dart';
+import 'package:stryde_mobile_app/features/kyc/widgets/doc_picker_modalsheet.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
+import 'package:stryde_mobile_app/utils/nav.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 
 class AccountTypeSelectionView extends ConsumerWidget {
@@ -43,14 +45,25 @@ class AccountTypeSelectionView extends ConsumerWidget {
                     Expanded(
                       child: Column(
                         children: [
-                          "Individual".txt18(fontW: F.w7).alignCenterLeft(),
+                          "Individual"
+                              .txt(size: 17.sp, fontW: F.w7)
+                              .alignCenterLeft(),
                           8.sbH,
                           AppTexts.individualDescription.txt14()
                         ],
                       ),
                     )
                   ]),
-                )),
+                )).tap(onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => DocPickerModalBottomSheet(
+                  onTakeDocPicture: () {
+                    goTo(context: context, view: CustomerDetailsView());
+                  },
+                ),
+              );
+            }),
             30.sbH,
             Container(
                 height: 100.h,
@@ -75,14 +88,25 @@ class AccountTypeSelectionView extends ConsumerWidget {
                     Expanded(
                       child: Column(
                         children: [
-                          "Enterprise".txt18(fontW: F.w7).alignCenterLeft(),
+                          "Enterprise"
+                              .txt(size: 17.sp, fontW: F.w7)
+                              .alignCenterLeft(),
                           8.sbH,
                           AppTexts.enterpriseDescription.txt14()
                         ],
                       ),
                     )
                   ]),
-                ))
+                )).tap(onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => DocPickerModalBottomSheet(
+                  onTakeDocPicture: () {
+                    goTo(context: context, view: CustomerDetailsView());
+                  },
+                ),
+              );
+            })
           ],
         ),
       ),

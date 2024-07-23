@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stryde_mobile_app/features/auth/providers/auth_providers.dart';
@@ -6,6 +7,7 @@ import 'package:stryde_mobile_app/features/auth/views/set_password_view.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
+import 'package:stryde_mobile_app/utils/keyboard_utils.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/pin_input_box.dart';
@@ -51,7 +53,10 @@ class _VerifyOTPViewState extends ConsumerState<VerifyOTPView> {
             controller: _pinController,
             onCompleted: (String val) {
               val.log();
-              goTo(context: context, view: SetPasswordView());
+              dropKeyboard(context);
+              Future.delayed(500.milliseconds, () {
+                goTo(context: context, view: const SetPasswordView());
+              });
             },
           ),
         ),

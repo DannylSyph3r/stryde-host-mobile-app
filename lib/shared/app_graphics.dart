@@ -1,5 +1,4 @@
 abstract class AppGraphics {
-  
   //! Auth Assets
   static const String authBG = 'auth_bg';
 
@@ -13,6 +12,11 @@ abstract class AppGraphics {
   static const String appleIcon = 'apple';
   static const String personIcon = 'individual';
   static const String enterpriseIcon = 'enterprise';
+  static const String camera = 'camera';
+  static const String files = 'file';
+
+  //! Kyc Assets
+  static const String memeoji = 'pfp';
 
   //! Main App Assets
   static const String strydeLogo = 'stryde_logo';

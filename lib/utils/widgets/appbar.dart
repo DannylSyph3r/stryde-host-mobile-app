@@ -73,7 +73,7 @@ AppBar customAppBar(String title,
       title,
       style: GoogleFonts.montserrat(
         textStyle: TextStyle(
-          fontSize: fontSize ?? 22.sp,
+          fontSize: fontSize ?? 20.sp,
           color: fontColor ?? onBackgroundColor,
           fontWeight: fontWeight,
         ),

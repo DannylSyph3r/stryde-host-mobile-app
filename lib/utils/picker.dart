@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:stryde_mobile_app/utils/app_extensions.dart';
 
 void showPicker(BuildContext context, Widget child) {
   showCupertinoModalPopup<void>(
@@ -14,9 +16,8 @@ void showPicker(BuildContext context, Widget child) {
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       decoration: BoxDecoration(
-        color: CupertinoColors.systemBackground.resolveFrom(context),
-        borderRadius: BorderRadius.circular(15.r)
-      ),
+          color: CupertinoColors.systemBackground.resolveFrom(context),
+          borderRadius: BorderRadius.circular(15.r)),
       // Provide a background color for the popup.
 
       // Use a SafeArea widget to avoid system overlaps.
@@ -46,4 +47,20 @@ Future<List<File>> pickImages() async {
     debugPrint(e.toString());
   }
   return images;
+}
+
+Future<File?> pickImageFromGallery(
+    BuildContext context, VoidCallback onDismissed) async {
+  File? image;
+  try {
+    XFile? pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    onDismissed();
+    if (pickedImage != null) {
+      image = File(pickedImage.path);
+    }
+  } catch (e) {
+    e.log();
+  }
+  return image;
 }

@@ -24,4 +24,6 @@ abstract class AppTexts {
   static const String kycBody3 = "Provide information about your car such as type, colour, trim and location in order to determine if it is qualified and start getting paid.";
   static const String individualDescription = "If you are looking towards providing your services as an individual business.";
   static const String enterpriseDescription = "If you are looking towards expanding your rental business.";
+  static const String profileImageInstruction = "Provide a clear portrait picture of yourself, it should be taken with a clear background.";
+  static const String verfiicationConfirmation = "Your Credentials have been sent in for Verfication! Proceed with registration!";
 }
