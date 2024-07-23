@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_mobile_app/features/kyc/views/kyc_slider.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
+import 'package:stryde_mobile_app/utils/nav.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/button.dart';
 import 'package:stryde_mobile_app/utils/widgets/text_input.dart';
@@ -48,63 +50,68 @@ class _SetPasswordViewState extends ConsumerState<SetPasswordView> {
         body: Padding(
           padding: 15.padH,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                10.sbH,
-                AppTexts.setPassword.txt16().alignCenter(),
-                20.sbH,
-                _passwordVisible.sync(builder: (context, passwordVisible, child) {
-                  return TextInputWidget(
-                    hintText: "Enter Password",
-                    controller: _passwordController,
-                    obscuretext: !_passwordVisible.value,
-                    suffixIcon: Padding(
-                        padding: 15.padH,
-                        child: Icon(
-                          passwordVisible
-                              ? PhosphorIconsBold.eyeSlash
-                              : PhosphorIconsBold.eye,
-                          size: 20.h,
-                          color: _passwordVisible.value == false
-                              ? Palette.strydeOrange
-                              : Palette.whiteColor,
-                        )).tap(onTap: () {
-                      passwordVisibility();
+                Column(
+                  children: [
+                    10.sbH,
+                    AppTexts.setPassword.txt16().alignCenter(),
+                    20.sbH,
+                    _passwordVisible.sync(
+                        builder: (context, passwordVisible, child) {
+                      return TextInputWidget(
+                        hintText: "Enter Password",
+                        controller: _passwordController,
+                        obscuretext: !_passwordVisible.value,
+                        suffixIcon: Padding(
+                            padding: 15.padH,
+                            child: Icon(
+                              passwordVisible
+                                  ? PhosphorIconsBold.eyeSlash
+                                  : PhosphorIconsBold.eye,
+                              size: 20.h,
+                              color: _passwordVisible.value == false
+                                  ? Palette.strydeOrange
+                                  : Palette.whiteColor,
+                            )).tap(onTap: () {
+                          passwordVisibility();
+                        }),
+                      );
                     }),
-                  );
-                }),
-                15.sbH,
-                _confirmPasswordVisible.sync(
-                    builder: (context, confirmPasswordVisible, child) {
-                  return TextInputWidget(
-                      hintText: "Confirm Password",
-                      controller: _confirmPasswordController,
-                      obscuretext: !_confirmPasswordVisible.value,
-                      suffixIcon: Padding(
-                          padding: 15.padH,
-                          child: Icon(
-                            confirmPasswordVisible
-                                ? PhosphorIconsBold.eyeSlash
-                                : PhosphorIconsBold.eye,
-                            size: 20.h,
-                            color: _confirmPasswordVisible.value == false
-                                ? Palette.strydeOrange
-                                : Palette.whiteColor,
-                          )).tap(onTap: () {
-                        confirmPasswordVisibility();
-                      }));
-                }),
-              ],
-            ),
-            Column(
-              children: [
-                AppButton(text: "Sign up",onTap: (){}),
-                50.sbH
-              ],
-            )
-          ]),
+                    15.sbH,
+                    _confirmPasswordVisible.sync(
+                        builder: (context, confirmPasswordVisible, child) {
+                      return TextInputWidget(
+                          hintText: "Confirm Password",
+                          controller: _confirmPasswordController,
+                          obscuretext: !_confirmPasswordVisible.value,
+                          suffixIcon: Padding(
+                              padding: 15.padH,
+                              child: Icon(
+                                confirmPasswordVisible
+                                    ? PhosphorIconsBold.eyeSlash
+                                    : PhosphorIconsBold.eye,
+                                size: 20.h,
+                                color: _confirmPasswordVisible.value == false
+                                    ? Palette.strydeOrange
+                                    : Palette.whiteColor,
+                              )).tap(onTap: () {
+                            confirmPasswordVisibility();
+                          }));
+                    }),
+                  ],
+                ),
+                Column(
+                  children: [
+                    AppButton(
+                        text: "Sign up",
+                        onTap: () {
+                          goTo(context: context, view: KycSliderView());
+                        }),
+                    50.sbH
+                  ],
+                )
+              ]),
         ));
   }
 }
