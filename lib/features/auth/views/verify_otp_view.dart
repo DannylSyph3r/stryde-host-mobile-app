@@ -39,13 +39,15 @@ class _VerifyOTPViewState extends ConsumerState<VerifyOTPView> {
         color: Colors.transparent,
         isTitleCentered: true,
       ),
-      body: Column(children: [
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
         10.sbH,
         "Enter OTP".txt18().alignCenter(),
         20.sbH,
         authSelection.state == 0
-            ? AppTexts.oTPTextMail.txt16().alignCenter()
-            : AppTexts.oTPTextPhone.txt14().alignCenter(),
+            ? AppTexts.oTPTextMail.txt14(textAlign: TextAlign.center).alignCenter()
+            : AppTexts.oTPTextPhone.txt14(textAlign: TextAlign.center).alignCenter(),
         30.sbH,
         Padding(
           padding: 70.padH,

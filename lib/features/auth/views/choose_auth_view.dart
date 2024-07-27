@@ -21,7 +21,7 @@ class ChooseAuthRouteView extends ConsumerWidget {
       body: Stack(
         children: [
           AppGraphics.authBG.png
-              .myImage(height: height(context), fit: BoxFit.cover),
+              .myImage(height: height(context), width: width(context),fit: BoxFit.cover),
           FrostedGlass(theWidth: width(context), theHeight: height(context)),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),

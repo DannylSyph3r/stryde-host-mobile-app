@@ -483,11 +483,13 @@ extension ImageExtension on String {
   Image myImage({
     Color? color,
     double? height,
+    double? width,
     BoxFit? fit,
   }) {
     return Image.asset(
       this,
       height: height,
+      width: width,
       fit: fit,
       color: color,
     );

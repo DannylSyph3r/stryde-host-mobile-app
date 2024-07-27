@@ -107,10 +107,10 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
                     ),
                   );
                 }),
-                10.sbH,
+                15.sbH,
                 Container(
                   width: double.infinity,
-                  height: 50.h,
+                  height: 55.h,
                   decoration: BoxDecoration(
                       color: Palette.buttonBG,
                       borderRadius: BorderRadius.all(Radius.circular(15.r)),

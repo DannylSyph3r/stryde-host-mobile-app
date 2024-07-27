@@ -24,7 +24,7 @@ class AccountTypeSelectionView extends ConsumerWidget {
           children: [
             20.sbH,
             Container(
-                height: 100.h,
+                height: 120.h,
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -49,7 +49,7 @@ class AccountTypeSelectionView extends ConsumerWidget {
                               .txt(size: 17.sp, fontW: F.w7)
                               .alignCenterLeft(),
                           8.sbH,
-                          AppTexts.individualDescription.txt14()
+                          AppTexts.individualDescription.txt(size: 13.sp)
                         ],
                       ),
                     )
@@ -66,7 +66,7 @@ class AccountTypeSelectionView extends ConsumerWidget {
             }),
             30.sbH,
             Container(
-                height: 100.h,
+                height: 120.h,
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -92,7 +92,7 @@ class AccountTypeSelectionView extends ConsumerWidget {
                               .txt(size: 17.sp, fontW: F.w7)
                               .alignCenterLeft(),
                           8.sbH,
-                          AppTexts.enterpriseDescription.txt14()
+                          AppTexts.enterpriseDescription.txt(size: 13.sp)
                         ],
                       ),
                     )

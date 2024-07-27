@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:stryde_mobile_app/features/garage/views/vin_input_view.dart';
+import 'package:stryde_mobile_app/features/kyc/providers/kyc_providers.dart';
 import 'package:stryde_mobile_app/features/kyc/views/account_type_selection_view.dart';
+import 'package:stryde_mobile_app/features/kyc/views/goal_selection_view.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
@@ -34,12 +37,22 @@ class KycSliderView extends ConsumerStatefulWidget {
 
 class _KycSliderViewState extends ConsumerState<KycSliderView> {
   final CarouselController _carouselController = CarouselController();
-  final PageController _pageController = PageController();
-  final ValueNotifier<int> _carouselIndexNotifier = ValueNotifier(0);
+  late final PageController _pageController;
+  late final ValueNotifier<int> _carouselIndexNotifier;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final pageIndexProvider = ref.watch(carouselStateProvider.notifier).state;
+
+    _pageController = PageController(initialPage: pageIndexProvider);
+    _carouselIndexNotifier = ValueNotifier<int>(pageIndexProvider);
+
     _carouselIndexNotifier.addListener(() {
       _pageController.animateToPage(
         _carouselIndexNotifier.value,
@@ -58,6 +71,7 @@ class _KycSliderViewState extends ConsumerState<KycSliderView> {
 
   @override
   Widget build(BuildContext context) {
+    final carouselIndexProvider = ref.watch(carouselStateProvider.notifier);
     return Scaffold(
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -65,8 +79,9 @@ class _KycSliderViewState extends ConsumerState<KycSliderView> {
             children: [
               100.sbH,
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w,),
-                child: AppTexts.kycMainHeader.txt20(fontW: F.w8).alignCenterLeft(),
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child:
+                    AppTexts.kycMainHeader.txt20(fontW: F.w8).alignCenterLeft(),
               ),
               20.sbH,
               Padding(
@@ -79,6 +94,7 @@ class _KycSliderViewState extends ConsumerState<KycSliderView> {
                 builder: (context, currentIndex, child) {
                   return CarouselSlider(
                     options: CarouselOptions(
+                      initialPage: carouselIndexProvider.state,
                       scrollPhysics: const NeverScrollableScrollPhysics(),
                       height: constraints.maxHeight * 0.57,
                       aspectRatio: 16 / 9,
@@ -159,9 +175,20 @@ class _KycSliderViewState extends ConsumerState<KycSliderView> {
                 },
               ),
               40.sbH,
-              AppButton(text: "Proceed", onTap: () {
-                goTo(context: context, view: AccountTypeSelectionView());
-              })
+              AppButton(
+                text: "Proceed",
+                onTap: () {
+                  if (carouselIndexProvider.state == 0) {
+                    goTo(context: context, view: AccountTypeSelectionView());
+                  }
+                  if (carouselIndexProvider.state == 1) {
+                    goTo(context: context, view: GoalSelectionView());
+                  }
+                  if (carouselIndexProvider.state == 2) {
+                    goTo(context: context, view: VINInputView());
+                  }
+                },
+              ),
             ],
           );
         },
