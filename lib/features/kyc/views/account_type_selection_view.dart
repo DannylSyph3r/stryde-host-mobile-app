@@ -24,7 +24,7 @@ class AccountTypeSelectionView extends ConsumerWidget {
           children: [
             20.sbH,
             Container(
-                height: 120.h,
+                height: 110.h,
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -66,7 +66,7 @@ class AccountTypeSelectionView extends ConsumerWidget {
             }),
             30.sbH,
             Container(
-                height: 120.h,
+                height: 110.h,
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(

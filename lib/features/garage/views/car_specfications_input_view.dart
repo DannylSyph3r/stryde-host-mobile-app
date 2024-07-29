@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/garage/views/garage_confirmation_screem.dart';
+import 'package:stryde_mobile_app/features/kyc/widgets/doc_picker_modalsheet.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
@@ -73,11 +74,14 @@ class _CarSpecificationsInputViewState
                           option == SecurityQuestions.yes
                               ? Row(
                                   children: [
-                                    'Yes'.txt(size: 13.sp),
+                                    'Yes'.txt(size: 13.sp, fontW: F.w6),
                                   ],
                                 )
                               : Row(
-                                  children: ['No'.txt12(size: 13.sp), 2.sbW],
+                                  children: [
+                                    'No'.txt12(size: 13.sp, fontW: F.w6),
+                                    2.sbW
+                                  ],
                                 ),
                           ValueListenableBuilder<SecurityQuestions?>(
                             valueListenable: notifier,
@@ -115,11 +119,9 @@ class _CarSpecificationsInputViewState
       body: ListView(
         padding: 20.padH,
         children: [
-          Column(
-            
-            children: [
+          Column(children: [
             10.sbH,
-            "Car Specifications".txt16(fontW: F.w6),
+            "Car Specifications".txt16(fontW: F.w6).alignCenterLeft(),
             20.sbH,
             TextInputWidget(
               hintText: "Manufacturer",
@@ -267,11 +269,24 @@ class _CarSpecificationsInputViewState
                   "Attach Vehicle Image".txt16()
                 ],
               ),
-            ),
+            ).tap(onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) => DocPickerModalBottomSheet(
+                  onTakeDocPicture: () {
+                    goBack(context);
+                  },
+                ),
+              );
+            }),
             30.sbH,
-            "Security".txt16(fontW: F.w6, textAlign: TextAlign.left).alignCenterLeft(),
+            "Security"
+                .txt16(fontW: F.w6, textAlign: TextAlign.left)
+                .alignCenterLeft(),
             5.sbH,
-            AppTexts.securityDescription.txt14(textAlign: TextAlign.left).alignCenterLeft(),
+            AppTexts.securityDescription
+                .txt14(textAlign: TextAlign.left)
+                .alignCenterLeft(),
             15.sbH,
             buildSecurityRadioSection(
                 "Do you have comprehensive Insurance?", _insuranceNotifier),

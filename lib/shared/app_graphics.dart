@@ -20,4 +20,10 @@ abstract class AppGraphics {
 
   //! Main App Assets
   static const String strydeLogo = 'stryde_logo';
+
+  //! NavBar Assets
+  static const String homeIcon = 'home';
+  static const String garageIcon = 'garage';
+  static const String messagesIcon = 'messages';
+  static const String calendarIcon = 'calendar';
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:stryde_mobile_app/features/auth/views/create_account_view.dart';
+// import 'package:stryde_mobile_app/features/auth/views/create_account_view.dart';
 import 'package:stryde_mobile_app/features/auth/views/login_view.dart';
+import 'package:stryde_mobile_app/features/base_nav/wrapper/base_nav_wrapper.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_constants.dart';
@@ -32,7 +33,7 @@ class ChooseAuthRouteView extends ConsumerWidget {
                 AppButton(
                     text: "Sign up",
                     onTap: () {
-                      goTo(context: context, view: CreateAccountView());
+                      goTo(context: context, view: BaseNavWrapper());
                     }),
                 15.sbH,
                 AppButton(

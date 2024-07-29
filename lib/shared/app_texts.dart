@@ -59,5 +59,7 @@ abstract class AppTexts {
 
   static const String securityDescription = "This is necessary to ensure the safety of your vehicle";
 
-    static const String garageVerifiationConfirmation = "Your Car Specifications have been sent in for Verfication!";
+  static const String garageVerifiationConfirmation = "Your Car Specifications have been sent in for Verfication!";
+
+  static const String reviewPlaceholderText = "The car was perfect and matched the descrpition but it was quite diffcult communicating with the owner.";
 }

@@ -110,7 +110,7 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
                 15.sbH,
                 Container(
                   width: double.infinity,
-                  height: 55.h,
+                  height: 50.h,
                   decoration: BoxDecoration(
                       color: Palette.buttonBG,
                       borderRadius: BorderRadius.all(Radius.circular(15.r)),
