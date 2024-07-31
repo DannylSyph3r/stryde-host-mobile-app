@@ -64,3 +64,23 @@ Future<File?> pickImageFromGallery(
   }
   return image;
 }
+
+Future<String> pickImagegetPath({ImageSource? source}) async {
+  final picker = ImagePicker();
+
+  String path = '';
+
+  try {
+    final getImage = await picker.pickImage(source: source!);
+
+    if (getImage != null) {
+      path = getImage.path;
+    } else {
+      path = '';
+    }
+  } catch (e) {
+   e.toString().log();
+  }
+
+  return path;
+}

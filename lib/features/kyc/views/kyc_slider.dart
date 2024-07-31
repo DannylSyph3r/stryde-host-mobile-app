@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:stryde_mobile_app/features/garage/providers/garage_providers.dart';
 import 'package:stryde_mobile_app/features/garage/views/vin_input_view.dart';
 import 'package:stryde_mobile_app/features/kyc/providers/kyc_providers.dart';
 import 'package:stryde_mobile_app/features/kyc/views/account_type_selection_view.dart';
@@ -185,6 +186,7 @@ class _KycSliderViewState extends ConsumerState<KycSliderView> {
                     goTo(context: context, view: GoalSelectionView());
                   }
                   if (carouselIndexProvider.state == 2) {
+                    ref.read(kycGarageProvider.notifier).state = true;
                     goTo(context: context, view: VINInputView());
                   }
                 },

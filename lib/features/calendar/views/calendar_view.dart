@@ -10,7 +10,7 @@ import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
-import 'package:stryde_mobile_app/utils/widgets/list_tile.dart';
+import 'package:stryde_mobile_app/utils/widgets/container_list_tile.dart';
 
 class CalendarView extends ConsumerStatefulWidget {
   const CalendarView({super.key});
@@ -93,7 +93,7 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
                       .txt16(fontW: F.w6, textAlign: TextAlign.left)
                       .alignCenterLeft(),
                   5.sbH,
-                  OptionSelectionListTile(
+                  OptionSelectionContainerTile(
                     horizontalContentPadding: 5.w,
                     leadingIcon: PhosphorIconsFill.circle,
                     leadingIconColor: Palette.whiteColor,
@@ -105,7 +105,7 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
                     interactiveTrailing: true,
                     interactiveTrailingWidget: "Abuja".txt14(fontW: F.w6),
                   ),
-                  OptionSelectionListTile(
+                  OptionSelectionContainerTile(
                     horizontalContentPadding: 5.w,
                     leadingIcon: PhosphorIconsFill.circle,
                     leadingIconColor: Palette.strydeOrange,
@@ -117,7 +117,7 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
                     interactiveTrailing: true,
                     interactiveTrailingWidget: "Abuja".txt14(fontW: F.w6),
                   ),
-                  10.sbH,
+                  5.sbH,
                   "View Details"
                       .txt16(
                           textAlign: TextAlign.right,
@@ -127,11 +127,11 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
                       .tap(onTap: () {
                     goTo(context: context, view: CalendarEventDetailsView());
                   }),
-                  10.sbH,
+                  5.sbH,
                 ],
               ),
             ),
-            200.sbH,
+            50.sbH,
           ]),
         ));
   }

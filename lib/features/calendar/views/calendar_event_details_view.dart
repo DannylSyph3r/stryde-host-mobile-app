@@ -8,7 +8,7 @@ import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
-import 'package:stryde_mobile_app/utils/widgets/list_tile.dart';
+import 'package:stryde_mobile_app/utils/widgets/container_list_tile.dart';
 import 'package:stryde_mobile_app/utils/widgets/review_card.dart';
 import 'package:stryde_mobile_app/utils/widgets/row_railer.dart';
 
@@ -82,30 +82,30 @@ class _CalendarEventDetailsViewState
                         .txt16(fontW: F.w6, textAlign: TextAlign.left)
                         .alignCenterLeft(),
                     5.sbH,
-                    OptionSelectionListTile(
-                      horizontalContentPadding: 5.w,
-                      leadingIcon: PhosphorIconsFill.circle,
-                      leadingIconColor: Palette.whiteColor,
-                      leadingIconSize: 15.h,
-                      titleLabel: "Drop-off",
-                      titleFontWeight: F.w6,
-                      subtitleLabel: "9:00 AM",
-                      subtitleFontSize: 14.sp,
-                      interactiveTrailing: true,
-                      interactiveTrailingWidget: "Abuja".txt14(fontW: F.w6),
-                    ),
-                    OptionSelectionListTile(
-                      horizontalContentPadding: 5.w,
-                      leadingIcon: PhosphorIconsFill.circle,
-                      leadingIconColor: Palette.strydeOrange,
-                      leadingIconSize: 15.h,
-                      titleLabel: "Pick-up",
-                      titleFontWeight: F.w6,
-                      subtitleLabel: "5:00 PM",
-                      subtitleFontSize: 14.sp,
-                      interactiveTrailing: true,
-                      interactiveTrailingWidget: "Abuja".txt14(fontW: F.w6),
-                    ),
+                    OptionSelectionContainerTile(
+                    horizontalContentPadding: 5.w,
+                    leadingIcon: PhosphorIconsFill.circle,
+                    leadingIconColor: Palette.whiteColor,
+                    leadingIconSize: 15.h,
+                    titleLabel: "Drop-off",
+                    titleFontWeight: F.w6,
+                    subtitleLabel: "9:00 AM",
+                    subtitleFontSize: 14.sp,
+                    interactiveTrailing: true,
+                    interactiveTrailingWidget: "Abuja".txt14(fontW: F.w6),
+                  ),
+                  OptionSelectionContainerTile(
+                    horizontalContentPadding: 5.w,
+                    leadingIcon: PhosphorIconsFill.circle,
+                    leadingIconColor: Palette.strydeOrange,
+                    leadingIconSize: 15.h,
+                    titleLabel: "Pick-up",
+                    titleFontWeight: F.w6,
+                    subtitleLabel: "5:00 PM",
+                    subtitleFontSize: 14.sp,
+                    interactiveTrailing: true,
+                    interactiveTrailingWidget: "Abuja".txt14(fontW: F.w6),
+                  ),
                   ],
                 ),
               ),
@@ -113,7 +113,7 @@ class _CalendarEventDetailsViewState
               RowRailer(
                 rowPadding: 0.padH,
                 leading: "Renter".txt18(fontW: F.w6),
-                trailing: "Cancel".txt18(color: Palette.strydeOrange),
+                trailing: "Cancel".txt16(color: Palette.strydeOrange),
               ),
               20.sbH,
               RowRailer(

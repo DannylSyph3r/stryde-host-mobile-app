@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_mobile_app/features/garage/providers/garage_providers.dart';
 import 'package:stryde_mobile_app/features/garage/views/garage_confirmation_screem.dart';
 import 'package:stryde_mobile_app/features/kyc/widgets/doc_picker_modalsheet.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
@@ -296,6 +297,7 @@ class _CarSpecificationsInputViewState
             AppButton(
                 text: "Proceed",
                 onTap: () {
+                  ref.invalidate(kycGarageProvider);
                   goTo(context: context, view: GarageConfirmationScreen());
                 }),
             50.sbH

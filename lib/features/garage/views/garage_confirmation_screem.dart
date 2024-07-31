@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/base_nav/wrapper/base_nav_wrapper.dart';
+import 'package:stryde_mobile_app/features/garage/providers/garage_providers.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
@@ -32,9 +33,12 @@ class GarageConfirmationScreen extends ConsumerWidget {
           ]),
         ],
       ),
-      bottom: AppButton(text: "Proceed", onTap: () {
-        goToAndReplace(context: context, view: BaseNavWrapper());
-      }),
+      bottom: AppButton(
+          text: "Proceed",
+          onTap: () {
+            ref.read(garageListProvider.notifier).state += 1;
+            goToAndReplace(context: context, view: BaseNavWrapper());
+          }),
     ));
   }
 }

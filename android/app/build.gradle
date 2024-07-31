@@ -41,27 +41,32 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.stryde_mobile_app"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 21
-        targetSdkVersion flutter.targetSdkVersion
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
     }
+
+    // aaptOptions {
+    //     noCompress "tflite"
+    // }
 }
 
 flutter {
     source '../..'
 }
 
-dependencies {}
+// dependencies {
+//     // ML Kit dependencies
+//     implementation 'com.google.mlkit:text-recognition-chinese:16.0.0-beta6'
+//     implementation 'com.google.mlkit:text-recognition-devanagari:16.0.0-beta6'
+//     implementation 'com.google.mlkit:text-recognition-japanese:16.0.0-beta6'
+//     implementation 'com.google.mlkit:text-recognition-korean:16.0.0-beta6'
+// }

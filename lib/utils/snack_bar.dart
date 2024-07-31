@@ -22,7 +22,7 @@ void showSnackBar({required BuildContext context, required String text}) {
 }
 
 //! SHOW BANNER
-showBanner({
+showFlushBanner({
   required BuildContext context,
   required String theMessage,
   required NotificationType theType,
