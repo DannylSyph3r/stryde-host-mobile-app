@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_mobile_app/features/calendar/views/calendar_event_details_view.dart';
 import 'package:stryde_mobile_app/features/home/views/full_review_view.dart';
+import 'package:stryde_mobile_app/features/home/views/notifications_view.dart';
 import 'package:stryde_mobile_app/features/home/widgets/rental_display_card.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
@@ -100,7 +102,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       PhosphorIconsRegular.bellSimple,
                       color: Palette.whiteColor,
                     ),
-                  ),
+                  ).tap(onTap: (){
+                    goTo(context: context, view: NotificationsView());
+                  }),
                 ],
               ),
               30.sbH,
@@ -170,7 +174,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     ),
                   ],
                 ),
-              ),
+              ).tap(onTap: (){
+                goTo(context: context, view: CalendarEventDetailsView());
+              }),
               30.sbH,
               "On Rent".txt18(fontW: F.w6),
             ],
