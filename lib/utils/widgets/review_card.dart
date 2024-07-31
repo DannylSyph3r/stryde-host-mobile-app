@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_mobile_app/features/home/providers/home_providers.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 
-class ReviewCard extends StatelessWidget {
+class ReviewCard extends ConsumerWidget {
   const ReviewCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bool replyVisibility = ref.watch(reviewVisibilityProvider);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w),
       child: Container(
@@ -119,10 +122,13 @@ class ReviewCard extends StatelessWidget {
                 ),
               ],
             ),
-            Positioned(
-            bottom: 0,
-            right: 0,
-            child: Icon(PhosphorIconsBold.arrowBendUpLeft, size: 25.h, color: Palette.strydeOrange,).alignCenterRight())
+            Visibility(
+              visible: replyVisibility,
+              child: Positioned(
+              bottom: 0,
+              right: 0,
+              child: Icon(PhosphorIconsBold.arrowBendUpLeft, size: 25.h, color: Palette.strydeOrange,).alignCenterRight()),
+            )
           ],
         ),
       ),

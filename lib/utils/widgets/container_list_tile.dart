@@ -48,7 +48,7 @@ class OptionSelectionContainerTile extends StatelessWidget {
       onTap: onTileTap,
       child: Padding(
         padding: EdgeInsets.symmetric(
-          vertical: 4.h, // Adjusted for less vertical space
+          vertical: 2.h, // Adjusted for less vertical space
           horizontal: horizontalContentPadding ?? 10.w,
         ),
         child: Container(

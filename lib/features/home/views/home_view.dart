@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/calendar/views/calendar_event_details_view.dart';
+import 'package:stryde_mobile_app/features/home/providers/home_providers.dart';
 import 'package:stryde_mobile_app/features/home/views/full_review_view.dart';
 import 'package:stryde_mobile_app/features/home/views/notifications_view.dart';
 import 'package:stryde_mobile_app/features/home/widgets/rental_display_card.dart';
@@ -65,7 +66,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           child: RichText(
                             textAlign: TextAlign.center,
                             text: TextSpan(
-                              text: "Hello ",
+                              text: "Hello, ",
                               style: GoogleFonts.montserrat(
                                 textStyle: TextStyle(
                                   fontSize: 15.sp,
@@ -222,6 +223,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
             )
           ]),
           trailing: "View All".txt(size: 17.sp, fontW: F.w6, color: Palette.strydeOrange).tap(onTap: (){
+            ref.read(reviewVisibilityProvider.notifier).state = true;
             goTo(context: context, view: FullReviewView());
           }),
         ),

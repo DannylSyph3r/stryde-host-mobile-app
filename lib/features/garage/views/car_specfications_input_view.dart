@@ -223,33 +223,11 @@ class _CarSpecificationsInputViewState
             TextInputWidget(
               hintText: "Short Description",
               controller: _descriptionController,
-              suffixIcon: Padding(
-                padding: 5.padH,
-                child: Container(
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            left: BorderSide(color: Palette.strydeOrange))),
-                    child: Padding(
-                      padding: 10.padH,
-                      child: Icon(PhosphorIconsRegular.caretDown, size: 18.h),
-                    )),
-              ),
             ),
             15.sbH,
             TextInputWidget(
               hintText: "License Plate",
               controller: _licensePlateController,
-              suffixIcon: Padding(
-                padding: 5.padH,
-                child: Container(
-                    decoration: const BoxDecoration(
-                        border: Border(
-                            left: BorderSide(color: Palette.strydeOrange))),
-                    child: Padding(
-                      padding: 10.padH,
-                      child: Icon(PhosphorIconsRegular.caretDown, size: 18.h),
-                    )),
-              ),
             ),
             15.sbH,
             Container(

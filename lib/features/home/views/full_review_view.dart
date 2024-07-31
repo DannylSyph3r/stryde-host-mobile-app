@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_mobile_app/features/home/providers/home_providers.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
+import 'package:stryde_mobile_app/utils/nav.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/review_card.dart';
 
@@ -21,6 +23,11 @@ class _FullReviewViewState extends ConsumerState<FullReviewView> {
       appBar: customAppBar("(4) Reviews",
           context: context,
           implyLeading: true,
+          overrideBackButtonAction: true,
+          backFunction: (){
+            goBack(context);
+            ref.invalidate(reviewVisibilityProvider);
+          },
           toolbarHeight: 70.h,
           color: Colors.transparent,
           isTitleCentered: true,

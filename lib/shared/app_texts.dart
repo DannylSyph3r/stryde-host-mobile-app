@@ -63,4 +63,7 @@ abstract class AppTexts {
   static const String carDescriptionPlaceHolder = "This sleek, all-electric sedan offers an impressive range of up to 358 miles on a single charge. This sleek, all-electric sedan offers an impressive range of up to 358 miles on a single charge";
 
   static const String reviewPlaceholderText = "The car was perfect and matched the descrpition but it was quite diffcult communicating with the owner.";
+
+  static const String notificationPickupText = "Mercedez Benz is due for pick-up today";
+  static const String notificationDropOffText = "Mercedez Benz is due for drop-off tomorrow";
 }
