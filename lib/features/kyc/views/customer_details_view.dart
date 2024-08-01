@@ -40,8 +40,11 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: customAppBar("Profile",
-          context: context, implyLeading: true, toolbarHeight: 60.h),
+      appBar: customAppBar(
+          title: "Profile",
+          context: context,
+          implyLeading: true,
+          toolbarHeight: 60.h),
       body: ListView(
         children: [
           Padding(

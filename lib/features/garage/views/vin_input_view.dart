@@ -106,7 +106,8 @@ class _VINInputViewState extends ConsumerState<VINInputView> {
     final kycGarageState = ref.watch(kycGarageProvider);
 
     return Scaffold(
-      appBar: customAppBar("Car Details",
+      appBar: customAppBar(
+          title: "Car Details",
           context: context,
           toolbarHeight: 70.h,
           color: Colors.transparent,

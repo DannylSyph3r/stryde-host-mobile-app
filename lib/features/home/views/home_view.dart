@@ -142,12 +142,12 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         crossAxisAlignment: CrossAxisAlignment
                             .start, // Aligns text to the start
                         children: [
-                          "Mercedes Benz".txt18(fontW: F.w6),
+                          "Mercedes Benz".txt18(fontW: F.w6, overflow: TextOverflow.ellipsis),
                           5.sbH, // Spacing between the name and model
-                          "GLE 63".txt16(),
+                          "GLE 63".txt16(overflow: TextOverflow.ellipsis),
                           10.sbH,
-                          "Abuja".txt16(fontW: F.w6),
-                          20.sbH,
+                          "Abuja".txt16(fontW: F.w6, overflow: TextOverflow.ellipsis),
+                          10.sbH,
                           OptionSelectionContainerTile(
                             horizontalContentPadding: 5.w,
                             leadingIcon: PhosphorIconsFill.circle,

@@ -149,8 +149,8 @@ class _GoalSelectionViewState extends ConsumerState<GoalSelectionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar("",
-          context: context, implyLeading: true, toolbarHeight: 60.h),
+      appBar: customAppBar(
+          title: "", context: context, implyLeading: true, toolbarHeight: 60.h),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

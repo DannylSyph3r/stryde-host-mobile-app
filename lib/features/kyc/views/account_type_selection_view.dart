@@ -16,7 +16,8 @@ class AccountTypeSelectionView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: customAppBar("Account Type",
+      appBar: customAppBar(
+        title: "Account Type",
           context: context, implyLeading: true, toolbarHeight: 60.h),
       body: Padding(
         padding: 20.padH,

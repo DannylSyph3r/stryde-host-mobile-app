@@ -5,7 +5,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/home/providers/home_providers.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
-import 'package:stryde_mobile_app/utils/nav.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/review_card.dart';
 
@@ -20,12 +19,13 @@ class _FullReviewViewState extends ConsumerState<FullReviewView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar("(4) Reviews",
+      appBar: customAppBar(
+          title: "(4) Reviews",
           context: context,
+          isTitleText: true,
           implyLeading: true,
           overrideBackButtonAction: true,
-          backFunction: (){
-            goBack(context);
+          backFunction: () {
             ref.invalidate(reviewVisibilityProvider);
           },
           toolbarHeight: 70.h,
@@ -56,7 +56,7 @@ class _FullReviewViewState extends ConsumerState<FullReviewView> {
         children: [
           20.sbH,
           ListView.separated(
-            shrinkWrap: true,
+              shrinkWrap: true,
               padding: 5.padH,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 10,
@@ -66,7 +66,7 @@ class _FullReviewViewState extends ConsumerState<FullReviewView> {
               itemBuilder: (context, index) {
                 return ReviewCard();
               }),
-              30.sbH
+          30.sbH
         ],
       ),
     );

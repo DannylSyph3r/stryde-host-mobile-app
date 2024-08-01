@@ -112,7 +112,8 @@ class _CarSpecificationsInputViewState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar("Car Details",
+      appBar: customAppBar(
+        title: "Car Details",
           context: context,
           toolbarHeight: 70.h,
           color: Colors.transparent,

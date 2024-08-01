@@ -5,7 +5,7 @@ import 'package:stryde_mobile_app/features/base_nav/widgets/nav_bar_widgets.dart
 import 'package:stryde_mobile_app/features/calendar/views/calendar_view.dart';
 import 'package:stryde_mobile_app/features/garage/views/garage_view.dart';
 import 'package:stryde_mobile_app/features/home/views/home_view.dart';
-import 'package:stryde_mobile_app/features/messages/views/messages_view.dart';
+import 'package:stryde_mobile_app/features/messages/views/messages_selection_view.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_constants.dart';
 part 'base_nav_wrapper_controller.dart';

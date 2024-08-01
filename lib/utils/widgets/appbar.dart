@@ -4,24 +4,28 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
 
-AppBar customAppBar(String title,
-    {bool isLeftAligned = false,
-    bool? isTitleCentered,
-    bool? implyLeading,
-    double? fontSize,
-    FontWeight? fontWeight,
-    List<Widget>? actions,
-    TabBar? bottom,
-    double? toolbarHeight,
-    bool showBackButton = true,
-    Color? color,
-    Color? fontColor,
-    Color? iconColor,
-    bool overrideBackButtonAction = false,
-    bool showXIcon = false,
-    Color? foregroundColor,
-    Function? backFunction,
-    required BuildContext context}) {
+AppBar customAppBar({
+  String title = '', // Optional title, defaults to empty string
+  bool isTitleText = true, // True if title is text, false if it's a widget
+  bool isLeftAligned = false,
+  bool? isTitleCentered,
+  Widget? titleWidget,
+  bool? implyLeading,
+  double? fontSize,
+  FontWeight? fontWeight,
+  List<Widget>? actions,
+  TabBar? bottom,
+  double? toolbarHeight,
+  bool showBackButton = true,
+  Color? color,
+  Color? fontColor,
+  Color? iconColor,
+  bool overrideBackButtonAction = false,
+  bool showXIcon = false,
+  Color? foregroundColor,
+  Function? backFunction,
+  required BuildContext context,
+}) {
   bool shouldShowLeading = implyLeading ?? true;
   bool shouldCenterTitle =
       isTitleCentered ?? (!shouldShowLeading || !isLeftAligned);
@@ -49,10 +53,12 @@ AppBar customAppBar(String title,
                         icon: Icon(
                           Icons.close,
                           color: iconColor ?? onBackgroundColor,
-                        ))
+                        ),
+                      )
                     : BackButton(
                         color: iconColor ?? onBackgroundColor,
-                        onPressed: () => backFunction!(),
+                        onPressed: () =>
+                            backFunction?.call() ?? Navigator.of(context).pop(),
                       )
                 : showXIcon
                     ? IconButton(
@@ -60,7 +66,8 @@ AppBar customAppBar(String title,
                         icon: Icon(
                           Icons.close,
                           color: iconColor ?? onBackgroundColor,
-                        ))
+                        ),
+                      )
                     : BackButton(
                         color: iconColor ?? onBackgroundColor,
                       )
@@ -69,16 +76,18 @@ AppBar customAppBar(String title,
     elevation: 0,
     centerTitle: shouldCenterTitle,
     leadingWidth: isLeftAligned ? 30.w : null,
-    title: Text(
-      title,
-      style: GoogleFonts.montserrat(
-        textStyle: TextStyle(
-          fontSize: fontSize ?? 20.sp,
-          color: fontColor ?? onBackgroundColor,
-          fontWeight: fontWeight,
-        ),
-      ),
-    ),
+    title: isTitleText
+        ? Text(
+            title,
+            style: GoogleFonts.montserrat(
+              textStyle: TextStyle(
+                fontSize: fontSize ?? 18.sp,
+                color: fontColor ?? onBackgroundColor,
+                fontWeight: fontWeight,
+              ),
+            ),
+          )
+        : titleWidget ?? SizedBox.shrink(), // Default to an empty widget if titleWidget is null
     actions: actions ?? const [SizedBox.shrink()],
     bottom: bottom,
   );

@@ -52,7 +52,7 @@ class _CalendarEventDetailsViewState
 
     return Scaffold(
       appBar: customAppBar(
-        "Details",
+        title: "Details",
         context: context,
         toolbarHeight: 70.h,
         color: Colors.transparent,
@@ -83,29 +83,29 @@ class _CalendarEventDetailsViewState
                         .alignCenterLeft(),
                     5.sbH,
                     OptionSelectionContainerTile(
-                    horizontalContentPadding: 5.w,
-                    leadingIcon: PhosphorIconsFill.circle,
-                    leadingIconColor: Palette.whiteColor,
-                    leadingIconSize: 15.h,
-                    titleLabel: "Drop-off",
-                    titleFontWeight: F.w6,
-                    subtitleLabel: "9:00 AM",
-                    subtitleFontSize: 14.sp,
-                    interactiveTrailing: true,
-                    interactiveTrailingWidget: "Abuja".txt14(fontW: F.w6),
-                  ),
-                  OptionSelectionContainerTile(
-                    horizontalContentPadding: 5.w,
-                    leadingIcon: PhosphorIconsFill.circle,
-                    leadingIconColor: Palette.strydeOrange,
-                    leadingIconSize: 15.h,
-                    titleLabel: "Pick-up",
-                    titleFontWeight: F.w6,
-                    subtitleLabel: "5:00 PM",
-                    subtitleFontSize: 14.sp,
-                    interactiveTrailing: true,
-                    interactiveTrailingWidget: "Abuja".txt14(fontW: F.w6),
-                  ),
+                      horizontalContentPadding: 5.w,
+                      leadingIcon: PhosphorIconsFill.circle,
+                      leadingIconColor: Palette.whiteColor,
+                      leadingIconSize: 15.h,
+                      titleLabel: "Drop-off",
+                      titleFontWeight: F.w6,
+                      subtitleLabel: "9:00 AM",
+                      subtitleFontSize: 14.sp,
+                      interactiveTrailing: true,
+                      interactiveTrailingWidget: "Abuja".txt14(fontW: F.w6),
+                    ),
+                    OptionSelectionContainerTile(
+                      horizontalContentPadding: 5.w,
+                      leadingIcon: PhosphorIconsFill.circle,
+                      leadingIconColor: Palette.strydeOrange,
+                      leadingIconSize: 15.h,
+                      titleLabel: "Pick-up",
+                      titleFontWeight: F.w6,
+                      subtitleLabel: "5:00 PM",
+                      subtitleFontSize: 14.sp,
+                      interactiveTrailing: true,
+                      interactiveTrailingWidget: "Abuja".txt14(fontW: F.w6),
+                    ),
                   ],
                 ),
               ),
@@ -134,8 +134,8 @@ class _CalendarEventDetailsViewState
                         ],
                       ),
                       child: Center(
-                          child:
-                              AppGraphics.memeoji.png.myImage(fit: BoxFit.contain)),
+                          child: AppGraphics.memeoji.png
+                              .myImage(fit: BoxFit.contain)),
                     ),
                     15.sbW,
                     Expanded(
@@ -171,7 +171,9 @@ class _CalendarEventDetailsViewState
                 ),
               ),
               30.sbH,
-              "Reviews".txt18(fontW: F.w6, textAlign: TextAlign.left).alignCenterLeft(),
+              "Reviews"
+                  .txt18(fontW: F.w6, textAlign: TextAlign.left)
+                  .alignCenterLeft(),
               20.sbH,
             ],
           ),

@@ -50,7 +50,8 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
         : DateFormat('EEEE MMM d').format(calendarDate) + daySuffix;
 
     return Scaffold(
-        appBar: customAppBar("Calendar",
+        appBar: customAppBar(
+            title: "Calendar",
             context: context,
             implyLeading: false,
             toolbarHeight: 70.h,

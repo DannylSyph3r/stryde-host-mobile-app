@@ -112,6 +112,7 @@ class _NotificationsViewState extends ConsumerState<NotificationsView> {
                   centerTitle: true,
                   automaticallyImplyLeading: false,
                   scrolledUnderElevation: 0,
+                  toolbarHeight: 60.h,
                   title: TabBar(
                     padding: EdgeInsets.zero,
                     tabAlignment: TabAlignment.fill,

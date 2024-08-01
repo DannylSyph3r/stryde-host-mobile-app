@@ -31,7 +31,7 @@ List<Widget> pages = [
   const HomeView(),
   const GarageView(),
   const CalendarView(),
-  const MessagesView(),
+  const MessagesSelectionView(),
 ];
 
 enum Nav {

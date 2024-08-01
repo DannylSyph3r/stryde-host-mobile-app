@@ -23,7 +23,8 @@ class _GarageViewState extends ConsumerState<GarageView> {
   Widget build(BuildContext context) {
     final garageListPopulator = ref.watch(garageListProvider);
     return Scaffold(
-      appBar: customAppBar("Garage",
+      appBar: customAppBar(
+          title: "Garage",
           context: context,
           implyLeading: false,
           toolbarHeight: 70.h,

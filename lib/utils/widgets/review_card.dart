@@ -16,17 +16,17 @@ class ReviewCard extends ConsumerWidget {
     final bool replyVisibility = ref.watch(reviewVisibilityProvider);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
-        height: 250.h,
-        width: 350.w, // Add a fixed width for the ReviewCard
-        decoration: BoxDecoration(
-          color: Palette.buttonBG,
-          borderRadius: BorderRadius.all(Radius.circular(15.r)),
-        ),
-        child: Stack(
-          children: [
-            Row(
+      child: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+            height: 250.h,
+            width: 350.w, // Add a fixed width for the ReviewCard
+            decoration: BoxDecoration(
+              color: Palette.buttonBG,
+              borderRadius: BorderRadius.all(Radius.circular(15.r)),
+            ),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Flexible(
@@ -46,7 +46,8 @@ class ReviewCard extends ConsumerWidget {
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Palette.strydeOrange.withOpacity(0.2),
+                                    color:
+                                        Palette.strydeOrange.withOpacity(0.2),
                                     spreadRadius: 10,
                                     blurRadius: 15,
                                   ),
@@ -114,7 +115,6 @@ class ReviewCard extends ConsumerWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          
                         ],
                       ),
                     ),
@@ -122,15 +122,29 @@ class ReviewCard extends ConsumerWidget {
                 ),
               ],
             ),
-            Visibility(
+          ),
+          SizedBox(
+            height: 250.h,
+            width: 350.w,
+            child: Visibility(
               visible: replyVisibility,
-              child: Positioned(
-              bottom: 0,
-              right: 0,
-              child: Icon(PhosphorIconsBold.arrowBendUpLeft, size: 25.h, color: Palette.strydeOrange,).alignCenterRight()),
-            )
-          ],
-        ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 20.w),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Icon(
+                      PhosphorIconsBold.arrowBendUpLeft,
+                      size: 25.h,
+                      color: Palette.strydeOrange,
+                    ).alignCenterRight(),
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

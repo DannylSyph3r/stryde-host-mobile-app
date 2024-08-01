@@ -52,7 +52,7 @@ class _RentalRequestDetailsViewState
 
     return Scaffold(
       appBar: customAppBar(
-        "Details",
+        title: "Details",
         context: context,
         toolbarHeight: 70.h,
         color: Colors.transparent,

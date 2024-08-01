@@ -33,21 +33,23 @@ class _VerifyOTPViewState extends ConsumerState<VerifyOTPView> {
     final authSelection = ref.watch(signupTabStateProvider.notifier);
     return Scaffold(
       appBar: customAppBar(
-        "Create Account",
+        title: "Create Account",
         context: context,
         toolbarHeight: 70.h,
         color: Colors.transparent,
         isTitleCentered: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+      body: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         10.sbH,
         "Enter OTP".txt18().alignCenter(),
         20.sbH,
         authSelection.state == 0
-            ? AppTexts.oTPTextMail.txt14(textAlign: TextAlign.center).alignCenter()
-            : AppTexts.oTPTextPhone.txt14(textAlign: TextAlign.center).alignCenter(),
+            ? AppTexts.oTPTextMail
+                .txt14(textAlign: TextAlign.center)
+                .alignCenter()
+            : AppTexts.oTPTextPhone
+                .txt14(textAlign: TextAlign.center)
+                .alignCenter(),
         30.sbH,
         Padding(
           padding: 70.padH,

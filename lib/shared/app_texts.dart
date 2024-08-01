@@ -66,4 +66,5 @@ abstract class AppTexts {
 
   static const String notificationPickupText = "Mercedez Benz is due for pick-up today";
   static const String notificationDropOffText = "Mercedez Benz is due for drop-off tomorrow";
+  static const String rentalGreetingText = "Good day, I would like to rent your car";
 }

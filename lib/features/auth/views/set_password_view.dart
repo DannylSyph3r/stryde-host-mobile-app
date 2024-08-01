@@ -42,7 +42,8 @@ class _SetPasswordViewState extends ConsumerState<SetPasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: customAppBar("Create Account",
+        appBar: customAppBar(
+            title: "Create Account",
             context: context,
             toolbarHeight: 70.h,
             color: Colors.transparent,
