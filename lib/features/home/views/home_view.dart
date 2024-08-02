@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/calendar/views/calendar_event_details_view.dart';
 import 'package:stryde_mobile_app/features/home/providers/home_providers.dart';
-import 'package:stryde_mobile_app/features/home/views/full_review_view.dart';
-import 'package:stryde_mobile_app/features/home/views/notifications_view.dart';
+import 'package:stryde_mobile_app/features/reviews/views/full_review_view.dart';
+import 'package:stryde_mobile_app/features/notifications/views/notifications_view.dart';
 import 'package:stryde_mobile_app/features/home/views/user_account_view.dart';
 import 'package:stryde_mobile_app/features/home/widgets/rental_display_card.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
@@ -14,7 +14,7 @@ import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
 import 'package:stryde_mobile_app/utils/widgets/container_list_tile.dart';
-import 'package:stryde_mobile_app/utils/widgets/review_card.dart';
+import 'package:stryde_mobile_app/features/reviews/widgets/review_card.dart';
 import 'package:stryde_mobile_app/utils/widgets/row_railer.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -119,6 +119,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
                 decoration: BoxDecoration(
                   color: Palette.buttonBG,
                   borderRadius: BorderRadius.all(Radius.circular(15.r)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      offset: const Offset(0, 4),
+                      blurRadius: 8.0,
+                      spreadRadius: 5.0,
+                    ),
+                  ],
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment

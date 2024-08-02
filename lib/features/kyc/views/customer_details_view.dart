@@ -4,13 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/kyc/views/confirmation_screen.dart';
 import 'package:stryde_mobile_app/features/kyc/widgets/doc_picker_modalsheet.dart';
-import 'package:stryde_mobile_app/features/kyc/widgets/id_selection_model.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
+import 'package:stryde_mobile_app/utils/app_constants.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/button.dart';
+import 'package:stryde_mobile_app/utils/widgets/list_tile.dart';
 import 'package:stryde_mobile_app/utils/widgets/text_input.dart';
 
 class CustomerDetailsView extends ConsumerStatefulWidget {
@@ -22,10 +23,16 @@ class CustomerDetailsView extends ConsumerStatefulWidget {
 }
 
 class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
+  final List<String> idTypes = [
+    "Drivers License",
+    "International Passport",
+    "NIN"
+  ];
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _idTypeController = TextEditingController();
 
   @override
   void dispose() {
@@ -33,6 +40,7 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
     _addressController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
+    _idTypeController.dispose();
     super.dispose();
   }
 
@@ -48,7 +56,7 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
       body: ListView(
         children: [
           Padding(
-            padding: 20.padH,
+            padding: 15.padH,
             child: Column(
               children: [
                 30.sbH,
@@ -86,7 +94,7 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
                 TextInputWidget(
                   isTextFieldEnabled: false,
                   hintText: "Identification Type",
-                  controller: _phoneController,
+                  controller: _idTypeController,
                   suffixIcon: Padding(
                     padding: 5.padH,
                     child: Container(
@@ -101,14 +109,58 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
                   ),
                 ).tap(onTap: () {
                   showModalBottomSheet(
-                    isScrollControlled: true,
-                    enableDrag: true,
-                    backgroundColor: Colors.transparent,
-                    context: context,
-                    builder: (context) => const Wrap(
-                      children: [IDSelectionBottomsheet()],
-                    ),
-                  );
+                      isScrollControlled: true,
+                      enableDrag: true,
+                      backgroundColor: Colors.transparent,
+                      context: context,
+                      builder: (context) => Container(
+                          height: 280.h,
+                          width: width(context),
+                          decoration: BoxDecoration(
+                            color: Palette.darkBG,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(25.r),
+                              topRight: Radius.circular(25.r),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: 20.padH,
+                            child: Column(
+                              children: [
+                                20.sbH,
+                                Container(
+                                  width: 60.w,
+                                  height: 4.h,
+                                  decoration: ShapeDecoration(
+                                    color: Palette.strydeOrange,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4)),
+                                  ),
+                                ),
+                                20.sbH,
+                                SizedBox(
+                                  height: 200.h,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: idTypes.length,
+                                      itemBuilder: ((context, index) {
+                                        final String idTypesDisplay =
+                                            idTypes[index];
+                                        return OptionSelectionListTile(
+                                          interactiveTrailing: false,
+                                          titleFontSize: 14.sp,
+                                          titleLabel: idTypesDisplay,
+                                          onTileTap: () {
+                                            _idTypeController.text =
+                                                idTypesDisplay;
+                                            goBack(context);
+                                          },
+                                        );
+                                      })),
+                                ),
+                              ],
+                            ),
+                          )));
                 }),
                 15.sbH,
                 Container(

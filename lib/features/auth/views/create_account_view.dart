@@ -71,7 +71,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView>
           padding: 20.0.padV,
           child: Column(children: [
             Padding(
-              padding: 20.padH,
+              padding: 15.padH,
               child: "Create Account".txt24(fontW: F.w6).alignCenterLeft(),
             ),
             15.sbH,
@@ -119,7 +119,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView>
                           children: [
                             20.sbH,
                             Padding(
-                              padding: 20.padH,
+                              padding: 15.padH,
                               child: TextInputWidget(
                                   hintText: "Email",
                                   controller: _emailController),
@@ -130,7 +130,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView>
                           children: [
                             20.sbH,
                             Padding(
-                              padding: 20.padH,
+                              padding: 15.padH,
                               child: TextInputWidget(
                                   hintText: "Phone Number",
                                   keyboardType: TextInputType.number,

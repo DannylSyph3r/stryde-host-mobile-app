@@ -80,13 +80,13 @@ class _KycSliderViewState extends ConsumerState<KycSliderView> {
             children: [
               100.sbH,
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
                 child:
                     AppTexts.kycMainHeader.txt20(fontW: F.w8).alignCenterLeft(),
               ),
               20.sbH,
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
                 child: AppTexts.kycMainBody.txt(size: 13.sp),
               ),
               30.sbH,

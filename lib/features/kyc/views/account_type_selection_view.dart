@@ -17,14 +17,17 @@ class AccountTypeSelectionView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: customAppBar(
-        title: "Account Type",
-          context: context, implyLeading: true, toolbarHeight: 60.h),
+          title: "Account Type",
+          context: context,
+          implyLeading: true,
+          toolbarHeight: 60.h),
       body: Padding(
-        padding: 20.padH,
+        padding: 15.padH,
         child: Column(
           children: [
             20.sbH,
             Container(
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
                 height: 110.h,
                 decoration: BoxDecoration(
                     boxShadow: [
@@ -37,25 +40,22 @@ class AccountTypeSelectionView extends ConsumerWidget {
                     ],
                     color: Palette.buttonBG,
                     borderRadius: BorderRadius.all(Radius.circular(21.r))),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
-                  child: Row(children: [
-                    AppGraphics.personIcon.iconPng.myImage(fit: BoxFit.cover),
-                    15.sbW,
-                    Expanded(
-                      child: Column(
-                        children: [
-                          "Individual"
-                              .txt(size: 17.sp, fontW: F.w7)
-                              .alignCenterLeft(),
-                          8.sbH,
-                          AppTexts.individualDescription.txt(size: 13.sp)
-                        ],
-                      ),
-                    )
-                  ]),
-                )).tap(onTap: () {
+                child: Row(children: [
+                  AppGraphics.personIcon.iconPng.myImage(fit: BoxFit.cover),
+                  15.sbW,
+                  Expanded(
+                    child: Column(
+                      children: [
+                        "Individual"
+                            .txt(size: 16.sp, fontW: F.w7)
+                            .alignCenterLeft(),
+                        8.sbH,
+                        AppTexts.individualDescription
+                            .txt(size: 12.sp, overflow: TextOverflow.ellipsis, maxLines: 3)
+                      ],
+                    ),
+                  )
+                ])).tap(onTap: () {
               showModalBottomSheet(
                 context: context,
                 builder: (context) => DocPickerModalBottomSheet(
@@ -67,6 +67,7 @@ class AccountTypeSelectionView extends ConsumerWidget {
             }),
             30.sbH,
             Container(
+                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
                 height: 110.h,
                 decoration: BoxDecoration(
                     boxShadow: [
@@ -79,26 +80,22 @@ class AccountTypeSelectionView extends ConsumerWidget {
                     ],
                     color: Palette.buttonBG,
                     borderRadius: BorderRadius.all(Radius.circular(21.r))),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
-                  child: Row(children: [
-                    AppGraphics.enterpriseIcon.iconPng
-                        .myImage(fit: BoxFit.cover),
-                    15.sbW,
-                    Expanded(
-                      child: Column(
-                        children: [
-                          "Enterprise"
-                              .txt(size: 17.sp, fontW: F.w7)
-                              .alignCenterLeft(),
-                          8.sbH,
-                          AppTexts.enterpriseDescription.txt(size: 13.sp)
-                        ],
-                      ),
-                    )
-                  ]),
-                )).tap(onTap: () {
+                child: Row(children: [
+                  AppGraphics.enterpriseIcon.iconPng.myImage(fit: BoxFit.cover),
+                  15.sbW,
+                  Expanded(
+                    child: Column(
+                      children: [
+                        "Enterprise"
+                            .txt(size: 16.sp, fontW: F.w7)
+                            .alignCenterLeft(),
+                        8.sbH,
+                        AppTexts.enterpriseDescription
+                            .txt(size: 12.sp, overflow: TextOverflow.ellipsis, maxLines: 3)
+                      ],
+                    ),
+                  )
+                ])).tap(onTap: () {
               showModalBottomSheet(
                 context: context,
                 builder: (context) => DocPickerModalBottomSheet(

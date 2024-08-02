@@ -5,7 +5,7 @@ import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/messages/models/chat_message_model.dart';
-import 'package:stryde_mobile_app/features/messages/views/messges_review_view.dart';
+import 'package:stryde_mobile_app/features/reviews/views/messages_review_view.dart';
 import 'package:stryde_mobile_app/features/messages/widgets/bottom_chat_field.dart';
 import 'package:stryde_mobile_app/features/messages/widgets/reciever_message_bubble.dart';
 import 'package:stryde_mobile_app/features/messages/widgets/sender_message_bubble.dart';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_mobile_app/features/settings/views/app_settings_view.dart';
 import 'package:stryde_mobile_app/features/home/views/user_profile_view.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
@@ -104,7 +105,10 @@ class UserAccountView extends ConsumerWidget {
               titleFontWeight: F.w6,
               subtitleLabel: "Notifications, Trip duration, Advance notice",
             ),
-            const OptionSelectionListTile(
+            OptionSelectionListTile(
+              onTileTap: () {
+                goTo(context: context, view: AppSettingsView());
+              },
               interactiveTrailing: false,
               leadingIcon: PhosphorIconsFill.gear,
               leadingIconColor: Palette.whiteColor,

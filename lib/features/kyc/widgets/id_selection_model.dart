@@ -8,7 +8,14 @@ import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/widgets/list_tile.dart';
 
 class IDSelectionBottomsheet extends ConsumerStatefulWidget {
-  const IDSelectionBottomsheet({super.key});
+  final VoidCallback onTileTapOne;
+  final VoidCallback onTileTapTwo;
+  final VoidCallback onTileTapThree;
+  const IDSelectionBottomsheet(
+      {required this.onTileTapOne,
+      required this.onTileTapTwo,
+      required this.onTileTapThree,
+      super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -47,12 +54,14 @@ class _IDSelectionBottomsheetState
               20.sbH,
               const OptionSelectionListTile(
                       interactiveTrailing: false, titleLabel: "Drivers License")
-                  .tap(onTap: () {}),
+                  .tap(onTap: widget.onTileTapOne),
               const OptionSelectionListTile(
-                  interactiveTrailing: false,
-                  titleLabel: "International Passport"),
+                      interactiveTrailing: false,
+                      titleLabel: "International Passport")
+                  .tap(onTap: widget.onTileTapTwo),
               const OptionSelectionListTile(
-                  interactiveTrailing: false, titleLabel: "NIN")
+                      interactiveTrailing: false, titleLabel: "NIN")
+                  .tap(onTap: widget.onTileTapThree ),
             ],
           ),
         ));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -26,9 +27,12 @@ class ProcessConfirmationScreen extends ConsumerWidget {
               PhosphorIconsFill.checkCircle,
               size: 100.h,
               color: Palette.strydeOrange,
-            ),
+            ).animate().scaleY(duration: 250.milliseconds),
             30.sbH,
-            AppTexts.verfiicationConfirmation.txt16(textAlign: TextAlign.center)
+            AppTexts.verfiicationConfirmation
+                .txt16(textAlign: TextAlign.center)
+                .animate()
+                .fadeIn(duration: 3.seconds),
           ]),
         ],
       ),
@@ -37,7 +41,7 @@ class ProcessConfirmationScreen extends ConsumerWidget {
           onTap: () {
             ref.read(carouselStateProvider.notifier).state = 1;
             goTo(context: context, view: KycSliderView());
-          }),
+          }).animate().fadeIn(duration: 3.seconds),
     ));
   }
 }

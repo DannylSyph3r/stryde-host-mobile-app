@@ -119,7 +119,7 @@ class _CarSpecificationsInputViewState
           color: Colors.transparent,
           isTitleCentered: true),
       body: ListView(
-        padding: 20.padH,
+        padding: 15.padH,
         children: [
           Column(children: [
             10.sbH,

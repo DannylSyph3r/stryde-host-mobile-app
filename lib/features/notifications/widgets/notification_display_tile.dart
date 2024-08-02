@@ -78,6 +78,14 @@ class _NotificationDisplayTileState
       decoration: BoxDecoration(
         color: Palette.buttonBG,
         borderRadius: BorderRadius.all(Radius.circular(15.r)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            offset: const Offset(0, 4),
+            blurRadius: 2.0,
+            spreadRadius: 2.0,
+          ),
+        ],
       ),
       child: Column(
         children: [

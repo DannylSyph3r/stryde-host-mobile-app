@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
@@ -57,8 +58,7 @@ class GarageList extends ConsumerWidget {
                       overflow: TextOverflow.ellipsis),
                   middle: 10.sbW,
                   trailing: vehicleLocation.txt(
-                      size: 15.sp,
-                      overflow: TextOverflow.ellipsis),
+                      size: 15.sp, overflow: TextOverflow.ellipsis),
                 ),
                 5.sbH,
                 vehicleModel.txt14(textAlign: TextAlign.left).alignCenterLeft(),
@@ -78,8 +78,11 @@ class GarageList extends ConsumerWidget {
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          AppGraphics.spray.iconPng
-                              .myImage(height: 20.h, fit: BoxFit.cover),
+                          Icon(
+                            PhosphorIconsRegular.paintBrushHousehold,
+                            size: 22.h,
+                            color: Palette.strydeOrange,
+                          ),
                           10.sbH,
                           Row(
                             children: [
@@ -107,9 +110,13 @@ class GarageList extends ConsumerWidget {
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          AppGraphics.gas.iconPng
-                              .myImage(height: 23.h, fit: BoxFit.cover),
-                          7.sbH,
+                          5.sbH,
+                          Icon(
+                            PhosphorIconsRegular.gasPump,
+                            size: 22.h,
+                            color: Palette.strydeOrange,
+                          ),
+                          5.sbH,
                           Row(
                             children: [fuelType.txt12()],
                           )
@@ -118,9 +125,13 @@ class GarageList extends ConsumerWidget {
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          AppGraphics.seat.iconPng
-                              .myImage(height: 23.h, fit: BoxFit.cover),
-                          7.sbH,
+                          5.sbH,
+                          Icon(
+                            PhosphorIconsRegular.seat,
+                            size: 22.h,
+                            color: Palette.strydeOrange,
+                          ),
+                          5.sbH,
                           Row(
                             children: ["$seatNumber Seats".txt12()],
                           )
@@ -129,10 +140,13 @@ class GarageList extends ConsumerWidget {
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          // SvgPicture.asset(AppGraphics.gear.iconPng, height: 23.h, fit: BoxFit.cover),
-                          AppGraphics.gear.iconPng
-                              .myImage(height: 23.h, fit: BoxFit.cover),
-                          7.sbH,
+                          5.sbH,
+                          Icon(
+                            PhosphorIconsRegular.gear,
+                            size: 22.h,
+                            color: Palette.strydeOrange,
+                          ),
+                          5.sbH,
                           Row(
                             children: [gearType.txt12()],
                           )

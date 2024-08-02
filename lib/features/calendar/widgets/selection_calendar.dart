@@ -40,6 +40,14 @@ class SelectionCalendar extends ConsumerWidget {
       decoration: BoxDecoration(
         color: Palette.buttonBG,
         borderRadius: BorderRadius.all(Radius.circular(15.r)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2), 
+            offset: const Offset(0, 4),
+            blurRadius: 8.0,
+            spreadRadius: 5.0,
+          ),
+        ],
       ),
       child: Column(
         children: [
@@ -179,7 +187,9 @@ class CalendarGrid extends ConsumerWidget {
                             width: 7.h, // Set a width for the circles
                             height: 7.h, // Set a height for the circles
                             decoration: BoxDecoration(
-                              color: isSelected ? Palette.whiteColor : Colors.transparent,
+                              color: isSelected
+                                  ? Palette.whiteColor
+                                  : Colors.transparent,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -188,7 +198,9 @@ class CalendarGrid extends ConsumerWidget {
                             width: 7.h,
                             height: 7.h,
                             decoration: BoxDecoration(
-                              color: isSelected ? Palette.strydeOrange : Colors.transparent,
+                              color: isSelected
+                                  ? Palette.strydeOrange
+                                  : Colors.transparent,
                               shape: BoxShape.circle,
                             ),
                           ),

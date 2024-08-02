@@ -60,7 +60,7 @@ class AppButton extends StatelessWidget {
               ? Text(text ?? '',
                   style: GoogleFonts.montserrat(
                     textStyle: TextStyle(
-                      fontSize: fontSize ?? 15.sp,
+                      fontSize: fontSize ?? 14.sp,
                       fontWeight: fontWeight ?? FontWeight.w600,
                       color: textColor ?? Palette.whiteColor,
                     ),

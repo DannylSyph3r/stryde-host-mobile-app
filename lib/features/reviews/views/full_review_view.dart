@@ -6,7 +6,7 @@ import 'package:stryde_mobile_app/features/home/providers/home_providers.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
-import 'package:stryde_mobile_app/utils/widgets/review_card.dart';
+import 'package:stryde_mobile_app/features/reviews/widgets/review_card.dart';
 
 class FullReviewView extends ConsumerStatefulWidget {
   const FullReviewView({super.key});

@@ -27,6 +27,7 @@ dependencies:
   image_picker: ^1.0.8
   image_cropper: ^6.0.0
   grouped_list: ^6.0.0
+  flutter_switch: ^0.3.2
 
 dev_dependencies:
   flutter_test:

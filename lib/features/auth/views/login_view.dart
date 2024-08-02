@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/auth/providers/auth_providers.dart';
 import 'package:stryde_mobile_app/features/auth/views/create_account_view.dart';
+import 'package:stryde_mobile_app/features/base_nav/wrapper/base_nav_wrapper.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
@@ -79,7 +80,7 @@ class _LoginViewState extends ConsumerState<LoginView>
           padding: 20.0.padV,
           child: Column(children: [
             Padding(
-              padding: 20.padH,
+              padding: 15.padH,
               child: "Login".txt24(fontW: F.w6).alignCenterLeft(),
             ),
             15.sbH,
@@ -129,7 +130,7 @@ class _LoginViewState extends ConsumerState<LoginView>
                               children: [
                                 20.sbH,
                                 Padding(
-                                  padding: 20.padH,
+                                  padding: 15.padH,
                                   child: TextInputWidget(
                                       hintText: "Email",
                                       controller: _emailController),
@@ -138,7 +139,7 @@ class _LoginViewState extends ConsumerState<LoginView>
                                 _passwordVisible.sync(
                                     builder: (context, passwordVisible, child) {
                                   return Padding(
-                                    padding: 20.padH,
+                                    padding: 15.padH,
                                     child: TextInputWidget(
                                       hintText: "Password",
                                       controller: _emailPasswordController,
@@ -166,7 +167,7 @@ class _LoginViewState extends ConsumerState<LoginView>
                               children: [
                                 20.sbH,
                                 Padding(
-                                  padding: 20.padH,
+                                  padding: 15.padH,
                                   child: TextInputWidget(
                                       hintText: "Phone Number",
                                       controller: _phoneNumberController),
@@ -175,7 +176,7 @@ class _LoginViewState extends ConsumerState<LoginView>
                                 _passwordVisible.sync(
                                     builder: (context, passwordVisible, child) {
                                   return Padding(
-                                    padding: 20.padH,
+                                    padding: 15.padH,
                                     child: TextInputWidget(
                                       hintText: "Password",
                                       controller:
@@ -303,7 +304,11 @@ class _LoginViewState extends ConsumerState<LoginView>
               ),
             ),
             170.sbH,
-            AppButton(text: "Login", onTap: () {})
+            AppButton(
+                text: "Login",
+                onTap: () {
+                  goTo(context: context, view: BaseNavWrapper());
+                })
           ]),
         ),
       ),

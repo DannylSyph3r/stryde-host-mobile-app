@@ -35,18 +35,19 @@ List<Widget> pages = [
 ];
 
 enum Nav {
-  home('Home', 'home'),
-  garage('Garage', 'garage'),
-  calendar('Calendar', 'calendar'),
-  messages('Messages', 'messages');
-
+  home('Home', 'home', 'home_active'),
+  garage('Garage', 'garage', 'garage_active'),
+  calendar('Calendar', 'calendar', 'calendar_active'),
+  messages('Messages', 'messages', 'messages_active');
 
   const Nav(
     this.label,
     this.icon,
+    this.iconActive,
   );
   final String label;
   final String icon;
+  final String iconActive;
 }
 
 // enum Nav{
@@ -55,17 +56,10 @@ enum Nav {
 //   calendar('calendar'),
 //   messages('messages'),
 
-
 //   const Nav(
 //     this.icon,
 //   );
 //   final String icon;
 // }
 
-
-List<Nav> nav = [
-  Nav.home,
-  Nav.garage,
-  Nav.calendar,
-  Nav.messages
-];
+List<Nav> nav = [Nav.home, Nav.garage, Nav.calendar, Nav.messages];

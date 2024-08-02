@@ -11,7 +11,7 @@ import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/container_list_tile.dart';
-import 'package:stryde_mobile_app/utils/widgets/review_card.dart';
+import 'package:stryde_mobile_app/features/reviews/widgets/review_card.dart';
 import 'package:stryde_mobile_app/utils/widgets/row_railer.dart';
 
 class CalendarEventDetailsView extends ConsumerStatefulWidget {
@@ -77,6 +77,14 @@ class _CalendarEventDetailsViewState
                 decoration: BoxDecoration(
                   color: Palette.buttonBG,
                   borderRadius: BorderRadius.all(Radius.circular(15.r)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      offset: const Offset(0, 4),
+                      blurRadius: 8.0,
+                      spreadRadius: 5.0,
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
@@ -170,7 +178,7 @@ class _CalendarEventDetailsViewState
                   PhosphorIconsFill.envelope,
                   size: 30.h,
                   color: Palette.strydeOrange,
-                ).tap(onTap: (){
+                ).tap(onTap: () {
                   goTo(context: context, view: ChatView());
                 }),
               ),

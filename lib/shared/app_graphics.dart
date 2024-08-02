@@ -32,4 +32,8 @@ abstract class AppGraphics {
   static const String garageIcon = 'garage';
   static const String messagesIcon = 'messages';
   static const String calendarIcon = 'calendar';
+  static const String homeActiveIcon = 'home_active';
+  static const String garageActiveIcon = 'garage_active';
+  static const String calendarActiveIcon = 'calendar_active';
+  static const String messagesActiveIcon = 'messages_active';
 }

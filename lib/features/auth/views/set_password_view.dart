@@ -56,7 +56,7 @@ class _SetPasswordViewState extends ConsumerState<SetPasswordView> {
                 Column(
                   children: [
                     10.sbH,
-                    AppTexts.setPassword.txt16().alignCenter(),
+                    AppTexts.setPassword.txt16(textAlign: TextAlign.center).alignCenter(),
                     20.sbH,
                     _passwordVisible.sync(
                         builder: (context, passwordVisible, child) {

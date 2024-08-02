@@ -106,17 +106,26 @@ class _GoalSelectionViewState extends ConsumerState<GoalSelectionView> {
   Widget buildRadioSection<T>(String title, ValueNotifier<T?> notifier,
       List<T> options, Map<T, String> optionTexts) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
       child: Container(
         padding: 20.padV,
         decoration: BoxDecoration(
-            color: Palette.buttonBG,
-            borderRadius: BorderRadius.all(Radius.circular(15.r))),
+          color: Palette.buttonBG,
+          borderRadius: BorderRadius.all(Radius.circular(15.r)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              offset: const Offset(0, 4),
+              blurRadius: 8.0,
+              spreadRadius: 5.0,
+            ),
+          ],
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: 20.padH,
+              padding: 15.padH,
               child: title.txt(size: 15.sp, fontW: F.w6),
             ),
             for (var option in options)
@@ -124,7 +133,7 @@ class _GoalSelectionViewState extends ConsumerState<GoalSelectionView> {
                 height: 40.h,
                 child: ListTile(
                   contentPadding: 20.padH,
-                  title: optionTexts[option]!.txt(size: 12.5.sp),
+                  title: optionTexts[option]!.txt(size: 12.sp),
                   trailing: ValueListenableBuilder<T?>(
                     valueListenable: notifier,
                     builder: (context, value, child) {

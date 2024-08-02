@@ -135,8 +135,8 @@ class ReviewCard extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Icon(
-                      PhosphorIconsBold.arrowBendUpLeft,
-                      size: 25.h,
+                      PhosphorIconsBold.chatCenteredText,
+                      size: 20.h,
                       color: Palette.strydeOrange,
                     ).alignCenterRight(),
                   ],

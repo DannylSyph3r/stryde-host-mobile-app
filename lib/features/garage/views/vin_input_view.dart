@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:stryde_mobile_app/features/base_nav/wrapper/base_nav_wrapper.dart';
 import 'package:stryde_mobile_app/features/garage/providers/garage_providers.dart';
 import 'package:stryde_mobile_app/features/garage/views/car_specfications_input_view.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
@@ -113,7 +114,7 @@ class _VINInputViewState extends ConsumerState<VINInputView> {
           color: Colors.transparent,
           isTitleCentered: true),
       body: Padding(
-        padding: 20.padH,
+        padding: 15.padH,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -147,15 +148,22 @@ class _VINInputViewState extends ConsumerState<VINInputView> {
                   // ),
                 ),
                 30.sbH,
-                "Can't Find VIN?".txt18(fontW: F.w6).alignCenterLeft(),
-                7.sbH,
-                "Check the various places:".txt14().alignCenterLeft(),
-                5.sbH,
-                "1. Driver's door".txt14().alignCenterLeft(),
-                5.sbH,
-                "2. Driver's side-dashboard".txt14().alignCenterLeft(),
-                5.sbH,
-                "3. Documentation".txt14().alignCenterLeft(),
+                Padding(
+                  padding: 15.padH,
+                  child: Column(
+                    children: [
+                      "Can't Find VIN?".txt18(fontW: F.w6).alignCenterLeft(),
+                      7.sbH,
+                      "Check the various places:".txt14().alignCenterLeft(),
+                      5.sbH,
+                      "1. Driver's door".txt14().alignCenterLeft(),
+                      5.sbH,
+                      "2. Driver's side-dashboard".txt14().alignCenterLeft(),
+                      5.sbH,
+                      "3. Documentation".txt14().alignCenterLeft(),
+                    ],
+                  ),
+                ),
               ],
             ),
             Column(
@@ -181,7 +189,7 @@ class _VINInputViewState extends ConsumerState<VINInputView> {
                     text: "Skip",
                     color: Palette.buttonBG,
                     onTap: () {
-                      // ... (skip button functionality remains the same)
+                      goTo(context: context, view: BaseNavWrapper());
                     },
                   ),
                 ),

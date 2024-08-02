@@ -23,21 +23,27 @@ class NavBarWidget extends ConsumerWidget {
       duration: 300.milliseconds,
       height: 43.h,
       decoration: BoxDecoration(
-          color: isSelected ? Palette.buttonBG : Colors.transparent
-          , borderRadius: BorderRadius.circular(23.r)),
+          color: isSelected ? Palette.buttonBG : Colors.transparent,
+          borderRadius: BorderRadius.circular(23.r)),
       // width: isSelected ? 130.h : 55.h,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 15.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            nav.icon.iconPng.myImage(
-              color: isSelected ? Palette.strydeOrange : Palette.whiteColor,
-              height: 35.h,
-              width: 35.h,
-            ),
+            isSelected
+                ? nav.iconActive.iconPng.myImage(
+                    height: 35.h,
+                    width: 35.h,
+                  )
+                : nav.icon.iconPng.myImage(
+                    height: 35.h,
+                    width: 35.h,
+                  ),
             2.sbW,
-            Visibility(visible: isSelected, child: nav.label.txt(size: 13.sp, fontW: F.w6))
+            Visibility(
+                visible: isSelected,
+                child: nav.label.txt(size: 13.sp, fontW: F.w6))
           ],
         ),
       ),

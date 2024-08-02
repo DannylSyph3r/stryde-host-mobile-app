@@ -35,6 +35,14 @@ class ChatMessageTile extends StatelessWidget {
             decoration: BoxDecoration(
               color: Palette.buttonBG,
               borderRadius: BorderRadius.circular(15.r),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  offset: const Offset(0, 4),
+                  blurRadius: 2.0,
+                  spreadRadius: 2.0,
+                ),
+              ],
             ),
             child: Padding(
               padding: EdgeInsets.only(
