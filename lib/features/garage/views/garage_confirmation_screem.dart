@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -26,10 +27,10 @@ class GarageConfirmationScreen extends ConsumerWidget {
               PhosphorIconsFill.checkCircle,
               size: 100.h,
               color: Palette.strydeOrange,
-            ),
+            ).animate().scaleY(duration: 250.milliseconds),
             30.sbH,
             AppTexts.garageVerifiationConfirmation
-                .txt16(textAlign: TextAlign.center)
+                .txt16(textAlign: TextAlign.center).animate().fadeIn(duration: 3.seconds),
           ]),
         ],
       ),
@@ -38,7 +39,7 @@ class GarageConfirmationScreen extends ConsumerWidget {
           onTap: () {
             ref.read(garageListProvider.notifier).state += 1;
             goToAndReplace(context: context, view: BaseNavWrapper());
-          }),
+          }).animate().fadeIn(duration: 3.seconds),
     ));
   }
 }

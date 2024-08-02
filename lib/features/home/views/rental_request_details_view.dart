@@ -116,9 +116,9 @@ class _RentalRequestDetailsViewState
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    "Accept".txt16(color: Palette.strydeOrange),
+                    "Reject".txt16(color: Palette.strydeOrange),
                     20.sbW,
-                    "Cancel".txt16(color: Palette.strydeOrange),
+                    "Accept".txt16(color: Palette.strydeOrange),
                   ],
                 ),
               ),

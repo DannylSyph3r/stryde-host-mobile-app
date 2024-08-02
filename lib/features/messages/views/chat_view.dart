@@ -53,13 +53,13 @@ class _ChatViewState extends ConsumerState<ChatView> {
                 children: [
                   SizedBox(
                           width: 160.w,
-                          child: "Ogunlana Tobore".txt14(
+                          child: "Makiado Kizunami".txt14(
                               fontW: F.w6,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left))
                       .alignCenterLeft(),
                   5.sbH,
-                  "09068781839"
+                  "08034567821"
                       .txt14(textAlign: TextAlign.left)
                       .alignCenterLeft(),
                 ],

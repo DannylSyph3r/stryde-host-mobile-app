@@ -7,6 +7,7 @@ import 'package:stryde_mobile_app/features/calendar/views/calendar_event_details
 import 'package:stryde_mobile_app/features/home/providers/home_providers.dart';
 import 'package:stryde_mobile_app/features/home/views/full_review_view.dart';
 import 'package:stryde_mobile_app/features/home/views/notifications_view.dart';
+import 'package:stryde_mobile_app/features/home/views/user_account_view.dart';
 import 'package:stryde_mobile_app/features/home/widgets/rental_display_card.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
@@ -57,10 +58,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                             ],
                           ),
                           child: Center(
-                            child: AppGraphics.memeoji.png
-                                .myImage(fit: BoxFit.contain),
-                          ),
-                        ),
+                              child: AppGraphics.memeoji.png
+                                  .myImage(fit: BoxFit.contain)),
+                        ).tap(onTap: () {
+                          goTo(context: context, view: UserAccountView());
+                        }),
                         10.sbW,
                         Flexible(
                           child: RichText(
@@ -103,7 +105,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       PhosphorIconsRegular.bellSimple,
                       color: Palette.whiteColor,
                     ),
-                  ).tap(onTap: (){
+                  ).tap(onTap: () {
                     goTo(context: context, view: NotificationsView());
                   }),
                 ],
@@ -142,11 +144,13 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         crossAxisAlignment: CrossAxisAlignment
                             .start, // Aligns text to the start
                         children: [
-                          "Mercedes Benz".txt18(fontW: F.w6, overflow: TextOverflow.ellipsis),
+                          "Mercedes Benz".txt18(
+                              fontW: F.w6, overflow: TextOverflow.ellipsis),
                           5.sbH, // Spacing between the name and model
                           "GLE 63".txt16(overflow: TextOverflow.ellipsis),
                           10.sbH,
-                          "Abuja".txt16(fontW: F.w6, overflow: TextOverflow.ellipsis),
+                          "Abuja".txt16(
+                              fontW: F.w6, overflow: TextOverflow.ellipsis),
                           10.sbH,
                           OptionSelectionContainerTile(
                             horizontalContentPadding: 5.w,
@@ -175,7 +179,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     ),
                   ],
                 ),
-              ).tap(onTap: (){
+              ).tap(onTap: () {
                 goTo(context: context, view: CalendarEventDetailsView());
               }),
               30.sbH,
@@ -222,7 +226,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
               ),
             )
           ]),
-          trailing: "View All".txt(size: 17.sp, fontW: F.w6, color: Palette.strydeOrange).tap(onTap: (){
+          trailing: "View All"
+              .txt(size: 17.sp, fontW: F.w6, color: Palette.strydeOrange)
+              .tap(onTap: () {
             ref.read(reviewVisibilityProvider.notifier).state = true;
             goTo(context: context, view: FullReviewView());
           }),

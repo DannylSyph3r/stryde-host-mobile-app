@@ -52,6 +52,7 @@ class OptionSelectionListTile extends StatelessWidget {
         subtitle: subtitleLabel?.txt(
             size: subtitleFontSize ?? 12.sp,
             fontW: subtitleFontWeight ?? F.w3,
+            overflow: TextOverflow.ellipsis,
             color: subtitleFontColor ??
                 Theme.of(context).textTheme.bodySmall?.color),
         leading: leadingIcon != null
@@ -67,6 +68,7 @@ class OptionSelectionListTile extends StatelessWidget {
             child: titleLabel.txt(
                 size: titleFontSize ?? 16.sp,
                 fontW: titleFontWeight ?? F.w3,
+                overflow: TextOverflow.ellipsis,
                 color: titleFontColor ??
                     Theme.of(context).textTheme.bodySmall?.color)),
         trailing: interactiveTrailing == false
@@ -75,6 +77,6 @@ class OptionSelectionListTile extends StatelessWidget {
                 size: 15.h,
                 color: Palette.strydeOrange,
               )
-            : interactiveTrailingWidget);
+            : interactiveTrailingWidget ?? const SizedBox.shrink());
   }
 }
