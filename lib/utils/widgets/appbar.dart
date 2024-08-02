@@ -14,7 +14,7 @@ AppBar customAppBar({
   double? fontSize,
   FontWeight? fontWeight,
   List<Widget>? actions,
-  TabBar? bottom,
+  PreferredSize? bottom,
   double? toolbarHeight,
   bool showBackButton = true,
   Color? color,

@@ -19,33 +19,27 @@ class NavBarWidget extends ConsumerWidget {
     int indexFromController = ref.watch(baseNavControllerProvider);
     bool isSelected = indexFromController == nav.index;
 
-    return SizedBox(
-      width: 50.w,
-      child: Column(
-        children: [
-          // Animated Item Indicator Container
-          AnimatedContainer(
-            duration: 350.milliseconds,
-            height: 5.h,
-            width: isSelected ? 50.w : 0,
-            decoration: BoxDecoration(
-              color: isSelected ? Palette.strydeOrange : Colors.transparent,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(25.r),
-                bottomRight: Radius.circular(25.r),
-              ),
+    return AnimatedContainer(
+      duration: 300.milliseconds,
+      height: 43.h,
+      decoration: BoxDecoration(
+          color: isSelected ? Palette.buttonBG : Colors.transparent
+          , borderRadius: BorderRadius.circular(23.r)),
+      // width: isSelected ? 130.h : 55.h,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 15.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            nav.icon.iconPng.myImage(
+              color: isSelected ? Palette.strydeOrange : Palette.whiteColor,
+              height: 35.h,
+              width: 35.h,
             ),
-          ),
-          10.sbH,
-
-          //! ICON
-
-          nav.icon.iconPng.myImage(
-            color: isSelected ? Palette.strydeOrange : Palette.whiteColor,
-            height: 40.h,
-            width: 40.h,
-          ),
-        ],
+            2.sbW,
+            Visibility(visible: isSelected, child: nav.label.txt(size: 13.sp, fontW: F.w6))
+          ],
+        ),
       ),
     ).gestureTap(
       onTap: () {

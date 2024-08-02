@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grouped_list/grouped_list.dart';
+import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_mobile_app/features/messages/models/chat_message_model.dart';
+import 'package:stryde_mobile_app/features/messages/views/messges_review_view.dart';
+import 'package:stryde_mobile_app/features/messages/widgets/bottom_chat_field.dart';
+import 'package:stryde_mobile_app/features/messages/widgets/reciever_message_bubble.dart';
+import 'package:stryde_mobile_app/features/messages/widgets/sender_message_bubble.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
+import 'package:stryde_mobile_app/utils/nav.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 
 class ChatView extends ConsumerStatefulWidget {
@@ -69,15 +77,75 @@ class _ChatViewState extends ConsumerState<ChatView> {
                     size: 22.h,
                   ),
                   10.sbW,
-                  Icon(
-                    PhosphorIconsBold.dotsThreeVertical,
-                    size: 22.h,
-                  ),
+                  // Icon(
+                  //   PhosphorIconsBold.dotsThreeVertical,
+                  //   size: 22.h,
+                  // ),
                 ],
               ),
             )
           ],
+          bottom: PreferredSize(
+              preferredSize: Size(double.infinity, 40.h),
+              child: Padding(
+                padding: 10.padV,
+                child: Center(
+                    child: "View Reviews"
+                        .txt16(color: Palette.strydeOrange)
+                        .tap(onTap: () {
+                  goTo(context: context, view: MessagesReviewView());
+                })),
+              )),
           context: context),
+      body: Column(
+        children: [
+          Expanded(
+            child: GroupedListView<ChatMessage, DateTime>(
+              elements: chatMessages,
+              groupBy: (ChatMessage chatMessageDisplay) {
+                return DateTime(
+                  chatMessageDisplay.postDate.year,
+                  chatMessageDisplay.postDate.month,
+                  chatMessageDisplay.postDate.day,
+                );
+              },
+              groupHeaderBuilder: (ChatMessage chatMessages) => Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.h),
+                child: DateFormat.yMMMd()
+                    .format(chatMessages.postDate)
+                    .txt12()
+                    .alignCenter(),
+              ),
+              itemBuilder:
+                  (BuildContext context, ChatMessage chatMessageDisplay) {
+                return Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                  child: Align(
+                    alignment:
+                        chatMessageDisplay.messageTag == MessageTypee.receiver
+                            ? Alignment.bottomRight
+                            : Alignment.topLeft,
+                    child:
+                        chatMessageDisplay.messageTag == MessageTypee.receiver
+                            ? ReceiverMessageBubble(
+                                messageContent: chatMessageDisplay.messageBody,
+                                messageTimeStamp: DateFormat.jm()
+                                    .format(chatMessageDisplay.postDate),
+                              )
+                            : SenderMessageBubble(
+                                messageContent: chatMessageDisplay.messageBody,
+                                messageTimeStamp: DateFormat.jm()
+                                    .format(chatMessageDisplay.postDate),
+                              ),
+                  ),
+                );
+              },
+            ),
+          ),
+          const BottomChatField(),
+        ],
+      ),
     );
   }
 }
