@@ -66,7 +66,7 @@ class _GarageViewState extends ConsumerState<GarageView> {
                     vehicleLocation: "Lagos Ikeja",
                     vehicleModel: "GLE 63",
                     vehicleDescription: AppTexts.carDescriptionPlaceHolder,
-                    fuelType: "Fuel",
+                    fuelType: "Petrol",
                     seatNumber: 4,
                     gearType: "Auto",
                     primaryColor: Palette.strydeOrange,

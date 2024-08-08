@@ -21,7 +21,7 @@ class FrostedGlassLoader extends StatelessWidget {
       child: Container(
         width: theWidth,
         height: theHeight,
-        color: Colors.transparent,
+        color: Colors.black.withOpacity(0.4),
         //we use Stack(); because we want the effects be on top of each other,
         //  just like layer in photoshop.
         child: Stack(
@@ -30,9 +30,9 @@ class FrostedGlassLoader extends StatelessWidget {
             BackdropFilter(
               filter: ImageFilter.blur(
                 //sigmaX is the Horizontal blur
-                sigmaX: 1.5,
+                sigmaX: 1.1,
                 //sigmaY is the Vertical blur
-                sigmaY: 1.5,
+                sigmaY: 1.1,
               ),
               //we use this container to scale up the blur effect to fit its
               //  parent, without this container the blur effect doesn't appear.
@@ -59,7 +59,7 @@ class FrostedGlassLoader extends StatelessWidget {
                 child: Column(
                     mainAxisAlignment: theChildAlignment!,
                     children: const [
-                  SpinKitFadingCircle(color: Palette.strydeOrange)
+                  SpinKitFadingCircle(color: Palette.strydeOrange, size: 40,)
                 ])),
           ],
         ),

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stryde_mobile_app/features/base_nav/wrapper/base_nav_wrapper.dart';
 import 'package:stryde_mobile_app/features/garage/providers/garage_providers.dart';
-import 'package:stryde_mobile_app/features/garage/views/car_specfications_input_view.dart';
+import 'package:stryde_mobile_app/features/garage/views/basic_vehicle_info_view.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
@@ -173,7 +173,7 @@ class _VINInputViewState extends ConsumerState<VINInputView> {
                   onTap: () {
                     if (_vinController.text.isNotEmpty) {
                       goTo(
-                          context: context, view: CarSpecificationsInputView());
+                          context: context, view: BasicVehicleInformationView());
                     } else {
                       showFlushBanner(
                           context: context,
@@ -193,7 +193,7 @@ class _VINInputViewState extends ConsumerState<VINInputView> {
                     },
                   ),
                 ),
-                50.sbH,
+                30.sbH,
               ],
             ),
           ],

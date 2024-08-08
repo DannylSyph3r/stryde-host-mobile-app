@@ -110,8 +110,9 @@ class TextInputWidget extends StatelessWidget {
           onChanged: onChanged,
           style: GoogleFonts.montserrat(
             textStyle: TextStyle(
+              color: isDarkMode ? Palette.whiteColor : Palette.blackColor,
               fontSize: inputtedTextSize ?? 16.sp,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w400,
             ),
           ),
           controller: controller,

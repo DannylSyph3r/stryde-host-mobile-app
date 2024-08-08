@@ -139,7 +139,9 @@ class _MessagesSelectionViewState extends ConsumerState<MessagesSelectionView> {
                   time: "06:54 AM",
                   lastMessage: AppTexts.rentalGreetingText,
                   profilePicture: AppGraphics.memeoji.png,
-                  onTileTap: () {},
+                  onTileTap: () {
+                    goTo(context: context, view: ChatView());
+                  },
                 );
               },
             ),

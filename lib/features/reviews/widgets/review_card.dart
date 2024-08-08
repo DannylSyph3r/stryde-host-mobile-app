@@ -21,7 +21,7 @@ class ReviewCard extends ConsumerWidget {
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
             height: 250.h,
-            width: 350.w, // Add a fixed width for the ReviewCard
+            width: 360.w, // Add a fixed width for the ReviewCard
             decoration: BoxDecoration(
               color: Palette.buttonBG,
               borderRadius: BorderRadius.all(Radius.circular(15.r)),
@@ -125,7 +125,7 @@ class ReviewCard extends ConsumerWidget {
           ),
           SizedBox(
             height: 250.h,
-            width: 350.w,
+            width: 360.w,
             child: Visibility(
               visible: replyVisibility,
               child: Padding(

@@ -118,7 +118,7 @@ class GarageList extends ConsumerWidget {
                           ),
                           5.sbH,
                           Row(
-                            children: [fuelType.txt12()],
+                            children: [fuelType.txt(size: 11.sp)],
                           )
                         ],
                       ),
