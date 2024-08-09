@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,42 +36,30 @@ class KycSliderView extends ConsumerStatefulWidget {
 }
 
 class _KycSliderViewState extends ConsumerState<KycSliderView> {
-  final CarouselController _carouselController = CarouselController();
   late final PageController _pageController;
-  late final ValueNotifier<int> _carouselIndexNotifier;
 
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final pageIndexProvider = ref.watch(carouselStateProvider.notifier).state;
-
-    _pageController = PageController(initialPage: pageIndexProvider);
-    _carouselIndexNotifier = ValueNotifier<int>(pageIndexProvider);
-
-    _carouselIndexNotifier.addListener(() {
-      _pageController.animateToPage(
-        _carouselIndexNotifier.value,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    });
+    _pageController = PageController(viewportFraction: 0.73);
   }
 
   @override
   void dispose() {
-    _carouselIndexNotifier.dispose();
     _pageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final carouselIndexProvider = ref.watch(carouselStateProvider.notifier);
+    final currentIndex = ref.watch(carouselStateProvider);
+
+    // Jump to the current page index only if it's not already set
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_pageController.hasClients) {
+        _pageController.jumpToPage(currentIndex);
+      }
+    });
     return Scaffold(
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -90,102 +77,51 @@ class _KycSliderViewState extends ConsumerState<KycSliderView> {
                 child: AppTexts.kycMainBody.txt(size: 13.sp),
               ),
               30.sbH,
-              ValueListenableBuilder<int>(
-                valueListenable: _carouselIndexNotifier,
-                builder: (context, currentIndex, child) {
-                  return CarouselSlider(
-                    options: CarouselOptions(
-                      initialPage: carouselIndexProvider.state,
-                      scrollPhysics: const NeverScrollableScrollPhysics(),
-                      height: constraints.maxHeight * 0.57,
-                      aspectRatio: 16 / 9,
-                      viewportFraction: 0.78,
-                      enlargeCenterPage: true,
-                      onPageChanged: (index, reason) {
-                        _carouselIndexNotifier.value = index;
-                      },
-                    ),
-                    carouselController: _carouselController,
-                    items: sliderContentList.map((slide) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return Container(
-                            padding: EdgeInsets.symmetric(horizontal: 15.w),
-                            width: constraints.maxWidth,
-                            decoration: BoxDecoration(
-                              color: Palette.buttonBG,
-                              borderRadius: BorderRadius.circular(20.r),
-                              border: Border.all(
-                                width: 1.5,
-                                color: Palette.strydeOrange,
-                              ),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(top: 20.h),
-                                  clipBehavior: Clip.hardEdge,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.r),
-                                  ),
-                                  child: Image.asset(
-                                    slide.imagePath.png,
-                                    fit: BoxFit.cover,
-                                    height: 200.h,
-                                  ),
-                                ),
-                                30.sbH,
-                                slide.slideHeader
-                                    .txt16(fontW: F.w8)
-                                    .alignCenterLeft(),
-                                15.sbH,
-                                slide.slideBody.txt(size: 15.sp),
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    }).toList(),
-                  );
-                },
-              ),
-              20.sbH,
               SizedBox(
-                height: 1.h,
-                child: PageView(
+                height: constraints.maxHeight * 0.57,
+                child: PageView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
                   controller: _pageController,
-                  children: List.generate(sliderContentList.length,
-                      (index) => const SizedBox.shrink()),
+                  itemCount: sliderContentList.length,
+                  itemBuilder: (context, index) {
+                    double scale = currentIndex == index ? 1.0 : 0.9;
+                    return TweenAnimationBuilder(
+                      tween: Tween<double>(begin: scale, end: scale),
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.easeOutCubic,
+                      builder: (context, value, child) {
+                        return Transform.scale(
+                          scale: value,
+                          child: child,
+                        );
+                      },
+                      child: _buildSliderItem(sliderContentList[index]),
+                    );
+                  },
                 ),
               ),
-              ValueListenableBuilder<int>(
-                valueListenable: _carouselIndexNotifier,
-                builder: (context, pageIndex, child) {
-                  return SmoothPageIndicator(
-                    effect: WormEffect(
-                      dotHeight: 12.h,
-                      dotWidth: 12.w,
-                      spacing: 13.w,
-                      dotColor: Palette.whiteColor.withOpacity(0.5),
-                      activeDotColor: Palette.strydeOrange,
-                    ),
-                    controller: _pageController,
-                    count: sliderContentList.length,
-                  ).alignCenter();
-                },
-              ),
+              20.sbH,
+              SmoothPageIndicator(
+                effect: WormEffect(
+                  dotHeight: 12.h,
+                  dotWidth: 12.w,
+                  spacing: 13.w,
+                  dotColor: Palette.whiteColor.withOpacity(0.5),
+                  activeDotColor: Palette.strydeOrange,
+                ),
+                controller: _pageController,
+                count: sliderContentList.length,
+              ).alignCenter(),
               40.sbH,
               AppButton(
                 text: "Proceed",
                 onTap: () {
-                  if (carouselIndexProvider.state == 0) {
+                  final currentPage = ref.read(carouselStateProvider);
+                  if (currentPage == 0) {
                     goTo(context: context, view: AccountTypeSelectionView());
-                  }
-                  if (carouselIndexProvider.state == 1) {
+                  } else if (currentPage == 1) {
                     goTo(context: context, view: GoalSelectionView());
-                  }
-                  if (carouselIndexProvider.state == 2) {
+                  } else if (currentPage == 2) {
                     ref.read(kycGarageProvider.notifier).state = true;
                     goTo(context: context, view: VINInputView());
                   }
@@ -194,6 +130,43 @@ class _KycSliderViewState extends ConsumerState<KycSliderView> {
             ],
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildSliderItem(SliderContent content) {
+    return Container(
+      width: 300.w,
+      margin: EdgeInsets.symmetric(horizontal: 5.w),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      decoration: BoxDecoration(
+        color: Palette.buttonBG,
+        borderRadius: BorderRadius.circular(20.r),
+        border: Border.all(
+          width: 1.5,
+          color: Palette.strydeOrange,
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 20.h),
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            child: Image.asset(
+              content.imagePath.png,
+              fit: BoxFit.cover,
+              height: 180.h,
+            ),
+          ),
+          30.sbH,
+          content.slideHeader.txt16(fontW: F.w8).alignCenterLeft(),
+          15.sbH,
+          content.slideBody.txt(size: 15.sp),
+        ],
       ),
     );
   }

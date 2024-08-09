@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stryde_mobile_app/features/auth/views/create_account_view.dart';
-// import 'package:stryde_mobile_app/features/auth/views/create_account_view.dart';
 import 'package:stryde_mobile_app/features/auth/views/login_view.dart';
-import 'package:stryde_mobile_app/features/base_nav/wrapper/base_nav_wrapper.dart';
+import 'package:stryde_mobile_app/features/auth/widgets/video_background.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_constants.dart';
@@ -22,33 +21,39 @@ class ChooseAuthRouteView extends ConsumerWidget {
     return Scaffold(
       body: Stack(
         children: [
-          AppGraphics.authBG.png.myImage(
-              height: height(context),
-              width: width(context),
-              fit: BoxFit.cover),
-          FrostedGlass(theWidth: width(context), theHeight: height(context)),
+          VideoBackground(
+            // Use your VideoBackground widget here
+            child: FrostedGlass(
+              theWidth: width(context),
+              theHeight: height(context),
+              glassTint: Palette.blackColor.withOpacity(0.6),
+            ),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 20.h),
             child: VerticalRailer(
               columnPadding: 10.padV,
               middle: AppGraphics.strydeLogo.png.myImage(),
-              bottom: Column(mainAxisSize: MainAxisSize.min, children: [
-                AppButton(
-                    text: "Sign up",
-                    onTap: () {
-                      // goTo(context: context, view: BaseNavWrapper());
-                      goTo(context: context, view: CreateAccountView());
-                    }),
-                15.sbH,
-                AppButton(
-                    color: Palette.buttonBG,
-                    text: "Login",
-                    onTap: () {
-                      goTo(context: context, view: LoginView());
-                    })
-              ]),
+              bottom: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AppButton(
+                      text: "Sign up",
+                      onTap: () {
+                        goToAndReplace(
+                            context: context, view: CreateAccountView());
+                      }),
+                  15.sbH,
+                  AppButton(
+                      color: Palette.buttonBG,
+                      text: "Login",
+                      onTap: () {
+                        goToAndReplace(context: context, view: LoginView());
+                      })
+                ],
+              ),
             ).alignCenter(),
-          )
+          ),
         ],
       ),
     );

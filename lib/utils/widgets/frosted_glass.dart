@@ -4,11 +4,13 @@ import 'dart:ui';
 class FrostedGlass extends StatelessWidget {
   final double theWidth;
   final double theHeight;
+  final Color? glassTint;
   final MainAxisAlignment? theChildAlignment;
   const FrostedGlass({
     Key? key,
     required this.theWidth,
     required this.theHeight,
+    this.glassTint,
     this.theChildAlignment = MainAxisAlignment.center,
   }) : super(key: key);
 
@@ -17,7 +19,7 @@ class FrostedGlass extends StatelessWidget {
     return Container(
       width: theWidth,
       height: theHeight,
-      color: Colors.transparent,
+      color: glassTint ?? Colors.transparent,
       //we use Stack(); because we want the effects be on top of each other,
       //  just like layer in photoshop.
       child: Stack(

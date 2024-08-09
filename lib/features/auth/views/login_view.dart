@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:stryde_mobile_app/features/auth/providers/auth_providers.dart';
 import 'package:stryde_mobile_app/features/auth/views/create_account_view.dart';
 import 'package:stryde_mobile_app/features/base_nav/wrapper/base_nav_wrapper.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
@@ -13,7 +12,6 @@ import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
-import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/button.dart';
 import 'package:stryde_mobile_app/utils/widgets/text_input.dart';
 
@@ -33,22 +31,8 @@ class _LoginViewState extends ConsumerState<LoginView>
   final TextEditingController _phoneNumberPasswordController =
       TextEditingController();
   final ValueNotifier _passwordVisible = false.notifier;
-  late TabController _loginTabController;
 
   void passwordVisibility() => _passwordVisible.value = !_passwordVisible.value;
-
-  @override
-  void initState() {
-    super.initState();
-    _loginTabController = TabController(length: 2, vsync: this);
-    _loginTabController.addListener(_handleTabChange);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    ref.watch(loginTabStateProvider);
-  }
 
   @override
   void dispose() {
@@ -56,155 +40,64 @@ class _LoginViewState extends ConsumerState<LoginView>
     _emailPasswordController.dispose();
     _phoneNumberController.dispose();
     _phoneNumberPasswordController.dispose();
-    _loginTabController.dispose();
     super.dispose();
-  }
-
-  void _handleTabChange() {
-    if (_loginTabController.indexIsChanging) {
-      // This is called when the tab is changing
-      final currentIndex = _loginTabController.index;
-      // Do something based on the current tab index
-      ref.read(loginTabStateProvider.notifier).state = currentIndex.toInt();
-      "Tab $currentIndex selected".log();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(
-          title: "", context: context, implyLeading: true, toolbarHeight: 60.h),
       body: SingleChildScrollView(
         child: Padding(
           padding: 20.0.padV,
           child: Column(children: [
+            80.sbH,
             Padding(
               padding: 15.padH,
               child: "Login".txt24(fontW: F.w6).alignCenterLeft(),
             ),
             15.sbH,
-            DefaultTabController(
-                length: 2,
-                child: Column(
-                  children: [
-                    TabBar(
-                      controller: _loginTabController,
-                      tabAlignment: TabAlignment.center,
-                      indicatorSize: TabBarIndicatorSize.label,
-                      dividerColor: Colors.transparent,
-                      indicator: const BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            width: 2,
-                            color: Palette.strydeOrange,
+            Column(
+              children: [
+                SizedBox(
+                  height: 170.h,
+                  child: Column(
+                    children: [
+                      20.sbH,
+                      Padding(
+                        padding: 15.padH,
+                        child: TextInputWidget(
+                            hintText: "Email", controller: _emailController),
+                      ),
+                      10.sbH,
+                      _passwordVisible.sync(
+                          builder: (context, passwordVisible, child) {
+                        return Padding(
+                          padding: 15.padH,
+                          child: TextInputWidget(
+                            hintText: "Password",
+                            controller: _emailPasswordController,
+                            obscuretext: !_passwordVisible.value,
+                            suffixIcon: Padding(
+                                padding: 15.padH,
+                                child: Icon(
+                                  passwordVisible
+                                      ? PhosphorIconsBold.eyeSlash
+                                      : PhosphorIconsBold.eye,
+                                  size: 20.h,
+                                  color: _passwordVisible.value == false
+                                      ? Palette.strydeOrange
+                                      : Palette.whiteColor,
+                                )).tap(onTap: () {
+                              passwordVisibility();
+                            }),
                           ),
-                        ),
-                      ),
-                      labelColor: Palette.strydeOrange,
-                      unselectedLabelColor: Palette.whiteColor,
-                      labelStyle: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            fontSize: 17.sp, fontWeight: FontWeight.w600),
-                      ),
-                      unselectedLabelStyle: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                          fontSize: 17.sp,
-                        ),
-                      ),
-                      tabs: const [
-                        Tab(
-                          text: 'Email',
-                        ),
-                        Tab(
-                          text: 'Phone Number',
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 170.h,
-                      child: TabBarView(
-                          controller: _loginTabController,
-                          children: [
-                            Column(
-                              children: [
-                                20.sbH,
-                                Padding(
-                                  padding: 15.padH,
-                                  child: TextInputWidget(
-                                      hintText: "Email",
-                                      controller: _emailController),
-                                ),
-                                10.sbH,
-                                _passwordVisible.sync(
-                                    builder: (context, passwordVisible, child) {
-                                  return Padding(
-                                    padding: 15.padH,
-                                    child: TextInputWidget(
-                                      hintText: "Password",
-                                      controller: _emailPasswordController,
-                                      obscuretext: !_passwordVisible.value,
-                                      suffixIcon: Padding(
-                                          padding: 15.padH,
-                                          child: Icon(
-                                            passwordVisible
-                                                ? PhosphorIconsBold.eyeSlash
-                                                : PhosphorIconsBold.eye,
-                                            size: 20.h,
-                                            color:
-                                                _passwordVisible.value == false
-                                                    ? Palette.strydeOrange
-                                                    : Palette.whiteColor,
-                                          )).tap(onTap: () {
-                                        passwordVisibility();
-                                      }),
-                                    ),
-                                  );
-                                }),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                20.sbH,
-                                Padding(
-                                  padding: 15.padH,
-                                  child: TextInputWidget(
-                                      hintText: "Phone Number",
-                                      controller: _phoneNumberController),
-                                ),
-                                10.sbH,
-                                _passwordVisible.sync(
-                                    builder: (context, passwordVisible, child) {
-                                  return Padding(
-                                    padding: 15.padH,
-                                    child: TextInputWidget(
-                                      hintText: "Password",
-                                      controller:
-                                          _phoneNumberPasswordController,
-                                      obscuretext: !_passwordVisible.value,
-                                      suffixIcon: Padding(
-                                          padding: 15.padH,
-                                          child: Icon(
-                                            passwordVisible
-                                                ? PhosphorIconsBold.eyeSlash
-                                                : PhosphorIconsBold.eye,
-                                            size: 20.h,
-                                            color:
-                                                _passwordVisible.value == false
-                                                    ? Palette.strydeOrange
-                                                    : Palette.whiteColor,
-                                          )).tap(onTap: () {
-                                        passwordVisibility();
-                                      }),
-                                    ),
-                                  );
-                                }),
-                              ],
-                            )
-                          ]),
-                    )
-                  ],
-                )),
+                        );
+                      }),
+                    ],
+                  ),
+                )
+              ],
+            ),
             10.sbH,
             "or login with".txt(size: 17.sp, color: Palette.whiteColor),
             20.sbH,
@@ -240,36 +133,6 @@ class _LoginViewState extends ConsumerState<LoginView>
                     ),
                   )),
                 ),
-                // 15.sbW,
-                // Container(
-                //   height: 47.h,
-                //   width: 120.w,
-                //   decoration: BoxDecoration(
-                //       color: Palette.buttonBG,
-                //       borderRadius: BorderRadius.all(Radius.circular(21.r))),
-                //   child: Center(
-                //       child: Padding(
-                //     padding:
-                //         EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                //     child: Row(
-                //       mainAxisAlignment: MainAxisAlignment.center,
-                //       children: [
-                //         SvgPicture.asset(
-                //           AppGraphics.appleIcon.iconSvg,
-                //           height: 27.h,
-                //         ),
-                //         10.sbW,
-                //         Column(
-                //           mainAxisSize: MainAxisSize.min,
-                //           children: [
-                //             3.sbH,
-                //             "Apple".txt14(fontW: F.w6),
-                //           ],
-                //         )
-                //       ],
-                //     ),
-                //   )),
-                // )
               ],
             ),
             20.sbH,
