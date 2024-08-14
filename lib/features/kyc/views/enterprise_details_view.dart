@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:stryde_mobile_app/features/kyc/views/confirmation_screen.dart';
-import 'package:stryde_mobile_app/features/kyc/widgets/doc_picker_modalsheet.dart';
+import 'package:stryde_mobile_app/features/kyc/views/selfie_demand_view.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_constants.dart';
@@ -14,25 +13,28 @@ import 'package:stryde_mobile_app/utils/widgets/button.dart';
 import 'package:stryde_mobile_app/utils/widgets/list_tile.dart';
 import 'package:stryde_mobile_app/utils/widgets/text_input.dart';
 
-class CustomerDetailsView extends ConsumerStatefulWidget {
-  const CustomerDetailsView({super.key});
+class EnterpriseDetailsView extends ConsumerStatefulWidget {
+  const EnterpriseDetailsView({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      _CustomerDetailsViewState();
+      _EnterpriseDetailsViewState();
 }
 
-class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
+class _EnterpriseDetailsViewState extends ConsumerState<EnterpriseDetailsView> {
   final List<String> idTypes = [
     "Drivers License",
     "International Passport",
-    "NIN"
+    "National Identification Number"
   ];
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _cacController = TextEditingController();
   final TextEditingController _idTypeController = TextEditingController();
+  final TextEditingController _idNumberController = TextEditingController();
+  final ValueNotifier<String> _idTypeSelection = "".notifier;
 
   @override
   void dispose() {
@@ -40,7 +42,10 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
     _addressController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
+    _cacController.dispose();
     _idTypeController.dispose();
+    _idNumberController.dispose();
+    _idTypeSelection.dispose();
     super.dispose();
   }
 
@@ -49,7 +54,7 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: customAppBar(
-          title: "Profile",
+          title: "Enterprise Profile",
           context: context,
           implyLeading: true,
           toolbarHeight: 60.h),
@@ -79,19 +84,41 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
                 ),
                 50.sbH,
                 TextInputWidget(
-                    hintText: "Fullname / Company Name",
+                    hintText: "Full Company/Business Name",
                     controller: _nameController),
                 15.sbH,
                 TextInputWidget(
-                    hintText: "Full Address", controller: _addressController),
+                    hintText: "Company/Business Address",
+                    controller: _addressController),
                 15.sbH,
                 TextInputWidget(
                     hintText: "Email", controller: _emailController),
                 15.sbH,
                 TextInputWidget(
-                    hintText: "Phone Number", controller: _phoneController),
+                    hintText: "Phone Number",
+                    prefix: Padding(
+                      padding: 12.5.padA,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            border: Border(
+                                right:
+                                    BorderSide(color: Palette.strydeOrange))),
+                        height: 26.h,
+                        width: 55.w,
+                        child: Center(
+                            child: Padding(
+                          padding: 4.0.padH,
+                          child: "+234".txt16().alignCenterLeft(),
+                        )),
+                      ),
+                    ),
+                    controller: _phoneController,
+                    keyboardType: TextInputType.number),
                 15.sbH,
                 TextInputWidget(
+                    hintText: "CAC Number", controller: _cacController),
+                15.sbH,
+                 TextInputWidget(
                   isTextFieldEnabled: false,
                   hintText: "Identification Type",
                   controller: _idTypeController,
@@ -154,6 +181,7 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
                                             _idTypeController.text =
                                                 idTypesDisplay;
                                             goBack(context);
+                                            _idTypeSelection.value = idTypesDisplay;
                                           },
                                         );
                                       })),
@@ -163,9 +191,24 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
                           )));
                 }),
                 15.sbH,
+                _idTypeSelection.sync(
+                  builder: (context, isVisible, child) {
+                    return Visibility(
+                      visible: isVisible != "",
+                      child: Column(
+                        children: [
+                          TextInputWidget(
+                              hintText: "Identification Number",
+                              controller: _idNumberController),
+                          15.sbH,
+                        ],
+                      ),
+                    );
+                  }
+                ),
                 Container(
                   width: double.infinity,
-                  height: 50.h,
+                  height: 53.h,
                   decoration: BoxDecoration(
                       color: Palette.buttonBG,
                       borderRadius: BorderRadius.all(Radius.circular(15.r)),
@@ -188,11 +231,7 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
                     backgroundColor: Colors.transparent,
                     context: context,
                     builder: (context) => Wrap(
-                      children: [
-                        DocPickerModalBottomSheet(onTakeDocPicture: () {
-                          goBack(context);
-                        })
-                      ],
+                      children: [],
                     ),
                   );
                 }),
@@ -200,7 +239,7 @@ class _CustomerDetailsViewState extends ConsumerState<CustomerDetailsView> {
                 AppButton(
                     text: "Continue",
                     onTap: () {
-                      goTo(context: context, view: ProcessConfirmationScreen());
+                      goTo(context: context, view: SelfieDemandView());
                     }),
                 30.sbH
               ],

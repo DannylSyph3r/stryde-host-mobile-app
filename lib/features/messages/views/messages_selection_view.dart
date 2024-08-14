@@ -114,7 +114,7 @@ class _MessagesSelectionViewState extends ConsumerState<MessagesSelectionView> {
               },
               itemBuilder: (context, index) {
                 return ChatMessageTile(
-                  name: "Slethware Kazumi",
+                  name: "Slethware Kazumi Namikazi dominictio",
                   date: "Today",
                   time: "06:54 AM",
                   lastMessage: AppTexts.rentalGreetingText,

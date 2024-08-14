@@ -72,9 +72,8 @@ class _NotificationDisplayTileState
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
       width: double.infinity,
-      height: 110.h, // Increased height to accommodate both dates
       decoration: BoxDecoration(
         color: Palette.buttonBG,
         borderRadius: BorderRadius.all(Radius.circular(15.r)),

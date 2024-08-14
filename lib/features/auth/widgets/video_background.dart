@@ -17,6 +17,7 @@ class VideoBackground extends ConsumerStatefulWidget {
 
 class _VideoBackgroundState extends ConsumerState<VideoBackground> {
   late VideoPlayerController _controller;
+  bool _isInitialized = false;
 
   @override
   void initState() {
@@ -24,6 +25,7 @@ class _VideoBackgroundState extends ConsumerState<VideoBackground> {
     _controller = VideoPlayerController.asset('lib/assets/images/video_bg.mp4')
       ..initialize().then((_) {
         setState(() {
+          _isInitialized = true; // Mark as initialized
           _controller.play();
           _controller.setLooping(true);
         });
@@ -35,8 +37,7 @@ class _VideoBackgroundState extends ConsumerState<VideoBackground> {
 
   @override
   void dispose() {
-    _controller.pause();
-    _controller.dispose();
+    _controller.pause(); // Pause instead of dispose
     super.dispose();
   }
 
@@ -45,33 +46,24 @@ class _VideoBackgroundState extends ConsumerState<VideoBackground> {
     return Stack(
       fit: StackFit.expand,
       children: [
-        FutureBuilder<void>(
-          future: _controller.initialize(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return FittedBox(
+        _isInitialized
+            ? FittedBox(
                 fit: BoxFit.cover,
                 child: SizedBox(
                   width: _controller.value.size.width,
                   height: _controller.value.size.height,
                   child: VideoPlayer(_controller),
                 ),
-              );
-            } else if (snapshot.hasError) {
-              // Handle error state
-              return Container(color: Palette.blackColor);
-            } else {
-              return Container(
+              )
+            : Container(
                 color: Palette.blackColor,
                 child: const Center(
-                    child: SpinKitFadingCircle(
-                  color: Palette.strydeOrange,
-                  size: 40,
-                )),
-              ); // Loading placseholder
-            }
-          },
-        ),
+                  child: SpinKitFadingCircle(
+                    color: Palette.strydeOrange,
+                    size: 40,
+                  ),
+                ),
+              ),
         widget.child,
       ],
     );

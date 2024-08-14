@@ -25,6 +25,9 @@ abstract class AppTexts {
   static const String individualDescription = "If you are looking towards providing your services as an individual business.";
   static const String enterpriseDescription = "If you are looking towards expanding your rental business.";
   static const String profileImageInstruction = "Provide a clear portrait picture of yourself, it should be taken with a clear background.";
+  static const String selfieDemandDescription = "Congratulations on completing the KYC verification process! To finalize your registration, please take a selfie for verification.";
+  static const String enterpriseProfileImageInstruction = "You can use a picture of your business logo if you would prefer to, if not, please provide a clear portrait picture of yourself, it should be taken with a clear background.";
+  static const String selfieDemandEnterpriseDescription = "Thank you for completing the KYC verification process for your enterprise account! To proceed, we need a clear selfie of you as a representative.";
   static const String verfiicationConfirmation = "Your Credentials have been sent in for Verfication! Proceed with registration!";
 
   static const String financialObjectivesHeaderText = "What are your current financial objectives related to renting out your car?";
@@ -60,6 +63,7 @@ abstract class AppTexts {
   static const String securityDescription = "This is necessary to ensure the safety of your vehicle";
 
   static const String garageVerifiationConfirmation = "Your Car Specifications have been sent in for Verfication!";
+  static const String vehicleImageAttachmentInfo = "Please attach images of the front, sides and rear views of your vehicle";
   static const String carDescriptionPlaceHolder = "This sleek, all-electric sedan offers an impressive range of up to 358 miles on a single charge. This sleek, all-electric sedan offers an impressive range of up to 358 miles on a single charge";
 
   static const String reviewPlaceholderText = "The car was perfect and matched the descrpition but it was quite diffcult communicating with the owner.";

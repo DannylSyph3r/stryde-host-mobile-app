@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/garage/providers/garage_providers.dart';
-import 'package:stryde_mobile_app/features/garage/views/vin_input_view.dart';
+import 'package:stryde_mobile_app/features/garage/views/basic_vehicle_info_view.dart';
 import 'package:stryde_mobile_app/features/garage/widgets/garage_list.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
@@ -86,7 +86,7 @@ class _GarageViewState extends ConsumerState<GarageView> {
           ),
         ),
       ).tap(onTap: () {
-        goTo(context: context, view: VINInputView());
+        goTo(context: context, view: BasicVehicleInformationView());
       }),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

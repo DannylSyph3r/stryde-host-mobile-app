@@ -1,16 +1,21 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_mobile_app/features/base_nav/wrapper/base_nav_wrapper.dart';
 import 'package:stryde_mobile_app/features/garage/notifiers/garage_notifiers.dart';
 import 'package:stryde_mobile_app/features/garage/providers/garage_providers.dart';
 import 'package:stryde_mobile_app/features/garage/views/added_vehicle_info_view.dart';
-import 'package:stryde_mobile_app/features/kyc/widgets/doc_picker_modalsheet.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_constants.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
+import 'package:stryde_mobile_app/utils/snack_bar.dart';
+import 'package:stryde_mobile_app/utils/type_defs.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/button.dart';
 import 'package:stryde_mobile_app/utils/widgets/frosted_glass_loader.dart';
@@ -86,11 +91,30 @@ class _BasicVehicleInformationViewState
   final TextEditingController _fuelTypeController = TextEditingController();
   final TextEditingController _transmissionController = TextEditingController();
   final TextEditingController _vehicleTypeController = TextEditingController();
-  final TextEditingController _licensePlateController = TextEditingController();
   final ValueNotifier<SecurityQuestions?> _insuranceNotifier =
       ValueNotifier<SecurityQuestions?>(null);
   final ValueNotifier<SecurityQuestions?> _trackerNotifier =
       ValueNotifier<SecurityQuestions?>(null);
+
+  Future<void> pickImage() async {
+    try {
+      final result = await FilePicker.platform
+          .pickFiles(type: FileType.image, allowMultiple: true);
+
+      if (result == null || result.files.isEmpty) {
+        return;
+      }
+
+      final fileTemp = File(result.files.single.path!);
+      // Check if the provider is provided before updating the state
+      fileTemp.log();
+    } catch (e) {
+      showFlushBanner(
+          context: context,
+          theMessage: "An Error Occured",
+          theType: NotificationType.failure);
+    }
+  }
 
   @override
   void dispose() {
@@ -102,7 +126,6 @@ class _BasicVehicleInformationViewState
     _transmissionController.dispose();
     _vehicleTypeController.dispose();
     _insuranceNotifier.dispose();
-    _licensePlateController.dispose();
     _trackerNotifier.dispose();
     super.dispose();
   }
@@ -116,7 +139,8 @@ class _BasicVehicleInformationViewState
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
           decoration: BoxDecoration(
               color: Palette.buttonBG,
-              borderRadius: BorderRadius.all(Radius.circular(15.r))),
+              borderRadius: BorderRadius.all(Radius.circular(15.r)),
+              border: Border.all(color: Palette.greyColor)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -202,10 +226,15 @@ class _BasicVehicleInformationViewState
   @override
   Widget build(BuildContext context) {
     final carMakeList = ref.watch(garageCarMakeProvider);
+    final kycGarageState = ref.watch(kycGarageProvider);
     return Stack(
       children: [
         Scaffold(
           appBar: customAppBar(
+              overrideBackButtonAction: true,
+              backFunction: () {
+                ref.invalidate(garageCarMakeProvider);
+              },
               title: "Car Details",
               context: context,
               toolbarHeight: 70.h,
@@ -583,12 +612,17 @@ class _BasicVehicleInformationViewState
                                                   : trim.modelTrim,
                                               onTileTap: () {
                                                 _vehicleTypeController.clear();
-                                                _trimController.text =
-                                                    (trim.modelTrim == ""
-                                                        ? trim.modelName
-                                                        : trim.modelTrim);
-                                                _vehicleTypeController.text =
-                                                    trim.modelBody;
+                                                _trimController.text = (trim
+                                                            .modelTrim ==
+                                                        ""
+                                                    ? "${trim.modelName} (${trim.modelYear}) (${trim.modelBody})"
+                                                    : trim.modelTrim);
+                                                trim.modelBody == ""
+                                                    ? _vehicleTypeController
+                                                            .text =
+                                                        "Not Available. Select a Vehicle Type."
+                                                    : _vehicleTypeController
+                                                        .text = trim.modelBody;
                                                 goBack(context);
                                               },
                                             );
@@ -682,11 +716,6 @@ class _BasicVehicleInformationViewState
                             ),
                           )));
                 }),
-                15.sbH,
-                TextInputWidget(
-                  hintText: "License Plate Number",
-                  controller: _licensePlateController,
-                ),
                 15.sbH,
                 TextInputWidget(
                   isTextFieldEnabled: false,
@@ -839,7 +868,15 @@ class _BasicVehicleInformationViewState
                             ),
                           )));
                 }),
-                15.sbH,
+                30.sbH,
+                "Vehicle Images"
+                    .txt16(fontW: F.w6, textAlign: TextAlign.left)
+                    .alignCenterLeft(),
+                5.sbH,
+                AppTexts.vehicleImageAttachmentInfo
+                    .txt14(textAlign: TextAlign.left)
+                    .alignCenterLeft(),
+                20.sbH,
                 Container(
                   width: double.infinity,
                   height: 50.h,
@@ -858,16 +895,7 @@ class _BasicVehicleInformationViewState
                       "Attach Vehicle Images".txt16()
                     ],
                   ),
-                ).tap(onTap: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) => DocPickerModalBottomSheet(
-                      onTakeDocPicture: () {
-                        goBack(context);
-                      },
-                    ),
-                  );
-                }),
+                ).tap(onTap: () {}),
                 30.sbH,
                 "Security"
                     .txt16(fontW: F.w6, textAlign: TextAlign.left)
@@ -882,14 +910,28 @@ class _BasicVehicleInformationViewState
                 buildSecurityRadioSection(
                     "Do you have a tracker installed?", _trackerNotifier),
                 30.sbH,
-                AppButton(
-                    text: "Proceed",
-                    onTap: () {
-                      ref.invalidate(kycGarageProvider);
-                      goTo(
-                          context: context,
-                          view: AdditionalVehicleInformationView());
-                    }),
+                Column(
+                  children: [
+                    AppButton(
+                        text: "Proceed",
+                        onTap: () {
+                          goTo(
+                              context: context,
+                              view: AdditionalVehicleInformationView());
+                        }),
+                    20.sbH,
+                    Visibility(
+                      visible: kycGarageState,
+                      child: AppButton(
+                        text: "Skip",
+                        color: Palette.buttonBG,
+                        onTap: () {
+                          goTo(context: context, view: BaseNavWrapper());
+                        },
+                      ),
+                    ),
+                  ],
+                ),
                 50.sbH
               ]),
             ],
@@ -899,6 +941,7 @@ class _BasicVehicleInformationViewState
           child: Visibility(
               visible: carMakeList.isLoading,
               child: FrostedGlassLoader(
+                theBorderRadius: BorderRadius.zero,
                 theHeight: height(context),
                 theWidth: width(context),
               )),

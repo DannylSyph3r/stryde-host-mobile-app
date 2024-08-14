@@ -40,7 +40,7 @@ class ChooseAuthRouteView extends ConsumerWidget {
                   AppButton(
                       text: "Sign up",
                       onTap: () {
-                        goToAndReplace(
+                        goToAndReplaceUnanimated(
                             context: context, view: CreateAccountView());
                       }),
                   15.sbH,
@@ -48,7 +48,7 @@ class ChooseAuthRouteView extends ConsumerWidget {
                       color: Palette.buttonBG,
                       text: "Login",
                       onTap: () {
-                        goToAndReplace(context: context, view: LoginView());
+                        goToAndReplaceUnanimated(context: context, view: LoginView());
                       })
                 ],
               ),

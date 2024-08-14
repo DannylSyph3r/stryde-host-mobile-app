@@ -6,18 +6,20 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 class FrostedGlassLoader extends StatelessWidget {
   final double theWidth;
   final double theHeight;
+  final BorderRadius? theBorderRadius;
   final MainAxisAlignment? theChildAlignment;
   const FrostedGlassLoader(
       {Key? key,
       required this.theWidth,
       required this.theHeight,
+      this.theBorderRadius,
       this.theChildAlignment = MainAxisAlignment.center,})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: theBorderRadius ?? BorderRadius.circular(30),
       child: Container(
         width: theWidth,
         height: theHeight,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:stryde_mobile_app/features/garage/providers/garage_providers.dart';
 import 'package:stryde_mobile_app/features/garage/views/garage_confirmation_screem.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_constants.dart';
@@ -86,7 +85,11 @@ class _AdditionalVehicleInformationViewState
   final TextEditingController _seatNumberController = TextEditingController();
   final TextEditingController _engineTypeController = TextEditingController();
   final TextEditingController _tireSizeController = TextEditingController();
+  final TextEditingController _licensePlateController = TextEditingController();
+  final TextEditingController _vinNumberController = TextEditingController();
   final ValueNotifier<SecurityQuestions?> _tintedWindowsNotifier =
+      ValueNotifier<SecurityQuestions?>(null);
+      final ValueNotifier<SecurityQuestions?> _vehicleOwnershipNotifier =
       ValueNotifier<SecurityQuestions?>(null);
 
   @override
@@ -99,8 +102,10 @@ class _AdditionalVehicleInformationViewState
     _seatNumberController.dispose();
     _engineTypeController.dispose();
     _tireSizeController.dispose();
+    _licensePlateController.dispose();
+    _vinNumberController.dispose();
     _tintedWindowsNotifier.dispose();
-
+    _vehicleOwnershipNotifier.dispose();
     super.dispose();
   }
 
@@ -113,7 +118,8 @@ class _AdditionalVehicleInformationViewState
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
           decoration: BoxDecoration(
               color: Palette.buttonBG,
-              borderRadius: BorderRadius.all(Radius.circular(15.r))),
+              borderRadius: BorderRadius.all(Radius.circular(15.r)),
+              border: Border.all(color: Palette.greyColor)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -266,7 +272,7 @@ class _AdditionalVehicleInformationViewState
                   EdgeInsets.only(left: 15.w, right: 15.w, bottom: 20.w),
               controller: _descriptionController,
             ),
-            15.sbH,
+            25.sbH,
             TextInputWidget(
               hintText: "Number of Seats",
               controller: _seatNumberController,
@@ -353,14 +359,34 @@ class _AdditionalVehicleInformationViewState
               controller: _tireSizeController,
               keyboardType: TextInputType.number,
             ),
-            10.sbH,
+            5.sbH,
             buildSecurityRadioSection(
                 "Do you have any tinted windows?", _tintedWindowsNotifier),
+            30.sbH,
+            "Vehicle Identification Details"
+                .txt16(fontW: F.w6, textAlign: TextAlign.left)
+                .alignCenterLeft(),
+            5.sbH,
+            "This information is needed to easily identify your vehicle"
+                .txt14(textAlign: TextAlign.left)
+                .alignCenterLeft(),
+            20.sbH,
+            buildSecurityRadioSection(
+                "Are you the owner of this vehicle?", _vehicleOwnershipNotifier),
+            8.sbH,
+            TextInputWidget(
+              hintText: "License Plate Number",
+              controller: _licensePlateController,
+            ),
+            15.sbH,
+            TextInputWidget(
+              hintText: "Vehicle Identification / Chassis Number",
+              controller: _vinNumberController,
+            ),
             30.sbH,
             AppButton(
                 text: "Proceed",
                 onTap: () {
-                  ref.invalidate(kycGarageProvider);
                   goTo(context: context, view: GarageConfirmationScreen());
                 }),
             50.sbH

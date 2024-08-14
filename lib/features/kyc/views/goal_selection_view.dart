@@ -17,7 +17,7 @@ enum RentalFrequency { option1, option2, option3, option4 }
 
 enum FinancialGoals { option1, option2, option3 }
 
-enum ServiceTypes { option1, option2 }
+enum ServiceTypes { option1, option2, option3}
 
 enum MinimumTripDuration { option1, option2, option3 }
 
@@ -83,6 +83,7 @@ class _GoalSelectionViewState extends ConsumerState<GoalSelectionView> {
   final Map<ServiceTypes, String> serviceTypesTexts = {
     ServiceTypes.option1: AppTexts.serviceTypesOption1,
     ServiceTypes.option2: AppTexts.serviceTypesOption2,
+    ServiceTypes.option3: "Both",
   };
 
   final Map<MinimumTripDuration, String> minimumTripDurationTexts = {
