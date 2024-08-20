@@ -1,52 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:stryde_mobile_app/features/garage/widgets/vehicle_specs_tab.dart';
+import 'package:stryde_mobile_app/features/garage/widgets/waitlist_tile.dart';
+import 'package:stryde_mobile_app/shared/app_graphics.dart';
+import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
+import 'package:stryde_mobile_app/utils/app_constants.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
-
-class Slide {
-  Slide({
-    required this.title,
-    required this.height,
-    required this.color,
-  });
-
-  final Color color;
-  final double height;
-  final String title;
-}
-
-var slides = List.generate(
-  6,
-  (index) => Slide(
-    title: 'Slide ${index + 1}',
-    height: 100.0,
-    color: Colors.primaries[index % Colors.primaries.length],
-  ),
-);
-
-final List<Widget> sliders = slides
-    .map(
-      (item) => Container(
-        color: item.color,
-        width: double.infinity,
-        height: item.height,
-        child: Center(
-          child: Text(
-            item.title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
-    )
-    .toList();
+import 'package:stryde_mobile_app/utils/widgets/row_railer.dart';
 
 class FullVehicleDetailsView extends ConsumerStatefulWidget {
   const FullVehicleDetailsView({super.key});
@@ -58,34 +25,74 @@ class FullVehicleDetailsView extends ConsumerStatefulWidget {
 
 class _FullVehicleDetailsViewState
     extends ConsumerState<FullVehicleDetailsView> {
-  int _current = 0;
+  final ValueNotifier<int> _currentIndexNotifier = ValueNotifier<int>(0);
+
+  @override
+  void dispose() {
+    _currentIndexNotifier.dispose();
+    super.dispose();
+  }
+
+  // Define the list of vehicle specifications
+  final List<Map<String, dynamic>> vehicleSpecs = [
+    {'icon': PhosphorIconsFill.carProfile, 'label': 'SUV'},
+    {'icon': PhosphorIconsFill.gasPump, 'label': 'Petrol'},
+    {'icon': PhosphorIconsFill.gear, 'label': 'Automatic'},
+    {'icon': PhosphorIconsFill.paintBucket, 'label': 'Red & White'},
+    {'icon': PhosphorIconsFill.seat, 'label': '4 Seats'},
+    {'icon': PhosphorIconsFill.steeringWheel, 'label': 'Driver & Self Driven'},
+  ];
+
+  final List<Map<String, dynamic>> vehicleFeatures = [
+    {'icon': PhosphorIconsBold.bluetooth, 'label': 'Bluetooth connectivity'},
+    {'icon': PhosphorIconsBold.mapTrifold, 'label': 'GPS navigation'},
+    {'icon': PhosphorIconsFill.videoCamera, 'label': 'Backup camera'},
+    {'icon': PhosphorIconsFill.doorOpen, 'label': 'Keyless entry'},
+    {'icon': PhosphorIconsFill.monitor, 'label': 'Touchscreen display'},
+    {'icon': PhosphorIconsFill.sun, 'label': 'Climate control'},
+    {'icon': PhosphorIconsFill.lightbulb, 'label': 'LED lighting'},
+    {'icon': PhosphorIconsFill.speedometer, 'label': 'Cruise control'},
+    {'icon': PhosphorIconsFill.scales, 'label': 'Stability control'},
+    {'icon': PhosphorIconsFill.seat, 'label': 'Leather seats'},
+    {'icon': PhosphorIconsFill.tire, 'label': 'Tire pressure warning'},
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(
-          title: "Mercedes Benz / G-Class",
-          context: context,
-          toolbarHeight: 70.h,
-          color: Colors.transparent,
-          isTitleCentered: true,
-          actions: [
-            Padding(
-              padding: 10.padH,
-              child: Icon(
-                PhosphorIconsBold.dotsThreeVertical,
-                size: 25.h,
-              ),
-            )
-          ]),
+        title: "Mercedes Benz / G-Class",
+        context: context,
+        toolbarHeight: 70.h,
+        color: Colors.transparent,
+        isTitleCentered: true,
+        actions: [
+          Padding(
+            padding: 10.padH,
+            child: Icon(
+              PhosphorIconsBold.dotsThreeVertical,
+              size: 25.h,
+            ),
+          )
+        ],
+      ),
       body: ListView(
         children: [
           Padding(
-              padding: 15.padH,
+            padding: 15.padH,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(18.r),
               child: Stack(
                 children: [
                   FlutterCarousel(
-                    items: sliders,
+                    items: List.generate(
+                      4,
+                      (index) => AppGraphics.fullCarPl.png.myImage(
+                        fit: BoxFit.cover,
+                        height: 230.h,
+                        width: double.infinity,
+                      ),
+                    ),
                     options: CarouselOptions(
                       autoPlay: true,
                       autoPlayInterval: const Duration(seconds: 4),
@@ -95,46 +102,189 @@ class _FullVehicleDetailsViewState
                       height: 230.h,
                       onPageChanged:
                           (int index, CarouselPageChangedReason reason) {
-                        setState(() {
-                          _current = index;
-                        });
+                        _currentIndexNotifier.value = index;
                       },
                     ),
                   ),
                   Positioned(
-                    bottom:
-                        10.0, // Adjust the distance from the bottom if needed
+                    bottom: 10.0,
                     left: 0,
                     right: 0,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: slides.asMap().entries.map((entry) {
-                        return Container(
-                          width: _current == entry.key ? 15.0.w : 10.0.w,
-                          height: 10.0.w,
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 4.0),
-                          decoration: BoxDecoration(
-                              borderRadius: _current == entry.key
-                                  ? BorderRadius.circular(8.r)
-                                  : BorderRadius.zero,
-                              
-                              color: _current == entry.key
-                                  ? Palette.strydeOrange
-                                  : Palette.whiteColor),
-                        );
-                      }).toList(),
+                    child: Center(
+                      child: ValueListenableBuilder<int>(
+                        valueListenable: _currentIndexNotifier,
+                        builder: (context, currentIndex, _) {
+                          return SmoothPageIndicator(
+                            controller:
+                                PageController(initialPage: currentIndex),
+                            count: 4,
+                            effect: CustomizableEffect(
+                              activeDotDecoration: DotDecoration(
+                                width: 15.w,
+                                height: 8.h,
+                                color: Palette.strydeOrange,
+                                borderRadius: BorderRadius.circular(5.r),
+                              ),
+                              dotDecoration: DotDecoration(
+                                width: 8.w,
+                                height: 8.h,
+                                color: Palette.whiteColor.withOpacity(0.5),
+                                borderRadius: BorderRadius.circular(5.r),
+                              ),
+                              spacing: 5.w,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],
-              )),
+              ),
+            ),
+          ),
+          20.sbH,
+          RowRailer(
+            rowPadding: 15.padH,
+            leading: Row(
+              children: [
+                Icon(
+                  PhosphorIconsFill.mapPin,
+                  color: Palette.strydeOrange,
+                  size: 18.h,
+                ),
+                5.sbW,
+                "Abuja"
+                    .txt14(
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left)
+                    .alignCenterLeft(),
+              ],
+            ),
+            trailing: "₦250,000 / day".txt14(fontW: F.w6),
+          ),
+          10.sbH,
+          RowRailer(
+            rowPadding: 15.padH,
+            leading: Row(children: [
+              RatingBar.builder(
+                itemSize: 14.w,
+                initialRating: 3.5,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: 1.padH,
+                unratedColor: Colors.grey.withOpacity(0.8),
+                itemBuilder: (context, _) => Icon(
+                  PhosphorIconsFill.star,
+                  color: Palette.strydeOrange,
+                  size: 14.sp,
+                ),
+                onRatingUpdate: (rating) {
+                  rating.log();
+                },
+              ),
+              5.sbW,
+              "(100)".txt14(),
+            ]),
+            trailing:
+                "SNK-123XZ".txt14(fontW: F.w6, color: Palette.strydeOrange),
+          ),
+          30.sbH,
+          Padding(
+            padding: 15.padH,
+            child: Row(
+              children: [
+                "Specs & Features".txt18(fontW: F.w6),
+                15.sbW,
+                Expanded(
+                  child: Container(
+                    height: 1.h,
+                    color: Palette.whiteColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          20.sbH,
+
+          // ListView.builder for vehicle specifications
+          SizedBox(
+            height: 50.h,
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: vehicleSpecs.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: 7.5.padH, // Add some padding if necessary
+                  child: VehicleSpecificationsTab(
+                    tabIcon: vehicleSpecs[index]['icon'] as IconData,
+                    tabLabel: vehicleSpecs[index]['label'] as String,
+                  ),
+                );
+              },
+            ),
+          ),
+          30.sbH,
+          SizedBox(
+            height: 50.h,
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: vehicleFeatures.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: 7.5.padH, // Add some padding if necessary
+                  child: VehicleSpecificationsTab(
+                    tabIcon: vehicleFeatures[index]['icon'] as IconData,
+                    tabLabel: vehicleFeatures[index]['label'] as String,
+                  ),
+                );
+              },
+            ),
+          ),
+
+          30.sbH,
+          Padding(
+            padding: 15.padH,
+            child: Row(
+              children: [
+                "Description".txt18(fontW: F.w6),
+                15.sbW,
+                Expanded(
+                  child: Container(
+                    height: 1.h,
+                    color: Palette.whiteColor,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          20.sbH,
+          Padding(
+            padding: 15.padH,
+            child: Container(
+              padding: 15.0.padA,
+              width: double.infinity,
+              height: 200.h,
+              decoration: BoxDecoration(
+                  color: Palette.buttonBG,
+                  borderRadius: BorderRadius.circular(15.r)),
+              child: AppTexts.carDescriptionPlaceHolder
+                  .txt(size: 13.sp, textAlign: TextAlign.justify),
+            ),
+          ),
+          50.sbH
         ],
       ),
       floatingActionButton: Container(
         height: 50.h,
         width: 135.h,
         decoration: BoxDecoration(
-            color: Palette.buttonBG, borderRadius: BorderRadius.circular(25.r)),
+          color: Palette.strydeOrange,
+          borderRadius: BorderRadius.circular(25.r),
+        ),
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -144,11 +294,56 @@ class _FullVehicleDetailsViewState
                 size: 20.h,
               ),
               10.sbW,
-              "Waitlist".txt14()
+              "Waitlist".txt14(),
             ],
           ),
         ),
-      ).tap(onTap: () {}),
+      ).tap(onTap: () {
+        showModalBottomSheet(
+            isScrollControlled: true,
+            enableDrag: true,
+            backgroundColor: Colors.transparent,
+            context: context,
+            builder: (context) => Container(
+                height: 600.h,
+                width: width(context),
+                decoration: BoxDecoration(
+                  color: Palette.darkBG,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25.r),
+                    topRight: Radius.circular(25.r),
+                  ),
+                ),
+                child: Padding(
+                  padding: 20.padH,
+                  child: Column(
+                    children: [
+                      20.sbH,
+                      Container(
+                        width: 60.w,
+                        height: 4.h,
+                        decoration: ShapeDecoration(
+                          color: Palette.strydeOrange,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4)),
+                        ),
+                      ),
+                      30.sbH,
+                      "Waitlist (4)".txt18(fontW: F.w6, textAlign: TextAlign.left).alignCenterLeft(),
+                      30.sbH,
+                      SizedBox(
+                        height: 400.h,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: 4,
+                            itemBuilder: ((context, index) {
+                              return WaitlistTile();
+                            })),
+                      ),
+                    ],
+                  ),
+                )));
+      }),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }

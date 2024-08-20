@@ -8,7 +8,6 @@ import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
-import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/list_tile.dart';
 import 'package:stryde_mobile_app/utils/widgets/row_railer.dart';
 
@@ -18,14 +17,6 @@ class UserAccountView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      // appBar: customAppBar(
-      //   title: "Account",
-      //   context: context,
-      //   implyLeading: true,
-      //   toolbarHeight: 70.h,
-      //   color: Colors.transparent,
-      //   isTitleCentered: true,
-      // ),
       body: Stack(
         children: [
           AppGraphics.eclipse.png.myImage(),
