@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-import 'package:stryde_mobile_app/features/garage/views/garage_confirmation_screem.dart';
+import 'package:stryde_mobile_app/features/garage/views/garage_confirmation_screen.dart';
+import 'package:stryde_mobile_app/features/garage/views/pricing_view.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_constants.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
@@ -87,9 +88,10 @@ class _AdditionalVehicleInformationViewState
   final TextEditingController _tireSizeController = TextEditingController();
   final TextEditingController _licensePlateController = TextEditingController();
   final TextEditingController _vinNumberController = TextEditingController();
+  final TextEditingController _carPriceController = TextEditingController();
   final ValueNotifier<SecurityQuestions?> _tintedWindowsNotifier =
       ValueNotifier<SecurityQuestions?>(null);
-      final ValueNotifier<SecurityQuestions?> _vehicleOwnershipNotifier =
+  final ValueNotifier<SecurityQuestions?> _vehicleOwnershipNotifier =
       ValueNotifier<SecurityQuestions?>(null);
 
   @override
@@ -371,8 +373,8 @@ class _AdditionalVehicleInformationViewState
                 .txt14(textAlign: TextAlign.left)
                 .alignCenterLeft(),
             20.sbH,
-            buildSecurityRadioSection(
-                "Are you the owner of this vehicle?", _vehicleOwnershipNotifier),
+            buildSecurityRadioSection("Are you the owner of this vehicle?",
+                _vehicleOwnershipNotifier),
             8.sbH,
             TextInputWidget(
               hintText: "License Plate Number",
@@ -384,10 +386,35 @@ class _AdditionalVehicleInformationViewState
               controller: _vinNumberController,
             ),
             30.sbH,
+            "Rental Price"
+                .txt16(fontW: F.w6, textAlign: TextAlign.left)
+                .alignCenterLeft(),
+            20.sbH,
+            TextInputWidget(
+                hintText: "50,000 - 100,000",
+                prefix: Padding(
+                  padding: 12.5.padA,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            right: BorderSide(color: Palette.strydeOrange))),
+                    height: 26.h,
+                    width: 35.w,
+                    child: Center(
+                        child: Padding(
+                      padding: 4.0.padH,
+                      child: "₦".txt18(fontW: F.w6).alignCenterLeft(),
+                    )),
+                  ),
+                ),
+                controller: _carPriceController,
+                keyboardType: TextInputType.number),
+            30.sbH,
             AppButton(
                 text: "Proceed",
                 onTap: () {
-                  goTo(context: context, view: GarageConfirmationScreen());
+                  goToAndReplace(
+                      context: context, view: GarageConfirmationScreen());
                 }),
             50.sbH
           ]),

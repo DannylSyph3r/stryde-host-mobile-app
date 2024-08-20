@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
@@ -127,6 +129,49 @@ class _ChangePasswordViewState extends ConsumerState<ChangePasswordView> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      text: AppTexts.tOSOpener,
+                      style: GoogleFonts.montserrat(
+                        textStyle: TextStyle(
+                          fontSize: 13.sp,
+                        ),
+                      ),
+                      children: [
+                        TextSpan(
+                          // recognizer: TapGestureRecognizer()..onTap = () {},
+                          text: AppTexts.tOS,
+                          style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                              color: Palette.strydeOrange,
+                              fontSize: 13.sp,
+                            ),
+                          ),
+                        ),
+                        TextSpan(
+                          // recognizer: TapGestureRecognizer()..onTap = () {},
+                          text: AppTexts.tOSBody,
+                          style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                              fontSize: 13.sp,
+                            ),
+                          ),
+                        ),
+                        TextSpan(
+                          // recognizer: TapGestureRecognizer()..onTap = () {},
+                          text: AppTexts.privacyPolicy,
+                          style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                              color: Palette.strydeOrange,
+                              fontSize: 13.sp,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  30.sbH,
                   AppButton(text: "Change Password", onTap: () {}),
                   50.sbH
                 ],

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/settings/views/change_password_view.dart';
+import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
@@ -31,7 +32,8 @@ class AppSettingsView extends ConsumerStatefulWidget {
 
 class _AppSettingsViewState extends ConsumerState<AppSettingsView> {
   final ValueNotifier<ThemeOptions?> _themeOptionsNotifier =
-      ValueNotifier<ThemeOptions?>(null);
+      ValueNotifier<ThemeOptions?>(ThemeOptions.option1);
+  final ValueNotifier<bool> _systemDefaultNotifier = ValueNotifier<bool>(true);
   final ValueNotifier<ServiceTypes?> _serviceTypesNotifier =
       ValueNotifier<ServiceTypes?>(null);
   final ValueNotifier<MinimumTripDuration?> _minimumTripDurationNotifier =
@@ -47,6 +49,7 @@ class _AppSettingsViewState extends ConsumerState<AppSettingsView> {
   @override
   void dispose() {
     _themeOptionsNotifier.dispose();
+    _systemDefaultNotifier.dispose();
     _serviceTypesNotifier.dispose();
     _minimumTripDurationNotifier.dispose();
     _maximumTripDurationNotifier.dispose();
@@ -205,17 +208,126 @@ class _AppSettingsViewState extends ConsumerState<AppSettingsView> {
             ),
             10.sbH,
             buildToggleSection("Allow Notifcations", _pushNotifcationsToggle),
+            10.sbH,
+            Padding(
+              padding: 20.padH,
+              child: "Privacy".txt16(fontW: F.w6).alignCenterLeft(),
+            ),
+            10.sbH,
+            buildToggleSection("Camera", _cameraPermissionsToggle),
+            buildToggleSection("Location", _locationPermissionsToggle),
+            10.sbH,
             20.sbH,
             Padding(
               padding: 20.padH,
               child: "Themes".txt16(fontW: F.w6).alignCenterLeft(),
             ),
             10.sbH,
-            buildRadioSection(
-              "Theme Options",
-              _themeOptionsNotifier,
-              ThemeOptions.values,
-              themeOptionsText,
+            Padding(
+              padding: 15.padH,
+              child: Container(
+                padding: EdgeInsets.only(
+                  top: 35.h,
+                  left: 15.w,
+                  right: 15.w,
+                  bottom: 35.h,
+                ),
+                decoration: BoxDecoration(
+                  color: Palette.buttonBG,
+                  borderRadius: BorderRadius.circular(15.r),
+                ),
+                child: Column(
+                  children: [
+                    [_systemDefaultNotifier, _themeOptionsNotifier].syncPro(
+                      builder: (context, child) {
+                        final isSystemDefaultOn = _systemDefaultNotifier.value;
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                const Icon(PhosphorIconsBold.moon),
+                                20.sbH,
+                                AppGraphics.darkModePanel.png.myImage(),
+                                10.sbH,
+                                Radio<ThemeOptions>(
+                                  value: ThemeOptions.option3,
+                                  groupValue: isSystemDefaultOn
+                                      ? ThemeOptions
+                                          .option1 // Set groupValue to option1 when system default is on
+                                      : _themeOptionsNotifier.value,
+                                  onChanged: isSystemDefaultOn
+                                      ? null
+                                      : (ThemeOptions? value) {
+                                          _themeOptionsNotifier.value = value!;
+                                          'Selected Theme: Dark Mode'.log();
+                                        },
+                                ),
+                              ],
+                            ),
+                            60.sbW,
+                            Column(
+                              children: [
+                                const Icon(PhosphorIconsBold.sun),
+                                20.sbH,
+                                AppGraphics.lightModePanel.png.myImage(),
+                                10.sbH,
+                                Radio<ThemeOptions>(
+                                  value: ThemeOptions.option2,
+                                  groupValue: isSystemDefaultOn
+                                      ? ThemeOptions
+                                          .option1 // Set groupValue to option1 when system default is on
+                                      : _themeOptionsNotifier.value,
+                                  onChanged: isSystemDefaultOn
+                                      ? null
+                                      : (ThemeOptions? value) {
+                                          _themeOptionsNotifier.value = value!;
+                                          'Selected Theme: Light Mode'.log();
+                                        },
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                    20.sbH,
+                    _systemDefaultNotifier.sync(
+                      builder: (context, isToggled, child) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            "System Default".txt16(fontW: F.w6),
+                            FlutterSwitch(
+                              padding: 2,
+                              height: 26.h,
+                              toggleSize: 25.h,
+                              width: 45.w,
+                              borderRadius: 15.r,
+                              activeColor: Palette.strydeOrange,
+                              inactiveColor: Palette.greyColor,
+                              toggleColor:
+                                  (Theme.of(context).colorScheme.brightness ==
+                                          Brightness.dark
+                                      ? Palette.buttonBG
+                                      : Palette.greyColor),
+                              value: isToggled,
+                              onToggle: (newValue) {
+                                _systemDefaultNotifier.value = newValue;
+                                if (newValue) {
+                                  _themeOptionsNotifier.value =
+                                      ThemeOptions.option1;
+                                  'System Default Theme Selected'.log();
+                                }
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
             10.sbH,
             Padding(
@@ -247,15 +359,6 @@ class _AppSettingsViewState extends ConsumerState<AppSettingsView> {
               ServiceTypes.values,
               serviceTypesTexts,
             ),
-            10.sbH,
-            Padding(
-              padding: 20.padH,
-              child: "Privacy".txt16(fontW: F.w6).alignCenterLeft(),
-            ),
-            10.sbH,
-            buildToggleSection("Camera", _cameraPermissionsToggle),
-            buildToggleSection("Location", _locationPermissionsToggle),
-            10.sbH,
             Padding(
               padding: 20.padH,
               child: "Security".txt16(fontW: F.w6).alignCenterLeft(),

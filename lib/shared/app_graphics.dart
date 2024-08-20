@@ -26,6 +26,10 @@ abstract class AppGraphics {
 
   //! Main App Assets
   static const carPl = 'car_holder';
+  static const fullCarPl ='ful_car_holder';
+  static const eclipse = 'eclipse';
+  static const lightModePanel = 'light_panel';
+  static const darkModePanel = 'dark_panel';
 
   //! NavBar Assets
   static const String homeIcon = 'home';
