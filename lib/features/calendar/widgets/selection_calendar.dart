@@ -42,7 +42,7 @@ class SelectionCalendar extends ConsumerWidget {
         borderRadius: BorderRadius.all(Radius.circular(15.r)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2), 
+            color: Colors.black.withOpacity(0.2),
             offset: const Offset(0, 4),
             blurRadius: 8.0,
             spreadRadius: 5.0,
@@ -87,21 +87,32 @@ class CalendarHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-              height: 30.h,
+          Container(
+            decoration: BoxDecoration(
+                color: Palette.darkBG.withOpacity(0.4),
+                shape: BoxShape.circle),
+            child: Padding(
+              padding: 5.0.padA,
               child: Icon(
-                PhosphorIconsBold.arrowLeft,
-                color: Palette.strydeOrange,
+                PhosphorIconsBold.caretLeft,
                 size: 25.h,
-              )).tap(onTap: onPreviousMonth),
+                color: Palette.strydeOrange,
+              ),
+            ),
+          ).tap(onTap: onPreviousMonth),
           "${CalendarUtils.monthNames[focusedDay.month - 1]} ${focusedDay.year}"
               .txt(size: 17.sp, fontW: F.w6),
-          SizedBox(
-            height: 30.h,
-            child: Icon(
-              PhosphorIconsBold.arrowRight,
-              color: Palette.strydeOrange,
-              size: 25.h,
+          Container(
+            decoration: BoxDecoration(
+                color: Palette.darkBG.withOpacity(0.4),
+                shape: BoxShape.circle),
+            child: Padding(
+              padding: 5.0.padA,
+              child: Icon(
+                PhosphorIconsBold.caretRight,
+                size: 25.h,
+                color: Palette.strydeOrange,
+              ),
             ),
           ).tap(onTap: onNextMonth),
         ],

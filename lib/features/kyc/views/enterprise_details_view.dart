@@ -5,12 +5,11 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/kyc/views/selfie_demand_view.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
-import 'package:stryde_mobile_app/utils/app_constants.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
+import 'package:stryde_mobile_app/utils/option_selection_modal.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/button.dart';
-import 'package:stryde_mobile_app/utils/widgets/list_tile.dart';
 import 'package:stryde_mobile_app/utils/widgets/text_input.dart';
 
 class EnterpriseDetailsView extends ConsumerStatefulWidget {
@@ -118,7 +117,7 @@ class _EnterpriseDetailsViewState extends ConsumerState<EnterpriseDetailsView> {
                 TextInputWidget(
                     hintText: "CAC Number", controller: _cacController),
                 15.sbH,
-                 TextInputWidget(
+                TextInputWidget(
                   isTextFieldEnabled: false,
                   hintText: "Identification Type",
                   controller: _idTypeController,
@@ -135,77 +134,37 @@ class _EnterpriseDetailsViewState extends ConsumerState<EnterpriseDetailsView> {
                         )),
                   ),
                 ).tap(onTap: () {
-                  showModalBottomSheet(
-                      isScrollControlled: true,
-                      enableDrag: true,
-                      backgroundColor: Colors.transparent,
-                      context: context,
-                      builder: (context) => Container(
-                          height: 280.h,
-                          width: width(context),
-                          decoration: BoxDecoration(
-                            color: Palette.darkBG,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(25.r),
-                              topRight: Radius.circular(25.r),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: 20.padH,
-                            child: Column(
-                              children: [
-                                20.sbH,
-                                Container(
-                                  width: 60.w,
-                                  height: 4.h,
-                                  decoration: ShapeDecoration(
-                                    color: Palette.strydeOrange,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(4)),
-                                  ),
-                                ),
-                                20.sbH,
-                                SizedBox(
-                                  height: 200.h,
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: idTypes.length,
-                                      itemBuilder: ((context, index) {
-                                        final String idTypesDisplay =
-                                            idTypes[index];
-                                        return OptionSelectionListTile(
-                                          interactiveTrailing: false,
-                                          titleFontSize: 14.sp,
-                                          titleLabel: idTypesDisplay,
-                                          onTileTap: () {
-                                            _idTypeController.text =
-                                                idTypesDisplay;
-                                            goBack(context);
-                                            _idTypeSelection.value = idTypesDisplay;
-                                          },
-                                        );
-                                      })),
-                                ),
-                              ],
-                            ),
-                          )));
+                  showOptionsModal(
+                    context,
+                    selectionOptions: idTypes,
+                    leadingIcons: List.generate(
+                      idTypes.length,
+                      (index) => PhosphorIconsFill.identificationCard,
+                    ),
+                    titleFontSize: 14.sp,
+                    onOptionTap: (index) {
+                      final selectedIdType = idTypes[index];
+                      _idTypeController.text = selectedIdType;
+                      goBack(context);
+                    },
+                    modalHeight: 270.h,
+                    listViewHeight: 200.h,
+                  );
                 }),
                 15.sbH,
-                _idTypeSelection.sync(
-                  builder: (context, isVisible, child) {
-                    return Visibility(
-                      visible: isVisible != "",
-                      child: Column(
-                        children: [
-                          TextInputWidget(
-                              hintText: "Identification Number",
-                              controller: _idNumberController),
-                          15.sbH,
-                        ],
-                      ),
-                    );
-                  }
-                ),
+                _idTypeSelection.sync(builder: (context, isVisible, child) {
+                  return Visibility(
+                    visible: isVisible != "",
+                    child: Column(
+                      children: [
+                        TextInputWidget(
+                            hintText: "Identification Number",
+                            controller: _idNumberController),
+                        15.sbH,
+                      ],
+                    ),
+                  );
+                }),
                 Container(
                   width: double.infinity,
                   height: 53.h,
@@ -224,17 +183,7 @@ class _EnterpriseDetailsViewState extends ConsumerState<EnterpriseDetailsView> {
                       "Attach ID Document".txt16()
                     ],
                   ),
-                ).tap(onTap: () {
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    enableDrag: true,
-                    backgroundColor: Colors.transparent,
-                    context: context,
-                    builder: (context) => Wrap(
-                      children: [],
-                    ),
-                  );
-                }),
+                ).tap(onTap: () {}),
                 50.sbH,
                 AppButton(
                     text: "Continue",

@@ -4,13 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/garage/views/garage_confirmation_screen.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
-import 'package:stryde_mobile_app/utils/app_constants.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
 import 'package:stryde_mobile_app/utils/option_selection_modal.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/button.dart';
-import 'package:stryde_mobile_app/utils/widgets/list_tile.dart';
 import 'package:stryde_mobile_app/utils/widgets/text_input.dart';
 
 enum SecurityQuestions { yes, no }
