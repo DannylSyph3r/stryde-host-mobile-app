@@ -9,6 +9,7 @@ import 'package:stryde_mobile_app/features/calendar/widgets/selection_calendar.d
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
+import 'package:stryde_mobile_app/utils/option_selection_modal.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/container_list_tile.dart';
 
@@ -37,6 +38,10 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
     }
   }
 
+  final List<Map<String, dynamic>> optionSelections = [
+    {'icon': PhosphorIconsBold.listBullets, 'label': 'Unlist/List'},
+  ];
+
   @override
   Widget build(BuildContext context) {
     final calendarDate = ref.watch(calendarDateProvider);
@@ -63,7 +68,23 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
                 child: Icon(
                   PhosphorIconsBold.dotsThreeVertical,
                   size: 25.h,
-                ),
+                ).tap(onTap: () {
+                  showOptionsModal(
+                    context,
+                    selectionOptions: optionSelections
+                        .map((option) => option['label'] as String)
+                        .toList(),
+                    leadingIcons: optionSelections
+                        .map((option) => option['icon'] as IconData)
+                        .toList(),
+                    titleFontSize: 16.sp,
+                    titleFontColor: Colors.white,
+                    leadingIconColor: Colors.orange,
+                    modalHeight: 150.h, // Specify the height of the modal
+                    listViewHeight: 80.h, // Specify the height of the ListView
+                    onOptionTap: (index) {},
+                  );
+                }),
               )
             ]),
         body: Padding(

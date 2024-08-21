@@ -68,7 +68,7 @@ class _RentalRequestDetailsViewState
                   .txt18(fontW: F.w6, textAlign: TextAlign.left)
                   .alignCenterLeft(), // Display the formatted date with suffix
               10.sbH,
-              "2 events".txt16(textAlign: TextAlign.left).alignCenterLeft(),
+              "2 events".txt14(textAlign: TextAlign.left).alignCenterLeft(),
               10.sbH,
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
@@ -185,14 +185,17 @@ class _RentalRequestDetailsViewState
                   color: Palette.strydeOrange,
                 ),
               ),
-              30.sbH,
-              "Reviews"
-                  .txt18(fontW: F.w6, textAlign: TextAlign.left)
-                  .alignCenterLeft(),
-              20.sbH,
             ],
           ),
         ),
+        30.sbH,
+        Padding(
+          padding: 15.padH,
+          child: "Reviews"
+              .txt18(fontW: F.w6, textAlign: TextAlign.left)
+              .alignCenterLeft(),
+        ),
+        20.sbH,
         SizedBox(
           height: 260.h,
           child: ListView.builder(

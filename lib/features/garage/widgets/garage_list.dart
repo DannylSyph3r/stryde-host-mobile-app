@@ -43,6 +43,14 @@ class GarageList extends ConsumerWidget {
         decoration: BoxDecoration(
           color: Palette.buttonBG,
           borderRadius: BorderRadius.circular(15.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              offset: const Offset(0, 4),
+              blurRadius: 8.0,
+              spreadRadius: 5.0,
+            ),
+          ],
         ),
         child: Row(
           children: [

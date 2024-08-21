@@ -5,13 +5,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:stryde_mobile_app/features/calendar/views/calendar_event_details_view.dart';
 import 'package:stryde_mobile_app/features/garage/widgets/vehicle_specs_tab.dart';
 import 'package:stryde_mobile_app/features/garage/widgets/waitlist_tile.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/shared/app_texts.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
-import 'package:stryde_mobile_app/utils/app_constants.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
+import 'package:stryde_mobile_app/utils/custom_modal_bottomsheet.dart';
+import 'package:stryde_mobile_app/utils/nav.dart';
+import 'package:stryde_mobile_app/utils/option_selection_modal.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/row_railer.dart';
 
@@ -57,11 +60,16 @@ class _FullVehicleDetailsViewState
     {'icon': PhosphorIconsFill.tire, 'label': 'Tire pressure warning'},
   ];
 
+  final List<Map<String, dynamic>> optionSelections = [
+    {'icon': PhosphorIconsBold.trash, 'label': 'Remove Vehicle'},
+    {'icon': PhosphorIconsFill.flagBanner, 'label': 'Flag Unavailabale'},
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(
-        title: "Mercedes Benz / G-Class",
+        title: "Mercedes Benz",
         context: context,
         toolbarHeight: 70.h,
         color: Colors.transparent,
@@ -72,12 +80,33 @@ class _FullVehicleDetailsViewState
             child: Icon(
               PhosphorIconsBold.dotsThreeVertical,
               size: 25.h,
-            ),
+            ).tap(onTap: () {
+              showOptionsModal(
+                context,
+                selectionOptions: optionSelections
+                    .map((option) => option['label'] as String)
+                    .toList(),
+                leadingIcons: optionSelections
+                    .map((option) => option['icon'] as IconData)
+                    .toList(),
+                titleFontSize: 16.sp,
+                titleFontColor: Colors.white,
+                leadingIconColor: Colors.orange,
+                modalHeight: 200.h, // Specify the height of the modal
+                listViewHeight: 150.h, // Specify the height of the ListView
+                onOptionTap: (index) {},
+              );
+            }),
           )
         ],
       ),
       body: ListView(
+        padding: 0.padV,
         children: [
+          "G-Class"
+              .txt16(color: Palette.strydeOrange, textAlign: TextAlign.center)
+              .alignCenter(),
+          15.sbH,
           Padding(
             padding: 15.padH,
             child: ClipRRect(
@@ -226,7 +255,7 @@ class _FullVehicleDetailsViewState
               },
             ),
           ),
-          30.sbH,
+          25.sbH,
           SizedBox(
             height: 50.h,
             child: ListView.builder(
@@ -269,8 +298,17 @@ class _FullVehicleDetailsViewState
               width: double.infinity,
               height: 200.h,
               decoration: BoxDecoration(
-                  color: Palette.buttonBG,
-                  borderRadius: BorderRadius.circular(15.r)),
+                color: Palette.buttonBG,
+                borderRadius: BorderRadius.circular(15.r),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    offset: const Offset(0, 4),
+                    blurRadius: 8.0,
+                    spreadRadius: 5.0,
+                  ),
+                ],
+              ),
               child: AppTexts.carDescriptionPlaceHolder
                   .txt(size: 13.sp, textAlign: TextAlign.justify),
             ),
@@ -299,50 +337,33 @@ class _FullVehicleDetailsViewState
           ),
         ),
       ).tap(onTap: () {
-        showModalBottomSheet(
-            isScrollControlled: true,
-            enableDrag: true,
-            backgroundColor: Colors.transparent,
-            context: context,
-            builder: (context) => Container(
-                height: 600.h,
-                width: width(context),
-                decoration: BoxDecoration(
-                  color: Palette.darkBG,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25.r),
-                    topRight: Radius.circular(25.r),
-                  ),
+        showCustomModal(
+          context,
+          modalHeight: 500.h,
+          child: Column(
+            children: [
+              SizedBox(height: 10.h),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: 8,
+                  itemBuilder: (context, index) {
+                    return WaitlistTile(
+                      renterName: "Kazato Kirigaya",
+                      dateFrom: "27 July",
+                      timeFrom: "8:00 AM",
+                      dateTo: "1 August",
+                      timeTo: "12:00 PM",
+                      onWaitListTap: () {
+                        goTo(
+                            context: context, view: CalendarEventDetailsView());
+                      },
+                    );
+                  },
                 ),
-                child: Padding(
-                  padding: 20.padH,
-                  child: Column(
-                    children: [
-                      20.sbH,
-                      Container(
-                        width: 60.w,
-                        height: 4.h,
-                        decoration: ShapeDecoration(
-                          color: Palette.strydeOrange,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4)),
-                        ),
-                      ),
-                      30.sbH,
-                      "Waitlist (4)".txt18(fontW: F.w6, textAlign: TextAlign.left).alignCenterLeft(),
-                      30.sbH,
-                      SizedBox(
-                        height: 400.h,
-                        child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: 4,
-                            itemBuilder: ((context, index) {
-                              return WaitlistTile();
-                            })),
-                      ),
-                    ],
-                  ),
-                )));
+              ),
+            ],
+          ),
+        );
       }),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/garage/views/garage_confirmation_screen.dart';
-import 'package:stryde_mobile_app/features/garage/views/pricing_view.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_constants.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
+import 'package:stryde_mobile_app/utils/option_selection_modal.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/button.dart';
 import 'package:stryde_mobile_app/utils/widgets/list_tile.dart';
@@ -297,63 +297,22 @@ class _AdditionalVehicleInformationViewState
                     )),
               ),
             ).tap(onTap: () {
-              showModalBottomSheet(
-                  isScrollControlled: true,
-                  enableDrag: true,
-                  backgroundColor: Colors.transparent,
-                  context: context,
-                  builder: (context) => Container(
-                      height: 600.h,
-                      width: width(context),
-                      decoration: BoxDecoration(
-                        color: Palette.darkBG,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25.r),
-                          topRight: Radius.circular(25.r),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: 20.padH,
-                        child: Column(
-                          children: [
-                            20.sbH,
-                            Container(
-                              width: 60.w,
-                              height: 4.h,
-                              decoration: ShapeDecoration(
-                                color: Palette.strydeOrange,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4)),
-                              ),
-                            ),
-                            20.sbH,
-                            SizedBox(
-                              height: 550.h,
-                              child: ListView.builder(
-                                  cacheExtent: 600,
-                                  shrinkWrap: true,
-                                  itemCount: engineTypes.length,
-                                  itemBuilder: ((context, index) {
-                                    final String engineTypeDisplay =
-                                        engineTypes[index];
-                                    return OptionSelectionListTile(
-                                      leadingIcon: PhosphorIconsFill.engine,
-                                      interactiveTrailing: false,
-                                      titleFontSize: 14.sp,
-                                      titleFontWeight: F.w6,
-                                      titleLabel: engineTypeDisplay,
-                                      onTileTap: () {
-                                        _engineTypeController.text =
-                                            engineTypeDisplay;
-
-                                        goBack(context);
-                                      },
-                                    );
-                                  })),
-                            ),
-                          ],
-                        ),
-                      )));
+              showOptionsModal(
+                context,
+                selectionOptions: engineTypes,
+                leadingIcons: List.generate(
+                  engineTypes.length,
+                  (index) => PhosphorIconsFill.engine,
+                ),
+                titleFontSize: 14.sp,
+                onOptionTap: (index) {
+                  final selectedEngineType = engineTypes[index];
+                  _engineTypeController.text = selectedEngineType;
+                  goBack(context);
+                },
+                modalHeight: 600.h,
+                listViewHeight: 550.h,
+              );
             }),
             15.sbH,
             TextInputWidget(

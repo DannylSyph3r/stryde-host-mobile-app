@@ -8,12 +8,25 @@ import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/widgets/row_railer.dart';
 
 class WaitlistTile extends ConsumerWidget {
-  const WaitlistTile({super.key});
+  final String renterName;
+  final String dateFrom;
+  final String timeFrom;
+  final String dateTo;
+  final String timeTo;
+  final VoidCallback onWaitListTap;
+  const WaitlistTile(
+      {required this.renterName,
+      required this.dateFrom,
+      required this.timeFrom,
+      required this.dateTo,
+      required this.timeTo,
+      required this.onWaitListTap,
+      super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: 10.padV,
+      padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 15.h),
       child: Row(children: [
         Container(
           height: 60.h,
@@ -23,8 +36,8 @@ class WaitlistTile extends ConsumerWidget {
             boxShadow: [
               BoxShadow(
                 color: Palette.strydeOrange.withOpacity(0.2),
-                spreadRadius: 10,
-                blurRadius: 15,
+                spreadRadius: 7,
+                blurRadius: 10,
               ),
             ],
           ),
@@ -35,8 +48,8 @@ class WaitlistTile extends ConsumerWidget {
         Expanded(
             child: Column(
           children: [
-            "Akinola Daniel Eri-ife"
-                .txt14(
+            renterName
+                .txt12(
                     textAlign: TextAlign.left,
                     fontW: F.w6,
                     overflow: TextOverflow.ellipsis)
@@ -47,31 +60,33 @@ class WaitlistTile extends ConsumerWidget {
               leading: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  "8th January"
-                      .txt12(textAlign: TextAlign.left)
-                      .alignCenterLeft(),
+                  dateFrom.txt14(textAlign: TextAlign.left).alignCenterLeft(),
                   5.sbH,
-                  "3:30 AM".txt12(textAlign: TextAlign.left).alignCenterLeft()
+                  timeFrom.txt12(textAlign: TextAlign.left).alignCenterLeft()
                 ],
               ),
-              middle: const Icon(
-                PhosphorIconsBold.caretRight,
-                color: Palette.strydeOrange,
+              middle: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    PhosphorIconsBold.caretRight,
+                    color: Palette.strydeOrange,
+                  ),
+                  15.sbW
+                ],
               ),
               trailing: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  "8th January"
-                      .txt12(textAlign: TextAlign.right)
-                      .alignCenterRight(),
+                  dateTo.txt14(textAlign: TextAlign.left).alignCenterLeft(),
                   5.sbH,
-                  "3:30 AM".txt12(textAlign: TextAlign.right).alignCenterRight()
+                  timeTo.txt12(textAlign: TextAlign.left).alignCenterLeft()
                 ],
               ),
             )
           ],
         )),
-      ]),
+      ]).tap(onTap: onWaitListTap),
     );
   }
 }

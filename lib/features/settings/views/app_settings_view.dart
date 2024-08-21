@@ -217,12 +217,11 @@ class _AppSettingsViewState extends ConsumerState<AppSettingsView> {
             buildToggleSection("Camera", _cameraPermissionsToggle),
             buildToggleSection("Location", _locationPermissionsToggle),
             10.sbH,
-            20.sbH,
             Padding(
               padding: 20.padH,
               child: "Themes".txt16(fontW: F.w6).alignCenterLeft(),
             ),
-            10.sbH,
+            20.sbH,
             Padding(
               padding: 15.padH,
               child: Container(
@@ -235,6 +234,14 @@ class _AppSettingsViewState extends ConsumerState<AppSettingsView> {
                 decoration: BoxDecoration(
                   color: Palette.buttonBG,
                   borderRadius: BorderRadius.circular(15.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      offset: const Offset(0, 4),
+                      blurRadius: 8.0,
+                      spreadRadius: 5.0,
+                    ),
+                  ],
                 ),
                 child: Column(
                   children: [
@@ -329,7 +336,7 @@ class _AppSettingsViewState extends ConsumerState<AppSettingsView> {
                 ),
               ),
             ),
-            10.sbH,
+            20.sbH,
             Padding(
               padding: 20.padH,
               child: "Configurations".txt16(fontW: F.w6).alignCenterLeft(),
@@ -363,13 +370,23 @@ class _AppSettingsViewState extends ConsumerState<AppSettingsView> {
               padding: 20.padH,
               child: "Security".txt16(fontW: F.w6).alignCenterLeft(),
             ),
+            10.sbH,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
                 decoration: BoxDecoration(
-                    color: Palette.buttonBG,
-                    borderRadius: BorderRadius.all(Radius.circular(15.r))),
+                  color: Palette.buttonBG,
+                  borderRadius: BorderRadius.all(Radius.circular(15.r)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      offset: const Offset(0, 4),
+                      blurRadius: 8.0,
+                      spreadRadius: 5.0,
+                    ),
+                  ],
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
