@@ -5,15 +5,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/calendar/views/calendar_event_details_view.dart';
 import 'package:stryde_mobile_app/features/home/providers/home_providers.dart';
+import 'package:stryde_mobile_app/features/home/widgets/ad_display_card.dart';
+import 'package:stryde_mobile_app/features/home/widgets/quick_action_pills.dart';
+import 'package:stryde_mobile_app/features/home/widgets/vertical_bar.dart';
 import 'package:stryde_mobile_app/features/reviews/views/full_review_view.dart';
 import 'package:stryde_mobile_app/features/notifications/views/notifications_view.dart';
 import 'package:stryde_mobile_app/features/home/views/user_account_view.dart';
-import 'package:stryde_mobile_app/features/home/widgets/rental_display_card.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
-import 'package:stryde_mobile_app/utils/widgets/container_list_tile.dart';
 import 'package:stryde_mobile_app/features/reviews/widgets/review_card.dart';
 import 'package:stryde_mobile_app/utils/widgets/row_railer.dart';
 
@@ -25,6 +26,11 @@ class HomeView extends ConsumerStatefulWidget {
 }
 
 class _HomeViewState extends ConsumerState<HomeView> {
+  final List<Map<String, dynamic>> quickActions = [
+    {'icon': PhosphorIconsBold.uploadSimple, 'label': 'Withdraw'},
+    {'icon': PhosphorIconsBold.mapPin, 'label': 'Tracker'},
+    {'icon': PhosphorIconsFill.identificationCard, 'label': 'Insurance'},
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,8 +120,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
               "Today".txt18(fontW: F.w6),
               20.sbH,
               Container(
-                height: 250.h,
-                padding: 10.0.padA,
+                padding: 20.0.padA,
                 decoration: BoxDecoration(
                   color: Palette.buttonBG,
                   borderRadius: BorderRadius.all(Radius.circular(15.r)),
@@ -128,83 +133,141 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     ),
                   ],
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment
-                      .start, // Aligns the children to the start of the Row
+                child: Column(
                   children: [
-                    Flexible(
-                      flex: 2,
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(12.r)),
-                            child: AppGraphics.carPl.png
-                                .myImage(height: 220.h, fit: BoxFit.cover),
-                          ),
-                        ],
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              PhosphorIconsFill.chartBar,
+                              size: 20.h,
+                              color: Palette.strydeOrange,
+                            ),
+                            5.sbW,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                "Earnings".txt16(fontW: F.w6),
+                                "Monthly".txt12()
+                              ],
+                            )
+                          ],
+                        ),
+                        "₦1,000,000".txt20(fontW: F.w6),
+                      ],
                     ),
-                    15.sbW, // Spacing between image and text
-                    Flexible(
-                      flex: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment
-                            .start, // Aligns text to the start
-                        children: [
-                          "Mercedes Benz".txt18(
-                              fontW: F.w6, overflow: TextOverflow.ellipsis),
-                          5.sbH, // Spacing between the name and model
-                          "GLE 63".txt16(overflow: TextOverflow.ellipsis),
-                          10.sbH,
-                          "Abuja".txt16(
-                              fontW: F.w6, overflow: TextOverflow.ellipsis),
-                          10.sbH,
-                          OptionSelectionContainerTile(
-                            horizontalContentPadding: 5.w,
-                            leadingIcon: PhosphorIconsFill.circle,
-                            leadingIconColor: Palette.whiteColor,
-                            leadingIconSize: 15.h,
-                            titleLabel: "Drop-off",
-                            titleFontWeight: F.w6,
-                            subtitleLabel: "9:00 AM",
-                            subtitleFontSize: 14.sp,
-                            interactiveTrailing: false,
-                          ),
-                          OptionSelectionContainerTile(
-                            horizontalContentPadding: 5.w,
-                            leadingIcon: PhosphorIconsFill.circle,
-                            leadingIconColor: Palette.strydeOrange,
-                            leadingIconSize: 15.h,
-                            titleLabel: "Pick-up",
-                            titleFontWeight: F.w6,
-                            subtitleLabel: "5:00 PM",
-                            subtitleFontSize: 14.sp,
-                            interactiveTrailing: false,
-                          ),
-                        ],
-                      ),
-                    ),
+                    30.sbH,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CustomVerticalBar(
+                              percentage: 50.0,
+                              width: 35.w,
+                              height: 200.h,
+                            ),
+                            10.sbH,
+                            "0%".txt14(fontW: F.w6)
+                          ],
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CustomVerticalBar(
+                              percentage: 75.0,
+                              width: 35.w,
+                              height: 200.h,
+                            ),
+                            10.sbH,
+                            "10%".txt14(fontW: F.w6)
+                          ],
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CustomVerticalBar(
+                              percentage: 60.0,
+                              width: 35.w,
+                              height: 200.h,
+                            ),
+                            10.sbH,
+                            "-5%".txt14(fontW: F.w6)
+                          ],
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CustomVerticalBar(
+                              percentage: 85.0,
+                              width: 35.w,
+                              height: 200.h,
+                            ),
+                            10.sbH,
+                            "20%".txt14(fontW: F.w6)
+                          ],
+                        ),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CustomVerticalBar(
+                              percentage: 95.0,
+                              width: 35.w,
+                              height: 200.h,
+                            ),
+                            10.sbH,
+                            "25%".txt14(fontW: F.w6)
+                          ],
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ).tap(onTap: () {
                 goTo(context: context, view: CalendarEventDetailsView());
               }),
-              30.sbH,
-              "On Rent".txt18(fontW: F.w6),
             ],
           ),
         ),
         20.sbH,
         SizedBox(
-          height: 260.h,
+          height: 180.h,
           child: ListView.builder(
             physics: const BouncingScrollPhysics(),
-            padding: 10.padH,
+            padding: 7.5.padH,
             scrollDirection: Axis.horizontal,
             itemCount: 5,
             itemBuilder: (context, index) {
-              return const RentalDisplayCard();
+              return Padding(
+                padding: 7.5.padH,
+                child: const AdDisplayCard(),
+              );
+            },
+          ),
+        ),
+        30.sbH,
+        Padding(
+          padding: 15.padH,
+          child: "Quick Actions".txt18(fontW: F.w6),
+        ),
+        20.sbH,
+        SizedBox(
+          height: 85.h,
+          child: ListView.builder(
+            padding: 7.5.padH,
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: quickActions.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                  padding: 7.5.padH,
+                  child: QuickActionPills(
+                      pillIcon: quickActions[index]['icon'] as IconData,
+                      pillLabel: quickActions[index]['label'] as String));
             },
           ),
         ),

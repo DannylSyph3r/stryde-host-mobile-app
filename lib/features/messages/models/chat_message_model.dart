@@ -60,14 +60,14 @@ List<ChatMessage> chatMessages = [
       postDate: DateTime.now().subtract(const Duration(days: 2, minutes: 20)),
       ),
   ChatMessage(
-      messageBody: "Not much, just chilling. Im geeking tho, tweaking like a MF. Island boyyers of the jit yunno. Slide on two opps",
+      messageBody: "Not much, just chilling.",
       senderId: "receiver1",
       receiverId: "sender1",
       messageTag: MessageTypee.receiver,
       postDate: DateTime.now().subtract(const Duration(days: 2, minutes: 10)),
       ),
   ChatMessage(
-      messageBody: "How's the weather there? Ffiefsddfwfsddfwfwfwfwefwfwfefwfwfwdfwfwefwefwefweefwefwefwewfwefwefwefwefwefweef",
+      messageBody: "How's the weather there?",
       senderId: "sender1",
       receiverId: "receiver1",
       messageTag: MessageTypee.receiver,

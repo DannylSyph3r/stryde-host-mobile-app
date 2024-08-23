@@ -30,6 +30,7 @@ abstract class AppGraphics {
   static const eclipse = 'eclipse';
   static const lightModePanel = 'light_panel';
   static const darkModePanel = 'dark_panel';
+  static const adAvatar = 'ad_avatar';
 
   //! NavBar Assets
   static const String homeIcon = 'home';

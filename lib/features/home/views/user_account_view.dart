@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/settings/views/app_settings_view.dart';
 import 'package:stryde_mobile_app/features/home/views/user_profile_view.dart';
+import 'package:stryde_mobile_app/features/wallet/views/wallet_view.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
@@ -102,14 +103,17 @@ class UserAccountView extends ConsumerWidget {
                     goTo(context: context, view: UserProfileView());
                   }),
                 ]),
-                60.sbH,
-                const OptionSelectionListTile(
+                70.sbH,
+                OptionSelectionListTile(
                   interactiveTrailing: false,
                   leadingIcon: PhosphorIconsFill.creditCard,
                   leadingIconColor: Palette.whiteColor,
-                  titleLabel: "Payments",
+                  titleLabel: "Wallet",
                   titleFontWeight: F.w6,
-                  subtitleLabel: "Notifications, Trip duration, Advance notice",
+                  subtitleLabel: "Payment, Transaction History, Withdrawals",
+                  onTileTap: () {
+                    goTo(context: context, view: WalletView());
+                  },
                 ),
                 const OptionSelectionListTile(
                   interactiveTrailing: false,
