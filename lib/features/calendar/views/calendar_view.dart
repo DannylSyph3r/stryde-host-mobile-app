@@ -80,8 +80,8 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
                     titleFontSize: 16.sp,
                     titleFontColor: Colors.white,
                     leadingIconColor: Colors.orange,
-                    modalHeight: 150.h, // Specify the height of the modal
-                    listViewHeight: 80.h, // Specify the height of the ListView
+                    modalHeight: 110.h, // Specify the height of the modal
+                    listViewHeight: 60.h, // Specify the height of the ListView
                     onOptionTap: (index) {},
                   );
                 }),

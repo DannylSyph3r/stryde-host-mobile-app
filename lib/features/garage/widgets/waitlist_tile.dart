@@ -68,9 +68,10 @@ class WaitlistTile extends ConsumerWidget {
               middle: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(
+                  Icon(
                     PhosphorIconsBold.caretRight,
                     color: Palette.strydeOrange,
+                    size: 20.h,
                   ),
                   15.sbW
                 ],

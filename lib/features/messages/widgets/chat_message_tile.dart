@@ -48,28 +48,30 @@ class ChatMessageTile extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                    
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
-                            width: 180.w,
-                            child: name.txt(
-                                size: 13.sp,
-                                fontW: F.w6,
-                                overflow: TextOverflow.ellipsis)),
-                        5.sbW,
-                        Icon(
-                          PhosphorIconsFill.circle,
-                          size: 10.h,
-                          color: Palette.strydeOrange,
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                                constraints: BoxConstraints(
+                                  minWidth: 100.w,
+                                  maxWidth: 200.w,
+                                ),
+                                child: name.txt(
+                                    size: 13.sp,
+                                    fontW: F.w6,
+                                    overflow: TextOverflow.ellipsis)),
+                            5.sbW,
+                            Icon(
+                              PhosphorIconsFill.circle,
+                              size: 10.h,
+                              color: Palette.strydeOrange,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    date.txt(size: 11.5.sp),
-                  ]),
+                        date.txt(size: 11.5.sp),
+                      ]),
                   15.sbH,
                   SizedBox(
                     width: 250.w,

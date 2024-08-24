@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_mobile_app/features/calendar/views/calendar_event_details_view.dart';
 import 'package:stryde_mobile_app/features/messages/models/chat_message_model.dart';
 import 'package:stryde_mobile_app/features/reviews/views/messages_review_view.dart';
 import 'package:stryde_mobile_app/features/messages/widgets/bottom_chat_field.dart';
@@ -13,6 +14,7 @@ import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
+import 'package:stryde_mobile_app/utils/option_selection_modal.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 
 class ChatView extends ConsumerStatefulWidget {
@@ -23,6 +25,9 @@ class ChatView extends ConsumerStatefulWidget {
 }
 
 class _ChatViewState extends ConsumerState<ChatView> {
+  final List<Map<String, dynamic>> optionSelections = [
+    {'icon': PhosphorIconsFill.flagBanner, 'label': 'Report User'},
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,22 +70,36 @@ class _ChatViewState extends ConsumerState<ChatView> {
                 ],
               ))
             ],
-          ),
+          ).tap(onTap: () {
+            goTo(context: context, view: CalendarEventDetailsView());
+          }),
           actions: [
             Padding(
               padding: 10.padH,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
-                    PhosphorIconsFill.phone,
-                    size: 22.h,
-                  ),
+                  const Icon(
+                    PhosphorIconsBold.dotsThreeVertical,
+                  ).tap(onTap: () {
+                    showOptionsModal(
+                      context,
+                      selectionOptions: optionSelections
+                          .map((option) => option['label'] as String)
+                          .toList(),
+                      leadingIcons: optionSelections
+                          .map((option) => option['icon'] as IconData)
+                          .toList(),
+                      titleFontSize: 16.sp,
+                      titleFontColor: Colors.white,
+                      leadingIconColor: Colors.orange,
+                      modalHeight: 110.h, // Specify the height of the modal
+                      listViewHeight:
+                          60.h, // Specify the height of the ListView
+                      onOptionTap: (index) {},
+                    );
+                  }),
                   10.sbW,
-                  // Icon(
-                  //   PhosphorIconsBold.dotsThreeVertical,
-                  //   size: 22.h,
-                  // ),
                 ],
               ),
             )
