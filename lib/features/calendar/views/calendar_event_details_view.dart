@@ -19,7 +19,8 @@ class CalendarEventDetailsView extends ConsumerStatefulWidget {
       _CalendarEventDetailsViewState();
 }
 
-class _CalendarEventDetailsViewState extends ConsumerState<CalendarEventDetailsView> {
+class _CalendarEventDetailsViewState
+    extends ConsumerState<CalendarEventDetailsView> {
   String getDaySuffix(int day) {
     if (day >= 11 && day <= 13) {
       return 'th';
@@ -56,81 +57,74 @@ class _CalendarEventDetailsViewState extends ConsumerState<CalendarEventDetailsV
         color: Colors.transparent,
         isTitleCentered: true,
       ),
-      body: ListView(children: [
-        Padding(
-          padding: 15.padH,
-          child: Column(
-            children: [
-              10.sbH,
-              RowRailer(
-                rowPadding: 0.padH,
-                leading: Row(
+      body: Padding(
+        padding: 15.padH,
+        child: Column(children: [
+          10.sbH,
+          RowRailer(
+            rowPadding: 0.padH,
+            leading: Row(
+              children: [
+                Container(
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                    color: Palette.buttonBG.withOpacity(0.5),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Palette.strydeOrange.withOpacity(0.2),
+                        spreadRadius: 10,
+                        blurRadius: 15,
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                      child:
+                          AppGraphics.memeoji.png.myImage(fit: BoxFit.contain)),
+                ),
+                15.sbW,
+                Expanded(
+                    child: Column(
                   children: [
                     Container(
-                      height: 60.h,
-                      decoration: BoxDecoration(
-                        color: Palette.buttonBG.withOpacity(0.5),
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Palette.strydeOrange.withOpacity(0.2),
-                            spreadRadius: 10,
-                            blurRadius: 15,
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                          child: AppGraphics.memeoji.png
-                              .myImage(fit: BoxFit.contain)),
+                      child: "Akinola Daniel Eri-ife"
+                          .txt16(
+                              textAlign: TextAlign.left,
+                              fontW: F.w6,
+                              overflow: TextOverflow.ellipsis)
+                          .alignCenterLeft(),
                     ),
-                    15.sbW,
-                    Expanded(
-                        child: Column(
+                    3.sbH,
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
-                          child: "Akinola Daniel Eri-ife"
-                              .txt16(
-                                  textAlign: TextAlign.left,
-                                  fontW: F.w6,
-                                  overflow: TextOverflow.ellipsis)
-                              .alignCenterLeft(),
-                        ),
-                        3.sbH,
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            "4.5".txt14(textAlign: TextAlign.left, fontW: F.w4),
-                            5.sbW,
-                            Icon(
-                              PhosphorIconsFill.star,
-                              size: 15.h,
-                              color: Palette.strydeOrange,
-                            )
-                          ],
-                        ).alignCenterLeft(),
+                        "4.5".txt14(textAlign: TextAlign.left, fontW: F.w4),
+                        5.sbW,
+                        Icon(
+                          PhosphorIconsFill.star,
+                          size: 15.h,
+                          color: Palette.strydeOrange,
+                        )
                       ],
-                    ))
+                    ).alignCenterLeft(),
                   ],
-                ),
-                trailing: Icon(
-                  PhosphorIconsFill.envelope,
-                  size: 30.h,
-                  color: Palette.strydeOrange,
-                ),
-              ),
-              30.sbH,
-              formattedDate
-                  .txt18(fontW: F.w6, textAlign: TextAlign.left)
-                  .alignCenterLeft(), // Display the formatted date with suffix
-              10.sbH,
-              "2 events".txt14(textAlign: TextAlign.left).alignCenterLeft(),
-              20.sbH,
-            ],
+                ))
+              ],
+            ),
+            trailing: Icon(
+              PhosphorIconsFill.envelope,
+              size: 30.h,
+              color: Palette.strydeOrange,
+            ),
           ),
-        ),
-        Padding(
-          padding: 15.padH,
-          child: Container(
+          30.sbH,
+          formattedDate
+              .txt18(fontW: F.w6, textAlign: TextAlign.left)
+              .alignCenterLeft(), // Display the formatted date with suffix
+          10.sbH,
+          "2 events".txt14(textAlign: TextAlign.left).alignCenterLeft(),
+          20.sbH,
+          Container(
             padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
             decoration: BoxDecoration(
               color: Palette.buttonBG,
@@ -177,9 +171,8 @@ class _CalendarEventDetailsViewState extends ConsumerState<CalendarEventDetailsV
               ],
             ),
           ),
-        ),
-        50.sbH
-      ]),
+        ]),
+      ),
     );
   }
 }

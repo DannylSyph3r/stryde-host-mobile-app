@@ -51,8 +51,8 @@ class AppButton extends StatelessWidget {
             ),
           ),
           padding: EdgeInsets.zero,
-          elevation: 0,
-          shadowColor: Colors.transparent,
+          elevation: 7,
+          shadowColor: Colors.black,
           backgroundColor: color ?? Palette.strydeOrange,
         ),
         child: Center(

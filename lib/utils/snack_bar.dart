@@ -29,28 +29,31 @@ showFlushBanner({
   Duration? dismissIn,
 }) {
   Flushbar(
-    message: theMessage,
-    messageSize: 15.sp,
-    duration: const Duration(seconds: 4),
-    flushbarPosition: FlushbarPosition.TOP,
-    flushbarStyle: FlushbarStyle.FLOATING,
-    margin: EdgeInsets.symmetric(horizontal: 10.w),
-    borderRadius: BorderRadius.circular(7.r),
-    reverseAnimationCurve: Curves.decelerate,
-    forwardAnimationCurve: Curves.linearToEaseOut,
-    messageColor: Colors.white,
-    icon: Icon(
-      theType == NotificationType.failure
-          ? PhosphorIconsBold.warning
-          : theType == NotificationType.success
-              ? PhosphorIconsBold.checks
-              : PhosphorIconsBold.warningCircle,
-      color: Colors.white,
-    ),
-    backgroundColor: theType == NotificationType.failure
-        ? Colors.red.shade400
-        : theType == NotificationType.success
-            ? Colors.green.shade400
-            : Colors.green.shade500,
-  ).show(context);
+          messageText: theMessage.txt14(fontW: F.w6, textAlign: TextAlign.left),
+          maxWidth: 300.w,
+          padding: EdgeInsets.all(15.h),
+          duration: const Duration(seconds: 2),
+          flushbarPosition: FlushbarPosition.TOP,
+          flushbarStyle: FlushbarStyle.FLOATING,
+          margin: EdgeInsets.symmetric(horizontal: 10.w),
+          borderRadius: BorderRadius.circular(15.r),
+          reverseAnimationCurve: Curves.decelerate,
+          forwardAnimationCurve: Curves.linearToEaseOut,
+          messageColor: Colors.white,
+          shouldIconPulse: false,
+          icon: Icon(
+            theType == NotificationType.failure
+                ? PhosphorIconsBold.warningCircle
+                : theType == NotificationType.success
+                    ? PhosphorIconsBold.checkCircle
+                    : PhosphorIconsBold.info,
+            color: Palette.strydeOrange,
+            size: 30.h,
+          ),
+          backgroundColor: theType == NotificationType.failure
+              ? Palette.buttonBG
+              : theType == NotificationType.success
+                  ? Palette.buttonBG
+                  : Palette.buttonBG)
+      .show(context);
 }
