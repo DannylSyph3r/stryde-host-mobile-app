@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_mobile_app/features/auth/views/choose_auth_view.dart';
 import 'package:stryde_mobile_app/features/settings/views/app_settings_view.dart';
 import 'package:stryde_mobile_app/features/home/views/user_profile_view.dart';
 import 'package:stryde_mobile_app/features/wallet/views/wallet_view.dart';
@@ -131,12 +132,16 @@ class UserAccountView extends ConsumerWidget {
                   titleFontWeight: F.w6,
                   subtitleLabel: "FAQ’s, Terms of service",
                 ),
-                const OptionSelectionListTile(
+                OptionSelectionListTile(
                   interactiveTrailing: false,
                   leadingIcon: PhosphorIconsFill.signOut,
                   leadingIconColor: Palette.whiteColor,
                   titleLabel: "Sign Out",
                   titleFontWeight: F.w6,
+                  onTileTap: () {
+                    goToAndReplaceUnanimated(
+                        context: context, view: ChooseAuthRouteView());
+                  },
                 ),
               ],
             ),

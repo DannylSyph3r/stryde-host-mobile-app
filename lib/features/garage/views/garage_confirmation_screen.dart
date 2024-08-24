@@ -19,27 +19,30 @@ class GarageConfirmationScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
         body: VerticalRailer(
-      columnPadding: 50.padV,
-      middle: Column(
-        children: [
-          Column(mainAxisSize: MainAxisSize.min, children: [
-            Icon(
-              PhosphorIconsFill.checkCircle,
-              size: 100.h,
-              color: Palette.strydeOrange,
-            ).animate().scaleY(duration: 250.milliseconds),
-            30.sbH,
-            AppTexts.garageVerifiationConfirmation
-                .txt16(textAlign: TextAlign.center).animate().fadeIn(duration: 3.seconds),
-          ]),
-        ],
-      ),
-      bottom: AppButton(
-          text: "Proceed",
-          onTap: () {
-            ref.read(garageListProvider.notifier).state += 1;
-            goToAndReplace(context: context, view: BaseNavWrapper());
-          }).animate().fadeIn(duration: 3.seconds),
-    ));
+            columnPadding: 50.padV,
+            middle: Column(
+              children: [
+                Column(mainAxisSize: MainAxisSize.min, children: [
+                  Icon(
+                    PhosphorIconsFill.checkCircle,
+                    size: 100.h,
+                    color: Palette.strydeOrange,
+                  ),
+                  // .animate().scaleY(duration: 250.milliseconds),
+                  30.sbH,
+                  AppTexts.garageVerifiationConfirmation
+                      .txt16(textAlign: TextAlign.center)
+                  // .animate().fadeIn(duration: 3.seconds),
+                ]),
+              ],
+            ),
+            bottom: AppButton(
+                text: "Proceed",
+                onTap: () {
+                  ref.read(garageListProvider.notifier).state += 1;
+                  goToAndReplace(context: context, view: BaseNavWrapper());
+                })
+            // .animate().fadeIn(duration: 3.seconds),
+            ));
   }
 }

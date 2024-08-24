@@ -28,7 +28,7 @@ class HomeView extends ConsumerStatefulWidget {
 class _HomeViewState extends ConsumerState<HomeView> {
   final List<Map<String, dynamic>> quickActions = [
     {'icon': PhosphorIconsBold.uploadSimple, 'label': 'Withdraw'},
-    {'icon': PhosphorIconsBold.mapPin, 'label': 'Tracker'},
+    {'icon': PhosphorIconsFill.mapPin, 'label': 'Tracker'},
     {'icon': PhosphorIconsFill.identificationCard, 'label': 'Insurance'},
   ];
   @override

@@ -20,7 +20,7 @@ class _FullReviewViewState extends ConsumerState<FullReviewView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(
-          title: "(4) Reviews",
+          title: "Reviews",
           context: context,
           isTitleText: true,
           implyLeading: true,
