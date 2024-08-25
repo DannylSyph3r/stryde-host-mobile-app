@@ -83,7 +83,19 @@ class _BasicVehicleInformationViewState
     "Box Truck",
     "Chassis Cab"
   ];
-
+  final List<Map<String, dynamic>> vehicleFeatures = [
+    {'icon': PhosphorIconsBold.bluetooth, 'label': 'Bluetooth connectivity'},
+    {'icon': PhosphorIconsBold.mapTrifold, 'label': 'GPS navigation'},
+    {'icon': PhosphorIconsFill.videoCamera, 'label': 'Backup camera'},
+    {'icon': PhosphorIconsFill.doorOpen, 'label': 'Keyless entry'},
+    {'icon': PhosphorIconsFill.monitor, 'label': 'Touchscreen display'},
+    {'icon': PhosphorIconsFill.sun, 'label': 'Climate control'},
+    {'icon': PhosphorIconsFill.lightbulb, 'label': 'LED lighting'},
+    {'icon': PhosphorIconsFill.speedometer, 'label': 'Cruise control'},
+    {'icon': PhosphorIconsFill.scales, 'label': 'Stability control'},
+    {'icon': PhosphorIconsFill.seat, 'label': 'Leather seats'},
+    {'icon': PhosphorIconsFill.tire, 'label': 'Tire pressure warning'},
+  ];
   final TextEditingController _manufacturerController = TextEditingController();
   final TextEditingController _modelController = TextEditingController();
   final TextEditingController _modelYearController = TextEditingController();
@@ -91,6 +103,8 @@ class _BasicVehicleInformationViewState
   final TextEditingController _fuelTypeController = TextEditingController();
   final TextEditingController _transmissionController = TextEditingController();
   final TextEditingController _vehicleTypeController = TextEditingController();
+  final ValueNotifier<Set<String>> _selectedFeaturesNotifier =
+      ValueNotifier(<String>{});
   final ValueNotifier<SecurityQuestions?> _insuranceNotifier =
       ValueNotifier<SecurityQuestions?>(null);
   final ValueNotifier<SecurityQuestions?> _trackerNotifier =
@@ -125,6 +139,7 @@ class _BasicVehicleInformationViewState
     _fuelTypeController.dispose();
     _transmissionController.dispose();
     _vehicleTypeController.dispose();
+    _selectedFeaturesNotifier.dispose();
     _insuranceNotifier.dispose();
     _trackerNotifier.dispose();
     super.dispose();
@@ -897,6 +912,64 @@ class _BasicVehicleInformationViewState
                   ),
                 ).tap(onTap: () {}),
                 30.sbH,
+                "Features"
+                    .txt16(fontW: F.w6, textAlign: TextAlign.left)
+                    .alignCenterLeft(),
+                20.sbH,
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  decoration: BoxDecoration(
+                      color: Palette.buttonBG,
+                      borderRadius: BorderRadius.circular(15.r)),
+                  child: ValueListenableBuilder<Set<String>>(
+                    valueListenable: _selectedFeaturesNotifier,
+                    builder: (context, selectedItems, child) {
+                      return ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: vehicleFeatures.length,
+                        itemBuilder: (context, index) {
+                          final feature = vehicleFeatures[index];
+                          final isSelected =
+                              selectedItems.contains(feature['label']);
+
+                          return ListTile(
+                            contentPadding: 0.padH,
+                            leading: Icon(feature['icon']),
+                            title: Text(feature['label']),
+                            trailing: Checkbox(
+                              fillColor:
+                                  WidgetStateProperty.resolveWith<Color?>(
+                                (Set<WidgetState> states) {
+                                  if (states.contains(WidgetState.selected)) {
+                                    return Palette.strydeOrange;
+                                  }
+                                  return Palette.buttonBG;
+                                },
+                              ),
+                              value: isSelected,
+                              onChanged: (bool? value) {
+                                final updatedSelectedItems =
+                                    Set<String>.from(selectedItems);
+
+                                if (value == true) {
+                                  updatedSelectedItems.add(feature['label']);
+                                } else {
+                                  updatedSelectedItems.remove(feature['label']);
+                                }
+
+                                _selectedFeaturesNotifier.value =
+                                    updatedSelectedItems;
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+                20.sbH,
                 "Security"
                     .txt16(fontW: F.w6, textAlign: TextAlign.left)
                     .alignCenterLeft(),

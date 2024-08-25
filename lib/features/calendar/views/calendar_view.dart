@@ -103,6 +103,7 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
             10.sbH,
             "2 events".txt16(textAlign: TextAlign.left).alignCenterLeft(),
             10.sbH,
+            // Event Box Container
             Container(
               padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
               decoration: BoxDecoration(
@@ -146,6 +147,7 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
                     subtitleFontSize: 14.sp,
                     interactiveTrailing: true,
                     interactiveTrailingWidget: "Abuja".txt14(fontW: F.w6),
+                    contentOpacity: true,
                   ),
                   5.sbH,
                   "View Details"

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:stryde_mobile_app/features/calendar/models/calendar_event_model.dart';
 import 'package:stryde_mobile_app/features/calendar/providers/calendar_providers.dart';
+import 'package:stryde_mobile_app/features/calendar/utils/calendar_event_utils.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 
@@ -89,8 +91,7 @@ class CalendarHeader extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-                color: Palette.darkBG.withOpacity(0.4),
-                shape: BoxShape.circle),
+                color: Palette.darkBG.withOpacity(0.4), shape: BoxShape.circle),
             child: Padding(
               padding: 5.0.padA,
               child: Icon(
@@ -104,8 +105,7 @@ class CalendarHeader extends StatelessWidget {
               .txt(size: 17.sp, fontW: F.w6),
           Container(
             decoration: BoxDecoration(
-                color: Palette.darkBG.withOpacity(0.4),
-                shape: BoxShape.circle),
+                color: Palette.darkBG.withOpacity(0.4), shape: BoxShape.circle),
             child: Padding(
               padding: 5.0.padA,
               child: Icon(
@@ -153,8 +153,7 @@ class CalendarGrid extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedDate = ref.watch(
-        calendarDateProvider); // Watching the state provider directly to get the selected date
+    final selectedDate = ref.watch(calendarDateProvider);
     final calendarDateNotifier = ref.read(calendarDateProvider.notifier);
 
     final firstDayOfMonth = DateTime(focusedDay.year, focusedDay.month, 1);
@@ -164,10 +163,13 @@ class CalendarGrid extends ConsumerWidget {
     final firstWeekday = firstDayOfMonth.weekday % 7;
     final totalDays = firstWeekday + daysInMonth;
 
+    final today = DateTime.now();
+    final todayDate = DateTime(today.year, today.month, today.day);
+
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 200), // Animation duration
+      duration: const Duration(milliseconds: 200),
       child: GridView.builder(
-        key: ValueKey(focusedDay.month), // Unique key for animation
+        key: ValueKey(focusedDay.month),
         shrinkWrap: true,
         itemCount: totalDays,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -179,7 +181,14 @@ class CalendarGrid extends ConsumerWidget {
           } else {
             final day = index - firstWeekday + 1;
             final date = DateTime(focusedDay.year, focusedDay.month, day);
-            final isSelected = selectedDate == date;
+            final isSelected = selectedDate.year == date.year && 
+                               selectedDate.month == date.month && 
+                               selectedDate.day == date.day;
+            final isToday = date.year == todayDate.year && 
+                            date.month == todayDate.month && 
+                            date.day == todayDate.day;
+            final events = CalendarEventUtils.getEventsForDate(date);
+
             return GestureDetector(
               onTap: () {
                 calendarDateNotifier.state = date;
@@ -195,21 +204,21 @@ class CalendarGrid extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            width: 7.h, // Set a width for the circles
-                            height: 7.h, // Set a height for the circles
+                            width: 7.h,
+                            height: 7.h,
                             decoration: BoxDecoration(
-                              color: isSelected
+                              color: events.contains(EventType.dropOff)
                                   ? Palette.whiteColor
                                   : Colors.transparent,
                               shape: BoxShape.circle,
                             ),
                           ),
-                          SizedBox(width: 5.h), // Spacing between circles
+                          SizedBox(width: 5.h),
                           Container(
                             width: 7.h,
                             height: 7.h,
                             decoration: BoxDecoration(
-                              color: isSelected
+                              color: events.contains(EventType.pickUp)
                                   ? Palette.strydeOrange
                                   : Colors.transparent,
                               shape: BoxShape.circle,
@@ -219,13 +228,12 @@ class CalendarGrid extends ConsumerWidget {
                       ),
                       3.sbH,
                       day.toString().txt(
-                            size: 18.sp,
-                            color: isSelected
-                                ? Palette.strydeOrange
-                                : Palette.whiteColor,
-                            fontWeight:
-                                isSelected ? FontWeight.w600 : FontWeight.w300,
-                          ),
+                        size: 18.sp,
+                        color: isToday
+                            ? Palette.strydeOrange
+                            : (isSelected ? Palette.strydeOrange : Palette.whiteColor),
+                        fontWeight: isSelected || isToday ? FontWeight.w600 : FontWeight.w300,
+                      ),
                     ],
                   ),
                 ),

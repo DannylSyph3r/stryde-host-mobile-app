@@ -22,6 +22,7 @@ class OptionSelectionContainerTile extends StatelessWidget {
   final Color? subtitleFontColor;
   final Widget? interactiveTrailingWidget;
   final List<BoxShadow>? tileBxShadow;
+  final bool? contentOpacity;
   final void Function()? onTileTap;
 
   const OptionSelectionContainerTile({
@@ -43,6 +44,7 @@ class OptionSelectionContainerTile extends StatelessWidget {
     this.subtitleFontSize,
     this.subtitleFontWeight,
     this.tileBxShadow,
+    this.contentOpacity,
     this.onTileTap,
   });
 
@@ -56,7 +58,7 @@ class OptionSelectionContainerTile extends StatelessWidget {
           horizontal: horizontalContentPadding ?? 10.w,
         ),
         decoration: BoxDecoration(
-          color: containerColor ?? Colors.transparent, // Change as needed
+          color: containerColor ?? Colors.transparent,
           borderRadius: BorderRadius.circular(12.r),
           boxShadow: tileBxShadow,
         ),
@@ -67,42 +69,55 @@ class OptionSelectionContainerTile extends StatelessWidget {
               Icon(
                 leadingIcon,
                 size: leadingIconSize ?? 24.sp,
-                color: leadingIconColor ?? Palette.strydeOrange,
+                color: (contentOpacity ?? false)
+                    ? (leadingIconColor ?? Palette.strydeOrange)
+                        .withOpacity(0.5)
+                    : (leadingIconColor ?? Palette.strydeOrange),
               ),
-              SizedBox(width: 10.w), // Adjusted spacing between icon and text
+              SizedBox(width: 10.w),
             ],
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   titleLabel.txt(
-                    size: subtitleFontSize ?? 14.sp,
-                    fontW: subtitleFontWeight ?? F.w6,
-                    color: subtitleFontColor ??
-                        Theme.of(context).textTheme.bodySmall?.color,
+                    size: titleFontSize ?? 14.sp,
+                    fontW: titleFontWeight ?? F.w6,
+                    color: (contentOpacity ?? false)
+                        ? (titleFontColor ??
+                                Theme.of(context).textTheme.bodySmall?.color)
+                            ?.withOpacity(0.5)
+                        : (titleFontColor ??
+                            Theme.of(context).textTheme.bodySmall?.color),
                   ),
                   if (subtitleLabel != null) ...[
-                    SizedBox(
-                        height:
-                            2.h), // Adjusted spacing between title and subtitle
-
+                    SizedBox(height: 2.h),
                     subtitleLabel!.txt(
                       size: subtitleFontSize ?? 12.sp,
                       fontW: subtitleFontWeight ?? F.w3,
-                      color: subtitleFontColor ??
-                          Theme.of(context).textTheme.bodySmall?.color,
+                      color: (contentOpacity ?? false)
+                          ? (subtitleFontColor ??
+                                  Theme.of(context).textTheme.bodySmall?.color)
+                              ?.withOpacity(0.5)
+                          : (subtitleFontColor ??
+                              Theme.of(context).textTheme.bodySmall?.color),
                     ),
                   ],
                 ],
               ),
             ),
             if (interactiveTrailing) ...[
-              interactiveTrailingWidget ??
-                  Icon(
-                    PhosphorIconsBold.caretRight,
-                    size: 15.h,
-                    color: Palette.strydeOrange,
-                  ),
+              Opacity(
+                opacity: contentOpacity ?? false ? 0.5 : 1.0,
+                child: interactiveTrailingWidget ??
+                    Icon(
+                      PhosphorIconsBold.caretRight,
+                      size: 15.h,
+                      color: (contentOpacity ?? false)
+                          ? Palette.strydeOrange.withOpacity(0.5)
+                          : Palette.strydeOrange,
+                    ),
+              ),
             ],
           ],
         ),
