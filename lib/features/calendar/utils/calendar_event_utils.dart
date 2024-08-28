@@ -37,17 +37,40 @@ class CalendarEventUtils {
             dropOffDateTime: eventSet.dropOff.eventDateTime,
             pickUpLocation: eventSet.pickUp.location,
             pickUpDateTime: eventSet.pickUp.eventDateTime,
-            selectedEventType:
-                isDropOffSameDay ? EventType.dropOff : EventType.pickUp,
+            dropOffEventType: isDropOffSameDay ? EventType.dropOff : null,
+            pickUpEventType: isPickUpSameDay ? EventType.pickUp : null,
           );
         } else {
           // If both events are on the same day, update the existing entry
-          eventSetDetailsMap[key]!.selectedEventType = EventType.dropOff;
+          if (isDropOffSameDay) {
+            eventSetDetailsMap[key]!.dropOffEventType = EventType.dropOff;
+          }
+          if (isPickUpSameDay) {
+            eventSetDetailsMap[key]!.pickUpEventType = EventType.pickUp;
+          }
         }
       }
     }
 
     return eventSetDetailsMap.values.toList();
+  }
+
+  static int getEventCountForDate(DateTime date) {
+    int count = 0;
+    for (var eventSet in eventSets) {
+      if (isSameDay(eventSet.dropOff.eventDateTime, date)) {
+        count++;
+      }
+      if (isSameDay(eventSet.pickUp.eventDateTime, date)) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  static bool hasSameDayEvents(DateTime date) {
+    var eventSetDetails = getEventSetDetailsForDate(date);
+    return eventSetDetails.any((details) => details.hasBothEvents);
   }
 }
 
@@ -57,7 +80,8 @@ class EventSetDetails {
   final DateTime dropOffDateTime;
   final String pickUpLocation;
   final DateTime pickUpDateTime;
-  EventType selectedEventType; // Changed from final to mutable
+  EventType? dropOffEventType;
+  EventType? pickUpEventType;
 
   EventSetDetails({
     required this.vehicle,
@@ -65,6 +89,17 @@ class EventSetDetails {
     required this.dropOffDateTime,
     required this.pickUpLocation,
     required this.pickUpDateTime,
-    required this.selectedEventType,
+    this.dropOffEventType,
+    this.pickUpEventType,
   });
+
+  bool get hasBothEvents => dropOffEventType != null && pickUpEventType != null;
+
+  EventType? get selectedEventType {
+    if (hasBothEvents) {
+      return EventType
+          .dropOff; // Prioritize drop-off when both events occur on the same day
+    }
+    return dropOffEventType ?? pickUpEventType;
+  }
 }

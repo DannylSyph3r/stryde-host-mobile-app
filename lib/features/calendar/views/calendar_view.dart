@@ -24,8 +24,6 @@ class CalendarView extends ConsumerStatefulWidget {
 }
 
 class _CalendarViewState extends ConsumerState<CalendarView> {
-  List<EventSetDetails> _currentEventSetDetails = [];
-
   String getDaySuffix(int day) {
     if (day >= 11 && day <= 13) {
       return 'th';
@@ -60,6 +58,8 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
     final formattedDate = isToday
         ? 'Today'
         : DateFormat('EEEE MMM d').format(calendarDate) + daySuffix;
+
+    final currentEventSetDetails = ref.watch(currentEventSetDetailsProvider);
 
     return Scaffold(
       appBar: customAppBar(
@@ -111,14 +111,9 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
             SelectionCalendar(
               onDateSelected: (onSelectedDate) {
                 onSelectedDate.log();
+                ref.read(calendarDateProvider.notifier).state = onSelectedDate;
                 "Provider Value: ${ref.read(calendarDateProvider.notifier).state}"
                     .log();
-              },
-              onEventSetDetailsUpdated: (eventSetDetails) {
-                setState(() {
-                  _currentEventSetDetails = eventSetDetails;
-                  _currentEventSetDetails.elementAt(0).selectedEventType.log();
-                });
               },
             ),
             30.sbH,
@@ -130,16 +125,16 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
                       .txt18(fontW: F.w6, textAlign: TextAlign.left)
                       .alignCenterLeft(),
                   10.sbH,
-                  "${_currentEventSetDetails.length} event${_currentEventSetDetails.length != 1 ? 's' : ''}"
+                  "${CalendarEventUtils.getEventCountForDate(calendarDate)} event${CalendarEventUtils.getEventCountForDate(calendarDate) != 1 ? 's' : ''}"
                       .txt16(textAlign: TextAlign.left)
                       .alignCenterLeft(),
                   10.sbH,
                   ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: _currentEventSetDetails.length,
+                    itemCount: currentEventSetDetails.length,
                     itemBuilder: (context, index) {
-                      final eventSet = _currentEventSetDetails[index];
+                      final eventSet = currentEventSetDetails[index];
                       return Padding(
                         padding: EdgeInsets.symmetric(vertical: 8.h),
                         child: EventDetailsBox(
@@ -150,7 +145,8 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
                           pickUpLocation: eventSet.pickUpLocation,
                           pickUpTime: DateFormat('MMM d, yyyy h:mm a')
                               .format(eventSet.pickUpDateTime),
-                          eventTypeOnDate: eventSet.selectedEventType,
+                          eventTypeOnDate: eventSet.selectedEventType!,
+                          hasBothEvents: eventSet.hasBothEvents,
                           viewDetailsTap: () {
                             goTo(
                                 context: context,

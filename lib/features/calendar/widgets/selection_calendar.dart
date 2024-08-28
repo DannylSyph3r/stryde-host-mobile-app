@@ -10,11 +10,9 @@ import 'package:stryde_mobile_app/utils/app_extensions.dart';
 
 class SelectionCalendar extends ConsumerWidget {
   final ValueChanged<DateTime> onDateSelected;
-  final ValueChanged<List<EventSetDetails>> onEventSetDetailsUpdated;
 
   const SelectionCalendar(
       {super.key,
-      required this.onEventSetDetailsUpdated,
       required this.onDateSelected});
 
   @override
@@ -48,11 +46,7 @@ class SelectionCalendar extends ConsumerWidget {
       } else {
         ref.read(calendarDateProvider.notifier).state = date;
         onDateSelected(date);
-
-        // Get the event set details for the selected date
-        List<EventSetDetails> eventSetDetails =
-            CalendarEventUtils.getEventSetDetailsForDate(date);
-        onEventSetDetailsUpdated(eventSetDetails);
+        // The currentEventSetDetailsProvider will automatically update
       }
     }
 

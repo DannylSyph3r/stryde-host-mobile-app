@@ -14,6 +14,7 @@ class EventDetailsBox extends ConsumerWidget {
   final String pickUpLocation;
   final String pickUpTime;
   final EventType eventTypeOnDate;
+  final bool hasBothEvents;
   final VoidCallback viewDetailsTap;
   const EventDetailsBox(
       {required this.vehicleName,
@@ -23,6 +24,7 @@ class EventDetailsBox extends ConsumerWidget {
       required this.pickUpTime,
       required this.eventTypeOnDate,
       required this.viewDetailsTap,
+      required this.hasBothEvents,
       super.key});
 
   @override
@@ -47,29 +49,39 @@ class EventDetailsBox extends ConsumerWidget {
               .txt16(fontW: F.w6, textAlign: TextAlign.left)
               .alignCenterLeft(),
           5.sbH,
-          OptionSelectionContainerTile(
-            horizontalContentPadding: 5.w,
-            leadingIcon: PhosphorIconsFill.circle,
-            leadingIconColor: Palette.whiteColor,
-            leadingIconSize: 15.h,
-            titleLabel: "Drop-off",
-            titleFontWeight: F.w6,
-            subtitleLabel: dropOffTime,
-            subtitleFontSize: 14.sp,
-            interactiveTrailing: true,
-            interactiveTrailingWidget: dropOffLocation.txt14(fontW: F.w6),
+          Opacity(
+            opacity: hasBothEvents
+                ? 1.0
+                : (eventTypeOnDate == EventType.dropOff ? 1.0 : 0.5),
+            child: OptionSelectionContainerTile(
+              horizontalContentPadding: 5.w,
+              leadingIcon: PhosphorIconsFill.circle,
+              leadingIconColor: Palette.whiteColor,
+              leadingIconSize: 15.h,
+              titleLabel: "Drop-off",
+              titleFontWeight: F.w6,
+              subtitleLabel: dropOffTime,
+              subtitleFontSize: 14.sp,
+              interactiveTrailing: true,
+              interactiveTrailingWidget: dropOffLocation.txt14(fontW: F.w6),
+            ),
           ),
-          OptionSelectionContainerTile(
-            horizontalContentPadding: 5.w,
-            leadingIcon: PhosphorIconsFill.circle,
-            leadingIconColor: Palette.strydeOrange,
-            leadingIconSize: 15.h,
-            titleLabel: "Pick-up",
-            titleFontWeight: F.w6,
-            subtitleLabel: pickUpTime,
-            subtitleFontSize: 14.sp,
-            interactiveTrailing: true,
-            interactiveTrailingWidget: pickUpLocation.txt14(fontW: F.w6),
+          Opacity(
+            opacity: hasBothEvents
+                ? 1.0
+                : (eventTypeOnDate == EventType.pickUp ? 1.0 : 0.5),
+            child: OptionSelectionContainerTile(
+              horizontalContentPadding: 5.w,
+              leadingIcon: PhosphorIconsFill.circle,
+              leadingIconColor: Palette.strydeOrange,
+              leadingIconSize: 15.h,
+              titleLabel: "Pick-up",
+              titleFontWeight: F.w6,
+              subtitleLabel: pickUpTime,
+              subtitleFontSize: 14.sp,
+              interactiveTrailing: true,
+              interactiveTrailingWidget: pickUpLocation.txt14(fontW: F.w6),
+            ),
           ),
           5.sbH,
           "View Details"

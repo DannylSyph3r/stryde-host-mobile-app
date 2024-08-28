@@ -13,6 +13,12 @@ final focusedDayProvider = StateProvider<DateTime>((ref) {
   return DateTime.now();
 });
 
+// New provider for currentEventSetDetails
+final currentEventSetDetailsProvider = StateProvider<List<EventSetDetails>>((ref) {
+  final selectedDate = ref.watch(calendarDateProvider);
+  return CalendarEventUtils.getEventSetDetailsForDate(selectedDate);
+});
+
 //Class to hold the state for listing mode and date selection
 class CalendarSelectionState {
   final bool isListingMode;

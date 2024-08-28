@@ -83,11 +83,11 @@ class _EnterpriseDetailsViewState extends ConsumerState<EnterpriseDetailsView> {
                 ),
                 50.sbH,
                 TextInputWidget(
-                    hintText: "Full Company/Business Name",
+                    hintText: "Full Company / Business Name",
                     controller: _nameController),
                 15.sbH,
                 TextInputWidget(
-                    hintText: "Company/Business Address",
+                    hintText: "Company / Business Address",
                     controller: _addressController),
                 15.sbH,
                 TextInputWidget(

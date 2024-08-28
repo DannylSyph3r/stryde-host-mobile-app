@@ -137,7 +137,7 @@ class _LoginViewState extends ConsumerState<LoginView>
             ),
             20.sbH,
             AppTexts.forgotPassword
-                .txt(size: 17.sp, color: Palette.strydeOrange),
+                .txt(size: 15.sp, color: Palette.strydeOrange),
             20.sbH,
             RichText(
               textAlign: TextAlign.center,
