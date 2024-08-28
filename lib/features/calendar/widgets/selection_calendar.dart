@@ -8,11 +8,14 @@ import 'package:stryde_mobile_app/features/calendar/utils/calendar_event_utils.d
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 
-// SelectionCalendar Widget
 class SelectionCalendar extends ConsumerWidget {
   final ValueChanged<DateTime> onDateSelected;
+  final ValueChanged<List<EventSetDetails>> onEventSetDetailsUpdated;
 
-  const SelectionCalendar({super.key, required this.onDateSelected});
+  const SelectionCalendar(
+      {super.key,
+      required this.onEventSetDetailsUpdated,
+      required this.onDateSelected});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,8 +36,24 @@ class SelectionCalendar extends ConsumerWidget {
     }
 
     void handleDateSelected(DateTime date) {
-      ref.read(calendarDateProvider.notifier).state = date;
-      onDateSelected(date);
+      final calendarSelectionNotifier =
+          ref.read(calendarSelectionProvider.notifier);
+      final calendarSelectionState = ref.read(calendarSelectionProvider);
+
+      if (calendarSelectionState.isListingMode) {
+        final wasToggled = calendarSelectionNotifier.toggleDate(date, context);
+        if (!wasToggled) {
+          return;
+        }
+      } else {
+        ref.read(calendarDateProvider.notifier).state = date;
+        onDateSelected(date);
+
+        // Get the event set details for the selected date
+        List<EventSetDetails> eventSetDetails =
+            CalendarEventUtils.getEventSetDetailsForDate(date);
+        onEventSetDetailsUpdated(eventSetDetails);
+      }
     }
 
     return Container(
@@ -101,7 +120,7 @@ class CalendarHeader extends StatelessWidget {
               ),
             ),
           ).tap(onTap: onPreviousMonth),
-          "${CalendarUtils.monthNames[focusedDay.month - 1]} ${focusedDay.year}"
+          "${DaysOfTheWeek.monthNames[focusedDay.month - 1]} ${focusedDay.year}"
               .txt(size: 17.sp, fontW: F.w6),
           Container(
             decoration: BoxDecoration(
@@ -141,6 +160,7 @@ class CalendarDaysOfWeek extends StatelessWidget {
 }
 
 // CalendarGrid Widget
+// CalendarGrid Widget
 class CalendarGrid extends ConsumerWidget {
   final DateTime focusedDay;
   final ValueChanged<DateTime> onDateSelected;
@@ -154,12 +174,10 @@ class CalendarGrid extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedDate = ref.watch(calendarDateProvider);
-    final calendarDateNotifier = ref.read(calendarDateProvider.notifier);
-
+    final calendarSelectionState = ref.watch(calendarSelectionProvider);
     final firstDayOfMonth = DateTime(focusedDay.year, focusedDay.month, 1);
     final lastDayOfMonth = DateTime(focusedDay.year, focusedDay.month + 1, 0);
     final daysInMonth = lastDayOfMonth.day;
-
     final firstWeekday = firstDayOfMonth.weekday % 7;
     final totalDays = firstWeekday + daysInMonth;
 
@@ -181,19 +199,19 @@ class CalendarGrid extends ConsumerWidget {
           } else {
             final day = index - firstWeekday + 1;
             final date = DateTime(focusedDay.year, focusedDay.month, day);
-            final isSelected = selectedDate.year == date.year && 
-                               selectedDate.month == date.month && 
-                               selectedDate.day == date.day;
-            final isToday = date.year == todayDate.year && 
-                            date.month == todayDate.month && 
-                            date.day == todayDate.day;
+            final isSelected = !calendarSelectionState.isListingMode &&
+                selectedDate.year == date.year &&
+                selectedDate.month == date.month &&
+                selectedDate.day == date.day;
+            final isUnlisted =
+                calendarSelectionState.unlistedDates.contains(date);
+            final isToday = date.year == todayDate.year &&
+                date.month == todayDate.month &&
+                date.day == todayDate.day;
             final events = CalendarEventUtils.getEventsForDate(date);
 
             return GestureDetector(
-              onTap: () {
-                calendarDateNotifier.state = date;
-                onDateSelected(date);
-              },
+              onTap: () => onDateSelected(date),
               child: Container(
                 color: Colors.transparent,
                 child: Center(
@@ -227,12 +245,19 @@ class CalendarGrid extends ConsumerWidget {
                         ],
                       ),
                       3.sbH,
-                      day.toString().txt(
-                        size: 18.sp,
-                        color: isToday
-                            ? Palette.strydeOrange
-                            : (isSelected ? Palette.strydeOrange : Palette.whiteColor),
-                        fontWeight: isSelected || isToday ? FontWeight.w600 : FontWeight.w300,
+                      Opacity(
+                        opacity: isUnlisted ? 0.4 : 1.0,
+                        child: day.toString().txt(
+                              size: 18.sp,
+                              color: isToday
+                                  ? Palette.strydeOrange
+                                  : (isSelected
+                                      ? Palette.strydeOrange
+                                      : Palette.whiteColor),
+                              fontWeight: isSelected || isToday
+                                  ? FontWeight.w600
+                                  : FontWeight.w300,
+                            ),
                       ),
                     ],
                   ),
@@ -246,8 +271,8 @@ class CalendarGrid extends ConsumerWidget {
   }
 }
 
-// CalendarUtils
-class CalendarUtils {
+// DaysOfTheWeek
+class DaysOfTheWeek {
   static const List<String> monthNames = [
     'January',
     'February',

@@ -1,4 +1,4 @@
-enum EventType { dropOff, pickUp }
+enum EventType {dropOff, pickUp, both}
 
 class CarEvent {
   final String carName;
