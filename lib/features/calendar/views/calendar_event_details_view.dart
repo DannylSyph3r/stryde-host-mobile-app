@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/calendar/providers/calendar_providers.dart';
+import 'package:stryde_mobile_app/features/messages/views/chat_view.dart';
 import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
+import 'package:stryde_mobile_app/utils/nav.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/container_list_tile.dart';
 import 'package:stryde_mobile_app/utils/widgets/row_railer.dart';
@@ -115,7 +117,9 @@ class _CalendarEventDetailsViewState
               PhosphorIconsFill.envelope,
               size: 30.h,
               color: Palette.strydeOrange,
-            ),
+            ).tap(onTap: (){
+              goTo(context: context, view: ChatView());
+            }),
           ),
           30.sbH,
           formattedDate
