@@ -117,8 +117,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
                 ],
               ),
               30.sbH,
-              "Today".txt18(fontW: F.w6),
-              20.sbH,
               Container(
                 padding: 20.0.padA,
                 decoration: BoxDecoration(

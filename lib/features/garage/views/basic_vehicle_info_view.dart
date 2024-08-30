@@ -74,14 +74,9 @@ class _BasicVehicleInformationViewState
     "Panel Van",
     "Off-Road Vehicle",
     "Military Vehicle",
-    "Motorhome / RV (Recreational Vehicle)",
-    "Trolley Bus",
-    "Ambulance",
-    "Hearse",
+    "RV (Recreational Vehicle)",
     "Limousine",
-    "Cab-over Truck",
     "Box Truck",
-    "Chassis Cab"
   ];
   final List<Map<String, dynamic>> vehicleFeatures = [
     {'icon': PhosphorIconsBold.bluetooth, 'label': 'Bluetooth connectivity'},
