@@ -27,7 +27,7 @@ class QuickActionPills extends ConsumerWidget {
           child: Center(
             child: Column(
               children: [
-                Icon(pillIcon, size: 25.h, color: Palette.strydeOrange),
+                Icon(pillIcon, size: 25.h, color: Palette.whiteColor),
                 5.sbH,
                 pillLabel.txt12()
               ],

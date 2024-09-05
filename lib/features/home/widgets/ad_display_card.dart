@@ -34,9 +34,8 @@ class AdDisplayCard extends ConsumerWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                 decoration: BoxDecoration(
-                  color: Palette.strydeOrange,
-                  borderRadius: BorderRadius.circular(18.r)
-                ),
+                    color: Palette.greyColor,
+                    borderRadius: BorderRadius.circular(18.r)),
                 child: Center(
                   child: "Lorem".txt16(),
                 ),
@@ -46,7 +45,8 @@ class AdDisplayCard extends ConsumerWidget {
           100.sbW,
           Column(
             children: [
-              AppGraphics.adAvatar.png.myImage(height: 100.h, fit: BoxFit.cover),
+              AppGraphics.adAvatar.png
+                  .myImage(height: 100.h, fit: BoxFit.cover),
             ],
           )
         ],
