@@ -40,7 +40,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   void initState() {
     super.initState();
     _videoController =
-        VideoPlayerController.asset('lib/assets/images/video_bg.mp4')
+        VideoPlayerController.asset('lib/assets/images/car_ad.mp4')
           ..initialize().then((_) {
             setState(() {
               _videoController.play();
@@ -303,13 +303,20 @@ class _HomeViewState extends ConsumerState<HomeView> {
           options: CarouselOptions(
             physics: const NeverScrollableScrollPhysics(),
             autoPlay: true,
-            autoPlayInterval: const Duration(seconds: 4),
+            autoPlayInterval: const Duration(seconds: 30),
             viewportFraction: 1.0,
             initialPage: 0,
             showIndicator: false,
             height: 190.h,
             onPageChanged: (int index, CarouselPageChangedReason reason) {
               _currentIndexNotifier.value = index;
+              if (index % 2 == 0) {
+                // Video is in view, resume playback
+                _videoController.play();
+              } else {
+                // Video is not in view, pause playback
+                _videoController.pause();
+              }
             },
           ),
         ),

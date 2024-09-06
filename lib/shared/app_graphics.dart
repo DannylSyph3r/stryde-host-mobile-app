@@ -16,10 +16,9 @@ abstract class AppGraphics {
   static const String camera = 'camera';
   static const String files = 'file';
   static const String cameraShotTaker = 'shot_taker';
-  static const String spray = 'spray';
-  static const String gas = 'gas';
-  static const String seat = 'car_seat';
-  static const String gear = 'gear';
+  static const emptyRentals = 'rentals_empty';
+  static const emptySaved = 'saved_empty';
+  static const emptyMessages = 'messages_empty';
 
   //! Kyc Assets
   static const String memeoji = 'pfp';
