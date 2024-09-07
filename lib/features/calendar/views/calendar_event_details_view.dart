@@ -75,8 +75,8 @@ class _CalendarEventDetailsViewState
                     boxShadow: [
                       BoxShadow(
                         color: Palette.strydeOrange.withOpacity(0.2),
-                        spreadRadius: 10,
-                        blurRadius: 15,
+                        spreadRadius: 2,
+                        blurRadius: 2,
                       ),
                     ],
                   ),
