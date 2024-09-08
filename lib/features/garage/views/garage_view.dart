@@ -7,6 +7,7 @@ import 'package:stryde_mobile_app/features/garage/providers/garage_providers.dar
 import 'package:stryde_mobile_app/features/garage/views/basic_vehicle_info_view.dart';
 import 'package:stryde_mobile_app/features/garage/views/full_vehicle_details_view.dart';
 import 'package:stryde_mobile_app/features/garage/widgets/garage_list.dart';
+import 'package:stryde_mobile_app/shared/app_graphics.dart';
 import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
@@ -29,12 +30,8 @@ class _GarageViewState extends ConsumerState<GarageView> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Icon(
-                  //   PhosphorIconsFill.garage,
-                  //   color: Palette.strydeOrange,
-                  //   size: 40.h,
-                  // ),
-                  // 10.sbH,
+                  AppGraphics.emptyRentals.png.myImage(),
+                  10.sbH,
                   "Your Garage is empty".txt16(),
                 ],
               ),
@@ -130,15 +127,19 @@ class _GarageViewState extends ConsumerState<GarageView> {
                       itemCount: garageListPopulator,
                       itemBuilder: (context, index) {
                         return GarageList(
+                          listImageHeroTag: 'activeTabsTag$index',
+                          vehicleImagePath: AppGraphics.carPl,
                           vehicleBrandName: "Mercedes Benz",
                           vehicleLocation: "Lagos",
                           vehicleModel: "GLK",
                           vehicleTrim: "GLK 4L",
                           rentalRate: "₦250,000 / day",
                           onGarageListTap: () {
-                            goTo(
+                            goToUnanimated(
                                 context: context,
-                                view: FullVehicleDetailsView());
+                                view: FullVehicleDetailsView(
+                                  heroRouteTag: 'activeTabsTag$index',
+                                ));
                           },
                         );
                       }),
@@ -148,15 +149,19 @@ class _GarageViewState extends ConsumerState<GarageView> {
                       itemCount: garageListPopulator,
                       itemBuilder: (context, index) {
                         return GarageList(
+                          listImageHeroTag: 'onRentTabsTag$index',
+                          vehicleImagePath: AppGraphics.carPlTwo,
                           vehicleBrandName: "Mercedes Benz",
                           vehicleLocation: "Abuja",
                           vehicleModel: "GLK",
                           vehicleTrim: "GLK 4L",
                           rentalRate: "₦250,000 / day",
                           onGarageListTap: () {
-                            goTo(
+                            goToUnanimated(
                                 context: context,
-                                view: FullVehicleDetailsView());
+                                view: FullVehicleDetailsView(
+                                  heroRouteTag: 'onRentTabsTag$index',
+                                ));
                           },
                         );
                       }),

@@ -72,18 +72,11 @@ class _AdditionalVehicleInformationViewState
     "Flex-Fuel Diesel Engine (E85 compatible)"
   ];
 
-  final TextEditingController _primaryExteriorColorController =
-      TextEditingController();
-  final TextEditingController _secondaryExteriorColorController =
-      TextEditingController();
-  final TextEditingController _primaryInteriorColorController =
-      TextEditingController();
-  final TextEditingController _secondaryInteriorColorController =
+  final TextEditingController _exteriorColorController =
       TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _seatNumberController = TextEditingController();
   final TextEditingController _engineTypeController = TextEditingController();
-  final TextEditingController _tireSizeController = TextEditingController();
   final TextEditingController _licensePlateController = TextEditingController();
   final TextEditingController _vinNumberController = TextEditingController();
   final TextEditingController _carPriceController = TextEditingController();
@@ -94,14 +87,10 @@ class _AdditionalVehicleInformationViewState
 
   @override
   void dispose() {
-    _primaryExteriorColorController.dispose();
-    _secondaryExteriorColorController.dispose();
-    _primaryInteriorColorController.dispose();
-    _secondaryInteriorColorController.dispose();
+    _exteriorColorController.dispose();
     _descriptionController.dispose();
     _seatNumberController.dispose();
     _engineTypeController.dispose();
-    _tireSizeController.dispose();
     _licensePlateController.dispose();
     _vinNumberController.dispose();
     _tintedWindowsNotifier.dispose();
@@ -198,67 +187,8 @@ class _AdditionalVehicleInformationViewState
             "Additional Information".txt16(fontW: F.w6).alignCenterLeft(),
             20.sbH,
             TextInputWidget(
-              hintText: "Primary Exterior Colour",
-              controller: _primaryExteriorColorController,
-              // suffixIcon: Padding(
-              //   padding: 5.padH,
-              //   child: Container(
-              //       decoration: const BoxDecoration(
-              //           border: Border(
-              //               left: BorderSide(color: Palette.strydeOrange))),
-              //       child: Padding(
-              //         padding: 10.padH,
-              //         child: Icon(PhosphorIconsRegular.caretDown, size: 18.h),
-              //       )),
-              // ),
-            ),
-            15.sbH,
-            TextInputWidget(
-              hintText: "Secondary Exterior Colour",
-              controller: _secondaryExteriorColorController,
-              // suffixIcon: Padding(
-              //   padding: 5.padH,
-              //   child: Container(
-              //       decoration: const BoxDecoration(
-              //           border: Border(
-              //               left: BorderSide(color: Palette.strydeOrange))),
-              //       child: Padding(
-              //         padding: 10.padH,
-              //         child: Icon(PhosphorIconsRegular.caretDown, size: 18.h),
-              //       )),
-              // ),
-            ),
-            15.sbH,
-            TextInputWidget(
-              hintText: "Primary Interior Colour",
-              controller: _primaryInteriorColorController,
-              // suffixIcon: Padding(
-              //   padding: 5.padH,
-              //   child: Container(
-              //       decoration: const BoxDecoration(
-              //           border: Border(
-              //               left: BorderSide(color: Palette.strydeOrange))),
-              //       child: Padding(
-              //         padding: 10.padH,
-              //         child: Icon(PhosphorIconsRegular.caretDown, size: 18.h),
-              //       )),
-              // ),
-            ),
-            15.sbH,
-            TextInputWidget(
-              hintText: "Secondary Interior Colour",
-              controller: _secondaryInteriorColorController,
-              // suffixIcon: Padding(
-              //   padding: 5.padH,
-              //   child: Container(
-              //       decoration: const BoxDecoration(
-              //           border: Border(
-              //               left: BorderSide(color: Palette.strydeOrange))),
-              //       child: Padding(
-              //         padding: 10.padH,
-              //         child: Icon(PhosphorIconsRegular.caretDown, size: 18.h),
-              //       )),
-              // ),
+              hintText: "Exterior Colors",
+              controller: _exteriorColorController,
             ),
             15.sbH,
             TextInputWidget(
@@ -272,7 +202,7 @@ class _AdditionalVehicleInformationViewState
                   EdgeInsets.only(left: 15.w, right: 15.w, bottom: 20.w),
               controller: _descriptionController,
             ),
-            25.sbH,
+            20.sbH,
             TextInputWidget(
               hintText: "Number of Seats",
               controller: _seatNumberController,
@@ -312,12 +242,6 @@ class _AdditionalVehicleInformationViewState
                 listViewHeight: 550.h,
               );
             }),
-            15.sbH,
-            TextInputWidget(
-              hintText: "Tire Size",
-              controller: _tireSizeController,
-              keyboardType: TextInputType.number,
-            ),
             5.sbH,
             buildSecurityRadioSection(
                 "Do you have any tinted windows?", _tintedWindowsNotifier),

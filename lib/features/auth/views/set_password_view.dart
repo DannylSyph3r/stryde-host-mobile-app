@@ -56,7 +56,9 @@ class _SetPasswordViewState extends ConsumerState<SetPasswordView> {
                 Column(
                   children: [
                     10.sbH,
-                    AppTexts.setPassword.txt16(textAlign: TextAlign.center).alignCenter(),
+                    AppTexts.setPassword
+                        .txt16(textAlign: TextAlign.center)
+                        .alignCenter(),
                     20.sbH,
                     _passwordVisible.sync(
                         builder: (context, passwordVisible, child) {
@@ -107,7 +109,8 @@ class _SetPasswordViewState extends ConsumerState<SetPasswordView> {
                     AppButton(
                         text: "Sign up",
                         onTap: () {
-                          goTo(context: context, view: KycSliderView());
+                          goToAndReplace(
+                              context: context, view: KycSliderView());
                         }),
                     50.sbH
                   ],

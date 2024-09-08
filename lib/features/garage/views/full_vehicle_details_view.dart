@@ -19,7 +19,8 @@ import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
 import 'package:stryde_mobile_app/utils/widgets/row_railer.dart';
 
 class FullVehicleDetailsView extends ConsumerStatefulWidget {
-  const FullVehicleDetailsView({super.key});
+  final Object heroRouteTag;
+  const FullVehicleDetailsView({required this.heroRouteTag, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -103,9 +104,7 @@ class _FullVehicleDetailsViewState
       body: ListView(
         padding: 0.padV,
         children: [
-          "G-Class"
-              .txt16(color: Palette.strydeOrange, textAlign: TextAlign.center)
-              .alignCenter(),
+          "G-Class".txt16(textAlign: TextAlign.center).alignCenter(),
           15.sbH,
           Padding(
             padding: 15.padH,
@@ -113,26 +112,31 @@ class _FullVehicleDetailsViewState
               borderRadius: BorderRadius.circular(18.r),
               child: Stack(
                 children: [
-                  FlutterCarousel(
-                    items: List.generate(
-                      4,
-                      (index) => AppGraphics.fullCarPl.png.myImage(
-                        fit: BoxFit.cover,
-                        height: 230.h,
-                        width: double.infinity,
+                  Hero(
+                    tag: widget.heroRouteTag,
+                    child: Material(
+                      child: FlutterCarousel(
+                        items: List.generate(
+                          4,
+                          (index) => AppGraphics.fullCarPl.png.myImage(
+                            fit: BoxFit.cover,
+                            height: 230.h,
+                            width: double.infinity,
+                          ),
+                        ),
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          autoPlayInterval: const Duration(seconds: 4),
+                          viewportFraction: 1.0,
+                          initialPage: 2,
+                          showIndicator: false,
+                          height: 230.h,
+                          onPageChanged:
+                              (int index, CarouselPageChangedReason reason) {
+                            _currentIndexNotifier.value = index;
+                          },
+                        ),
                       ),
-                    ),
-                    options: CarouselOptions(
-                      autoPlay: true,
-                      autoPlayInterval: const Duration(seconds: 4),
-                      viewportFraction: 1.0,
-                      initialPage: 2,
-                      showIndicator: false,
-                      height: 230.h,
-                      onPageChanged:
-                          (int index, CarouselPageChangedReason reason) {
-                        _currentIndexNotifier.value = index;
-                      },
                     ),
                   ),
                   Positioned(

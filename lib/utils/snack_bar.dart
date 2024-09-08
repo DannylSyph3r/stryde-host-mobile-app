@@ -22,15 +22,15 @@ void showSnackBar({required BuildContext context, required String text}) {
 }
 
 //! SHOW BANNER
-showFlushBanner({
-  required BuildContext context,
-  required String theMessage,
-  required NotificationType theType,
-  Duration? dismissIn,
-}) {
+showFlushBanner(
+    {required BuildContext context,
+    required String theMessage,
+    required NotificationType theType,
+    Duration? dismissIn,
+    double? maxWidth}) {
   Flushbar(
           messageText: theMessage.txt14(fontW: F.w6, textAlign: TextAlign.left),
-          maxWidth: 300.w,
+          maxWidth: maxWidth ?? 300.w,
           padding: EdgeInsets.all(15.h),
           duration: const Duration(seconds: 2),
           flushbarPosition: FlushbarPosition.TOP,

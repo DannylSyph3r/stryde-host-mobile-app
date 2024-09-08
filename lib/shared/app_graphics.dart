@@ -25,8 +25,10 @@ abstract class AppGraphics {
 
   //! Main App Assets
   static const carPl = 'car_holder';
-  static const fullCarPl ='ful_car_holder';
+  static const carPlTwo = 'car_holder2';
+  static const fullCarPl = 'ful_car_holder';
   static const eclipse = 'eclipse';
+  static const box = 'box';
   static const lightModePanel = 'light_panel';
   static const darkModePanel = 'dark_panel';
   static const adAvatar = 'ad_avatar';

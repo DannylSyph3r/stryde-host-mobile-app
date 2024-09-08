@@ -139,6 +139,7 @@ class _IndividualDetailsViewState extends ConsumerState<IndividualDetailsView> {
                     onOptionTap: (index) {
                       final selectedIdType = idTypes[index];
                       _idTypeController.text = selectedIdType;
+                      _idTypeSelection.value = selectedIdType;
                       goBack(context);
                     },
                     modalHeight: 270.h,

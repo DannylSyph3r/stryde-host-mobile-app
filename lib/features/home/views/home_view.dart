@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/calendar/views/calendar_event_details_view.dart';
 import 'package:stryde_mobile_app/features/home/providers/home_providers.dart';
+import 'package:stryde_mobile_app/features/home/views/drivers_invite_view.dart';
 import 'package:stryde_mobile_app/features/home/widgets/ad_display_card.dart';
 import 'package:stryde_mobile_app/features/home/widgets/quick_action_pills.dart';
 import 'package:stryde_mobile_app/features/home/widgets/vertical_bar.dart';
@@ -433,6 +434,11 @@ class _HomeViewState extends ConsumerState<HomeView>
                 return Padding(
                     padding: 7.5.padH,
                     child: QuickActionPills(
+                        onPillTap: () {
+                          if (index == 3) {
+                            goTo(context: context, view: DriversInviteView());
+                          } else {}
+                        },
                         pillIcon: quickActions[index]['icon'] as IconData,
                         pillLabel: quickActions[index]['label'] as String));
               },
