@@ -109,9 +109,7 @@ class _ChatViewState extends ConsumerState<ChatView> {
               child: Padding(
                 padding: 10.padV,
                 child: Center(
-                    child: "View Reviews"
-                        .txt16(color: Palette.strydeOrange)
-                        .tap(onTap: () {
+                    child: "View Reviews".txt16().tap(onTap: () {
                   goTo(context: context, view: MessagesReviewView());
                 })),
               )),

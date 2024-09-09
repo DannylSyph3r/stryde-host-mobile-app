@@ -66,7 +66,7 @@ class _MessagesReviewViewState extends ConsumerState<MessagesReviewView> {
                 Expanded(
                     child: Column(
                   children: [
-                    "Akinola Daniel Eri-ife"
+                    "Mizukage Tsyanamis"
                         .txt16(
                             textAlign: TextAlign.left,
                             fontW: F.w6,

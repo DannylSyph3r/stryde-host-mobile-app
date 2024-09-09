@@ -38,7 +38,9 @@ class _HomeViewState extends ConsumerState<HomeView>
     {'icon': PhosphorIconsFill.identificationCard, 'label': 'Insurance'},
     {'icon': PhosphorIconsFill.user, 'label': 'Driver'},
   ];
-  final ValueNotifier<int> _currentIndexNotifier = ValueNotifier<int>(0);
+  final ValueNotifier<int> _currentReviewsCarouselIndexNotifier =
+      ValueNotifier<int>(0);
+  final ValueNotifier<int> _currentAdvertIndexNotifier = ValueNotifier<int>(0);
   final ValueNotifier<double> _volumeNotifier =
       ValueNotifier<double>(0); // Notifier for volume control
   late VideoPlayerController _videoController;
@@ -62,7 +64,8 @@ class _HomeViewState extends ConsumerState<HomeView>
 
   @override
   void dispose() {
-    _currentIndexNotifier.dispose();
+    _currentAdvertIndexNotifier.dispose();
+    _currentReviewsCarouselIndexNotifier.dispose();
     _volumeNotifier.dispose(); // Dispose of volume notifier
     _videoController.dispose(); // Dispose of the video controller
     _focusNode.dispose();
@@ -402,7 +405,7 @@ class _HomeViewState extends ConsumerState<HomeView>
               showIndicator: false,
               height: 190.h,
               onPageChanged: (int index, CarouselPageChangedReason reason) {
-                _currentIndexNotifier.value = index;
+                _currentAdvertIndexNotifier.value = index;
                 // Reset the animation when the page changes
                 ref.read(resetAnimationProvider.notifier).state = true;
                 // Ensure the animation is not paused when changing pages
@@ -479,16 +482,21 @@ class _HomeViewState extends ConsumerState<HomeView>
             }),
           ),
           20.sbH,
-          SizedBox(
-            height: 260.h,
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              padding: 10.padH,
-              scrollDirection: Axis.horizontal,
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return const ReviewCard();
-              },
+          Padding(
+            padding: 10.padH,
+            child: FlutterCarousel(
+              items: List.generate(10, (index) => const ReviewCard()),
+              options: CarouselOptions(
+                autoPlay: true,
+                autoPlayInterval: const Duration(seconds: 4),
+                viewportFraction: 1.0,
+                initialPage: 2,
+                showIndicator: false,
+                height: 230.h,
+                onPageChanged: (int index, CarouselPageChangedReason reason) {
+                  _currentReviewsCarouselIndexNotifier.value = index;
+                },
+              ),
             ),
           ),
           30.sbH
