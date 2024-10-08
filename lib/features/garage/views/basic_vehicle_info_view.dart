@@ -14,6 +14,7 @@ import 'package:stryde_mobile_app/theme/palette.dart';
 import 'package:stryde_mobile_app/utils/app_constants.dart';
 import 'package:stryde_mobile_app/utils/app_extensions.dart';
 import 'package:stryde_mobile_app/utils/nav.dart';
+import 'package:stryde_mobile_app/utils/option_selection_modal.dart';
 import 'package:stryde_mobile_app/utils/snack_bar.dart';
 import 'package:stryde_mobile_app/utils/type_defs.dart';
 import 'package:stryde_mobile_app/utils/widgets/appbar.dart';
@@ -84,6 +85,10 @@ class _BasicVehicleInformationViewState
     {'icon': PhosphorIconsFill.seat, 'label': 'Leather seats'},
     {'icon': PhosphorIconsFill.tire, 'label': 'Tire pressure warning'},
   ];
+  final List<Map<String, dynamic>> optionSelections = [
+    {'icon': PhosphorIconsBold.shield, 'label': 'Comprehensive Insurance'},
+    {'icon': PhosphorIconsFill.shield, 'label': 'Third Party Insurance'},
+  ];
   final TextEditingController _manufacturerController = TextEditingController();
   final TextEditingController _modelController = TextEditingController();
   final TextEditingController _modelYearController = TextEditingController();
@@ -91,10 +96,15 @@ class _BasicVehicleInformationViewState
   final TextEditingController _fuelTypeController = TextEditingController();
   final TextEditingController _transmissionController = TextEditingController();
   final TextEditingController _vehicleTypeController = TextEditingController();
+  final TextEditingController _insuranceTypeController =
+      TextEditingController();
+  final TextEditingController _insuranceNumberController =
+      TextEditingController();
+  final TextEditingController _insuranceCompanyController =
+      TextEditingController();
   final ValueNotifier<Set<String>> _selectedFeaturesNotifier =
       ValueNotifier(<String>{});
-  final ValueNotifier<SecurityQuestions?> _insuranceNotifier =
-      ValueNotifier<SecurityQuestions?>(null);
+  final ValueNotifier<bool?> _insuranceNotifier = ValueNotifier(null);
   final ValueNotifier<SecurityQuestions?> _trackerNotifier =
       ValueNotifier<SecurityQuestions?>(null);
 
@@ -127,6 +137,9 @@ class _BasicVehicleInformationViewState
     _fuelTypeController.dispose();
     _transmissionController.dispose();
     _vehicleTypeController.dispose();
+    _insuranceTypeController.dispose();
+    _insuranceNumberController.dispose();
+    _insuranceCompanyController.dispose();
     _selectedFeaturesNotifier.dispose();
     _insuranceNotifier.dispose();
     _trackerNotifier.dispose();
@@ -966,8 +979,138 @@ class _BasicVehicleInformationViewState
                     .txt14(textAlign: TextAlign.left)
                     .alignCenterLeft(),
                 15.sbH,
-                buildSecurityRadioSection(
-                    "Do you have comprehensive Insurance?", _insuranceNotifier),
+                ValueListenableBuilder(
+                    valueListenable: _insuranceNotifier,
+                    builder: (context, value, child) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // ListTile for Yes option
+                          ListTile(
+                            contentPadding: 10.padH,
+                            title: Row(
+                              children: [
+                                Checkbox(
+                                  fillColor:
+                                      WidgetStateProperty.resolveWith<Color?>(
+                                    (Set<WidgetState> states) {
+                                      if (states
+                                          .contains(WidgetState.selected)) {
+                                        return Palette.strydeOrange;
+                                      }
+                                      return Palette.buttonBG;
+                                    },
+                                  ),
+                                  value: _insuranceNotifier.value == true,
+                                  onChanged: (bool? value) {
+                                    if (value == true) {
+                                      _insuranceNotifier.value =
+                                          true; // Select Yes
+                                    } else {
+                                      _insuranceNotifier.value =
+                                          null; // Deselect both
+                                    }
+                                  },
+                                ),
+                                5.sbW,
+                                "Yes".txt16(),
+                              ],
+                            ),
+                          ),
+
+                          // Conditionally display a widget between Yes and No based on selection
+                          if (_insuranceNotifier.value == true)
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextInputWidget(
+                                  isTextFieldEnabled: false,
+                                  hintText: "Insurance Type",
+                                  controller: _modelYearController,
+                                  suffixIcon: Padding(
+                                    padding: 5.padH,
+                                    child: Container(
+                                        decoration: const BoxDecoration(
+                                            border: Border(
+                                                left: BorderSide(
+                                                    color:
+                                                        Palette.strydeOrange))),
+                                        child: Padding(
+                                          padding: 10.padH,
+                                          child: Icon(
+                                              PhosphorIconsRegular.caretDown,
+                                              size: 18.h),
+                                        )),
+                                  ),
+                                ).tap(onTap: () {
+                                  showOptionsModal(
+                                    context,
+                                    selectionOptions: optionSelections
+                                        .map((option) =>
+                                            option['label'] as String)
+                                        .toList(),
+                                    leadingIcons: optionSelections
+                                        .map((option) =>
+                                            option['icon'] as IconData)
+                                        .toList(),
+                                    titleFontSize: 16.sp,
+                                    titleFontColor: Colors.white,
+                                    leadingIconColor: Colors.orange,
+                                    modalHeight: 200
+                                        .h, // Specify the height of the modal
+                                    listViewHeight: 150
+                                        .h, // Specify the height of the ListView
+                                    onOptionTap: (index) {},
+                                  );
+                                }),
+                                15.sbH,
+                                TextInputWidget(
+                                  hintText: "Insurance Number",
+                                  controller: _insuranceNumberController,
+                                ),
+                                15.sbH,
+                                TextInputWidget(
+                                  hintText: "Insurance Company",
+                                  controller: _insuranceCompanyController,
+                                ),
+                              ],
+                            ),
+
+                          // ListTile for No option
+                          ListTile(
+                            contentPadding: 10.padH,
+                            title: Row(
+                              children: [
+                                Checkbox(
+                                  fillColor:
+                                      WidgetStateProperty.resolveWith<Color?>(
+                                    (Set<WidgetState> states) {
+                                      if (states
+                                          .contains(WidgetState.selected)) {
+                                        return Palette.strydeOrange;
+                                      }
+                                      return Palette.buttonBG;
+                                    },
+                                  ),
+                                  value: _insuranceNotifier.value == false,
+                                  onChanged: (bool? value) {
+                                    if (value == true) {
+                                      _insuranceNotifier.value =
+                                          false; // Select No
+                                    } else {
+                                      _insuranceNotifier.value =
+                                          null; // Deselect both
+                                    }
+                                  },
+                                ),
+                                5.sbW,
+                                "No".txt16(),
+                              ],
+                            ),
+                          )
+                        ],
+                      );
+                    }),
                 buildSecurityRadioSection(
                     "Do you have a tracker installed?", _trackerNotifier),
                 30.sbH,

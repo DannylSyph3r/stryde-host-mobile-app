@@ -7,7 +7,6 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:stryde_mobile_app/features/calendar/views/calendar_event_details_view.dart';
 import 'package:stryde_mobile_app/features/home/providers/home_providers.dart';
 import 'package:stryde_mobile_app/features/home/views/drivers_invite_view.dart';
-import 'package:stryde_mobile_app/features/home/widgets/ad_display_card.dart';
 import 'package:stryde_mobile_app/features/home/widgets/quick_action_pills.dart';
 import 'package:stryde_mobile_app/features/home/widgets/vertical_bar.dart';
 import 'package:stryde_mobile_app/features/reviews/views/full_review_view.dart';
@@ -382,10 +381,11 @@ class _HomeViewState extends ConsumerState<HomeView>
                 // Odd index, show ad
                 return Padding(
                   padding: 15.padH,
-                  child: const Stack(
+                  child: Stack(
                     children: [
-                      AdDisplayCard(),
-                      Align(
+                      // AdDisplayCard(),
+                      AppGraphics.insuranceAd.jpg.myImage(fit: BoxFit.cover),
+                      const Align(
                         alignment: Alignment.topCenter,
                         child: Padding(
                           padding: EdgeInsets.only(top: 10.0),
