@@ -979,6 +979,13 @@ class _BasicVehicleInformationViewState
                     .txt14(textAlign: TextAlign.left)
                     .alignCenterLeft(),
                 15.sbH,
+                "Do you have Insurance?"
+                    .txt14(
+                      fontW: F.w6,
+                      textAlign: TextAlign.left,
+                    )
+                    .alignCenterLeft(),
+                5.sbH,
                 ValueListenableBuilder(
                     valueListenable: _insuranceNotifier,
                     builder: (context, value, child) {
